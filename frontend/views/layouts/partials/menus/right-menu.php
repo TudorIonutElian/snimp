@@ -4,17 +4,23 @@ use yii\bootstrap4\Html;
 
 ?>
 <?php if(Yii::$app->user->getIsGuest()): ?>
-    <li class="nav-item d-none d-sm-inline-block bg-info text-white rounded">
-        <a href="index.php?r=site/signup" class="nav-link">Inrolare</a>
+    <li class="nav-item d-none d-sm-inline-block">
+        <a href="index.php?r=site/login" class="nav-link">
+            <img src="images/login.png" alt="">
+        </a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block bg-success text-white rounded ml-2">
-        <a href="index.php?r=site/login" class="nav-link">Autentificare</a>
+    <li class="nav-item d-none d-sm-inline-block">
+        <a href="index.php?r=site/signup" class="nav-link">
+            <img src="images/register.png" alt="">
+        </a>
     </li>
 
 <?php else: ?>
 
     <li class="nav-item d-none d-sm-inline-block">
-        <?= Html::a('Logout '.Yii::$app->user->identity->username, ['site/logout'], ['class' => 'btn btn-danger', 'data-method' => 'post']) ?>
+        <a href="index.php?r=site/logout" class="nav-link" data-method="post">
+            <img src="images/logout.png" alt="">
+        </a>
     </li>
 
 <?php endif; ?>

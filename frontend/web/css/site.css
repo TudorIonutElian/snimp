@@ -100,3 +100,21 @@ a.desc:after {
     align-items: center;
     justify-content: center;
 }
+
+svg path{
+    fill: rgb(22, 5, 180);
+    stroke: #fff;
+    stroke-width: .25;
+}
+
+svg path:hover{
+    fill: rgb(15, 184, 91);
+    stroke: #fff;
+    stroke-width: .85;
+}
+.col-flex-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
