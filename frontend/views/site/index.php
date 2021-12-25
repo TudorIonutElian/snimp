@@ -7205,7 +7205,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=b">
+                    <a xlink:href="index.php?r=programari/index&judetul=sv">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M630.8,588.8L629.1999999999999,
                               593.5L624.1999999999999,
@@ -7344,7 +7344,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=b">
+                    <a xlink:href="index.php?r=programari/index&judetul=sv">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M678.1,
                                 134.4L679.6,
@@ -7855,10 +7855,12 @@ $this->title = 'My Yii Application';
                         <tspan dy="7.504588293650784" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Dolj
                         </tspan>
                     </text>
-                    <rect x="248.9788087044101" y="236.23134759845303" width="25.2" height="25.2" r="0" rx="0" ry="0"
+                    <a xlink:href="index.php?r=programari/index&judetul=b">
+                        <rect x="248.9788087044101" y="236.23134759845303" width="25.2" height="25.2" r="0" rx="0" ry="0"
                           fill="#ff0067" stroke="#ffffff" stroke-width="2.0160000000000005" opacity="0.8"
                           transform="matrix(0.4225,0,0,0.4225,151.0566,143.6952)" class="sm_location_0"
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.8; cursor: pointer;"/>
+                    </a>
                 </svg>
             </div>
         </div>

@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "judete".
  *
  * @property int $id
+ * @property string|null $judet_indicativ
  * @property string|null $judet_nume
  * @property int $judet_regiune
  * @property int|null $judet_status

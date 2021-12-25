@@ -5,14 +5,14 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%localitati}}`.
  */
-class m211101_161802_create_localitati_table extends Migration
+class m211101_161802_create_localitate_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%localitati}}', [
+        $this->createTable('{{%localitate}}', [
             'id' => $this->primaryKey(),
             'localitate_nume' => $this->string('100'),
             'localitate_judet' => $this->integer(11)->notNull(),
@@ -25,11 +25,12 @@ class m211101_161802_create_localitati_table extends Migration
 
         // add foreign key for table `judete`
         $this->addForeignKey(
-            'fk-localitate-judet-id',
-            'localitati',
+            'fk-localitate-judet_id',
+            'localitate',
             'localitate_judet',
-            'judete',
+            'judet',
             'id',
+            'RESTRICT',
             'CASCADE'
         );
     }
@@ -40,7 +41,7 @@ class m211101_161802_create_localitati_table extends Migration
     public function safeDown()
     {
         // drop foreign key for table `regiuni`
-        $this->dropForeignKey('fk-localitate-judet-id', 'judete');
-        $this->dropTable('{{%localitati}}');
+        $this->dropForeignKey('fk-localitate-judet_id', 'localitate');
+        $this->dropTable('{{%localitate}}');
     }
 }
