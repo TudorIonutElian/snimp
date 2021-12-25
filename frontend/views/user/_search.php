@@ -15,18 +15,44 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-   <div class="container">
-       <div class="row d-flex flex-row align-content-center justify-content-center">
-           <div class="col-10">
-               <?= $form->field($model, 'username')->label(false) ?>
-           </div>
-           <div class="col-2">
-               <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-               <?= Html::a('Reset', ['user/index'],['class' => 'btn btn-outline-secondary']) ?>
-           </div>
-       </div>
-   </div>
+    <?= $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'username') ?>
+
+    <?= $form->field($model, 'cod_numeric_personal') ?>
+
+    <?= $form->field($model, 'nume') ?>
+
+    <?= $form->field($model, 'prenume') ?>
+
+    <?php // echo $form->field($model, 'nume_anterior') ?>
+
+    <?php // echo $form->field($model, 'data_nasterii') ?>
+
+    <?php // echo $form->field($model, 'localitatea_nasterii') ?>
+
+    <?php // echo $form->field($model, 'auth_key') ?>
+
+    <?php // echo $form->field($model, 'password_hash') ?>
+
+    <?php // echo $form->field($model, 'password_reset_token') ?>
+
+    <?php // echo $form->field($model, 'email') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
+
+    <?php // echo $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'localitate_id') ?>
+
+    <?php // echo $form->field($model, 'verification_token') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    </div>
 
     <?php ActiveForm::end(); ?>
 

@@ -48,7 +48,7 @@ class UserController extends Controller
 
     /**
      * Displays a single User model.
-     * @param int $id
+     * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -84,7 +84,7 @@ class UserController extends Controller
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id
+     * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -104,7 +104,7 @@ class UserController extends Controller
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id
+     * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -118,7 +118,7 @@ class UserController extends Controller
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id
+     * @param int $id ID
      * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
