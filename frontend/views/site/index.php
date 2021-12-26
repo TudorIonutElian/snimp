@@ -18,7 +18,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 0;" fill-opacity="0"/>
 
                     <!-- Judetul -->
-                    <a xlink:href="index.php?r=programari/index&judetul=ar">
+                    <a xlink:href="index.php?r=programare/create&judetul=ar">
                         <path
                                 fill="#88a4bc"
                                 stroke="#ffffff"
@@ -267,7 +267,7 @@ $this->title = 'My Yii Application';
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                               fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=bh">
+                    <a xlink:href="index.php?r=programare/create&judetul=bh">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M247.7,
                                 150.9L246.6,155.20000000000002L246,
@@ -455,7 +455,7 @@ $this->title = 'My Yii Application';
                           stroke-linejoin="round" transform="matrix(0.4225,0,0,0.4225,0,0)"
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/></a>
-                    <a xlink:href="index.php?r=programari/index&judetul=cs">
+                    <a xlink:href="index.php?r=programare/create&judetul=cs">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M257.1,
                                 468.8L249.90000000000003,
@@ -699,7 +699,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=ph">
+                    <a xlink:href="index.php?r=programare/create&judetul=ph">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M613.4,
                                 432.5L619.8,
@@ -849,7 +849,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=if">
+                    <a xlink:href="index.php?r=programare/create&judetul=if">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M637,
                                 540.6L639,
@@ -965,7 +965,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=tm">
+                    <a xlink:href="index.php?r=programare/create&judetul=tm">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M49.7,
                                 328.5L51.2,
@@ -1278,7 +1278,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=bt">
+                    <a xlink:href="index.php?r=programare/create&judetul=bt">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M759.6,
                                 111.6L753.8000000000001,
@@ -1449,7 +1449,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=gl">
+                    <a xlink:href="index.php?r=programare/create&judetul=gl">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M831,
                                 339.5L830.3,
@@ -1587,7 +1587,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=bz">
+                    <a xlink:href="index.php?r=programare/create&judetul=bz">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M758.8,
                                 446.9L758.4,
@@ -1837,7 +1837,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=br">
+                    <a xlink:href="index.php?r=programare/create&judetul=br">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M822.8,
                                 445.5L822.1999999999999,
@@ -1996,7 +1996,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=tl">
+                    <a xlink:href="index.php?r=programare/create&judetul=tl">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M902.5,
                                 552.5L896.5,
@@ -2238,7 +2238,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=ct">
+                    <a xlink:href="index.php?r=programare/create&judetul=ct">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M902.5,
                                 552.5L902.1,
@@ -2437,7 +2437,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=il">
+                    <a xlink:href="index.php?r=programare/create&judetul=il">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M735.3,
                                 531.7L744,
@@ -2614,7 +2614,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=gr">
+                    <a xlink:href="index.php?r=programare/create&judetul=gr">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M638.1,
                                 605.5L643,
@@ -2722,7 +2722,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=db">
+                    <a xlink:href="index.php?r=programare/create&judetul=db">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M611.6,
                                 543.8L609,
@@ -2882,7 +2882,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=is">
+                    <a xlink:href="index.php?r=programare/create&judetul=is">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M832.6,
                                 225.1L831.8000000000001,
@@ -3124,7 +3124,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=nt">
+                    <a xlink:href="index.php?r=programare/create&judetul=nt">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M659.5,
                                 161.4L666.8,
@@ -3326,7 +3326,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=sj">
+                    <a xlink:href="index.php?r=programare/create&judetul=sj">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M377.8,
                                 151.6L379.40000000000003,
@@ -3492,7 +3492,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=sm">
+                    <a xlink:href="index.php?r=programare/create&judetul=sm">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M343.2,
                                 48.5L344.9,
@@ -3672,7 +3672,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=ag">
+                    <a xlink:href="index.php?r=programare/create&judetul=ag">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M535.7,
                                 446.6L537.3000000000001,
@@ -3866,7 +3866,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=sb">
+                    <a xlink:href="index.php?r=programare/create&judetul=sb">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M501.1,
                                 344.5L498.90000000000003,
@@ -4043,7 +4043,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=vl">
+                    <a xlink:href="index.php?r=programare/create&judetul=vl">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M453.1,
                                 420.5L454.40000000000003,
@@ -4201,7 +4201,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=bv">
+                    <a xlink:href="index.php?r=programare/create&judetul=bv">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M551,
                                 338L550.3,
@@ -4358,7 +4358,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=cv">
+                    <a xlink:href="index.php?r=programare/create&judetul=cv">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M635.1,
                                 331.3L639.5,
@@ -4485,7 +4485,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=hr">
+                    <a xlink:href="index.php?r=programare/create&judetul=hr">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M573.9,
                                 191.8L576.3,
@@ -4673,7 +4673,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=mm">
+                    <a xlink:href="index.php?r=programare/create&judetul=mm">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M497,
                                 89.2L498.3,
@@ -4837,7 +4837,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=ms">
+                    <a xlink:href="index.php?r=programare/create&judetul=ms">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M524.6,
                                 188.9L525.3000000000001,
@@ -5032,7 +5032,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=cj">
+                    <a xlink:href="index.php?r=programare/create&judetul=cj">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M398.3,
                                 150.4L397.3,
@@ -5292,7 +5292,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=hd">
+                    <a xlink:href="index.php?r=programare/create&judetul=hd">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M353.6,
                                 437.7L353.3,
@@ -5475,7 +5475,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=ab">
+                    <a xlink:href="index.php?r=programare/create&judetul=ab">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M271.2,
                                 269.1L274.4,
@@ -5691,7 +5691,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=bn">
+                    <a xlink:href="index.php?r=programare/create&judetul=bn">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M498.4,
                                 110.1L499.59999999999997,
@@ -5838,7 +5838,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=vn">
+                    <a xlink:href="index.php?r=programare/create&judetul=vn">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M769,
                                 329.4L770.4,
@@ -5995,7 +5995,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=vs">
+                    <a xlink:href="index.php?r=programare/create&judetul=vs">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M832.6,
                                 225.1L832.5,
@@ -6167,7 +6167,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=dj">
+                    <a xlink:href="index.php?r=programare/create&judetul=dj">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M373.8,
                                 546.1L374.6,
@@ -6341,7 +6341,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=gj">
+                    <a xlink:href="index.php?r=programare/create&judetul=gj">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M373.8,
                                 546.1L372.8,
@@ -6468,7 +6468,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=mh">
+                    <a xlink:href="index.php?r=programare/create&judetul=mh">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M343.6,
                                 571.6L342.1,
@@ -6669,7 +6669,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=bc">
+                    <a xlink:href="index.php?r=programare/create&judetul=bc">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M737.9,
                                 240.5L740,
@@ -6858,7 +6858,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=ot">
+                    <a xlink:href="index.php?r=programare/create&judetul=ot">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M443.7,
                                 527.1L444.9,
@@ -7067,7 +7067,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=tr">
+                    <a xlink:href="index.php?r=programare/create&judetul=tr">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M557.2,
                                 578.2L559.5,
@@ -7205,7 +7205,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=sv">
+                    <a xlink:href="index.php?r=programare/create&judetul=sv">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M630.8,588.8L629.1999999999999,
                               593.5L624.1999999999999,
@@ -7230,7 +7230,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=cl">
+                    <a xlink:href="index.php?r=programare/create&judetul=cl">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M822,
                                 600.6L819,
@@ -7344,7 +7344,7 @@ $this->title = 'My Yii Application';
                           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; cursor: pointer; stroke-opacity: 1; stroke-linejoin: round; fill-opacity: 1;"
                           fill-opacity="1"/>
                     </a>
-                    <a xlink:href="index.php?r=programari/index&judetul=sv">
+                    <a xlink:href="index.php?r=programare/create&judetul=sv">
                     <path fill="#88a4bc" stroke="#ffffff"
                           d="M678.1,
                                 134.4L679.6,
@@ -7855,7 +7855,7 @@ $this->title = 'My Yii Application';
                         <tspan dy="7.504588293650784" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Dolj
                         </tspan>
                     </text>
-                    <a xlink:href="index.php?r=programari/index&judetul=b">
+                    <a xlink:href="index.php?r=programare/create&judetul=b">
                         <rect x="248.9788087044101" y="236.23134759845303" width="25.2" height="25.2" r="0" rx="0" ry="0"
                           fill="#ff0067" stroke="#ffffff" stroke-width="2.0160000000000005" opacity="0.8"
                           transform="matrix(0.4225,0,0,0.4225,151.0566,143.6952)" class="sm_location_0"
