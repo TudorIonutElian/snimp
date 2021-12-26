@@ -53,7 +53,9 @@ AppAsset::register($this);
 
             <!-- Sidebar -->
             <div class="sidebar">
-
+                <?php if(!Yii::$app->user->getIsGuest() && Yii::$app->user->can('admin')): ?>
+                    <?= \Yii::$app->view->renderFile(Yii::getAlias('@app') . '\views\layouts\partials\menus\left_menu\administrator.php');?>
+                <?php endif; ?>
             </div>
             <!-- /.sidebar -->
         </aside>
