@@ -32,7 +32,7 @@ class Regiune extends \yii\db\ActiveRecord
     {
         return [
             [['regiune_status'], 'integer'],
-            [['regiune_created', 'regiune_updated'], 'safe'],
+            [['regiune_status', 'regiune_created', 'regiune_updated'], 'safe'],
             [['regiune_nume'], 'string', 'max' => 100],
             [['regiune_nume'], 'unique'],
         ];
@@ -57,7 +57,7 @@ class Regiune extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getJudets()
+    public function getJudete()
     {
         return $this->hasMany(Judet::className(), ['judet_regiune' => 'id']);
     }

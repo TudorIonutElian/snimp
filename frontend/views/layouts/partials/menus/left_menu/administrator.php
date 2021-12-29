@@ -1,3 +1,7 @@
+<?php
+
+use yii\helpers\Html;
+?>
 <!-- Sidebar Menu -->
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -13,52 +17,28 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Regiuni</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Regiuni', ['regiune/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Judete</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Judete', ['judet/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Localitati</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Localitati', ['localitate/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Structuri</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Structuri', ['structura/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Institutii</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Institutii', ['institutie/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Servicii</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Servicii', ['tipuri-serviciu/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Exceptii</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Excepții', ['tipuri-exceptie/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Sesizari</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Sesizări', ['sesizare/index'], ['class' => 'nav-link']) ?>
                 </li>
             </ul>
         </li>
@@ -72,19 +52,19 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="fas fa-list nav-icon"></i>
                         <p>Programari</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="fas fa-list nav-icon"></i>
                         <p>Sesizari</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="fas fa-list nav-icon"></i>
                         <p>Exceptii</p>
                     </a>
