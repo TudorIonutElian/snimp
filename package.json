@@ -1,0 +1,24 @@
+{
+  "name": "snimp",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r     <a href=\"https://github.com/yiisoft\" target=\"_blank\">\r         <img src=\"https://avatars0.githubusercontent.com/u/993323\" height=\"100px\">\r     </a>\r     <h1 align=\"center\">Yii 2 Advanced Project Template</h1>\r     <br>\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile:sass": "node-sass frontend/web/scss/main.scss frontend/web/css/custom.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TudorIonutElian/snimp.git"
+  },
+  "author": "Tudor Ionut Elian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TudorIonutElian/snimp/issues"
+  },
+  "homepage": "https://github.com/TudorIonutElian/snimp#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "node-sass": "^7.0.1"
+  }
+}
