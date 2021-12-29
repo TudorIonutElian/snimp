@@ -9,21 +9,18 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="regiune-form">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">Date Regiune nouă</div>
 
-    <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(); ?>
+            <?= $form->field($model, 'regiune_nume')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'regiune_status')->textInput() ?>
 
-    <?= $form->field($model, 'regiune_nume')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'regiune_status')->textInput() ?>
-
-    <?= $form->field($model, 'regiune_created')->textInput() ?>
-
-    <?= $form->field($model, 'regiune_updated')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <div class="form-group">
+                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            </div>
+            <?php ActiveForm::end(); ?>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
