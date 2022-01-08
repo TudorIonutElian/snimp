@@ -17,6 +17,11 @@ class m211226_173856_create_auth_asssignment_table extends Migration
             'user_id' => $this->integer(11)->notNull(),
             'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
+
+        $this->insert('auth_assignment', [
+           'item_name' => 'admin',
+           'user_id' => 1
+        ]);
     }
 
     /**

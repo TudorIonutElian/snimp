@@ -17,7 +17,7 @@ class StructuraSearch extends Structura
     public function rules()
     {
         return [
-            [['id', 'structura_minister', 'structura_status'], 'integer'],
+            [['id', 'structura_status'], 'integer'],
             [['structura_nume', 'structura_start_date', 'structura_end_date'], 'safe'],
         ];
     }
@@ -59,7 +59,6 @@ class StructuraSearch extends Structura
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'structura_minister' => $this->structura_minister,
             'structura_start_date' => $this->structura_start_date,
             'structura_end_date' => $this->structura_end_date,
             'structura_status' => $this->structura_status,

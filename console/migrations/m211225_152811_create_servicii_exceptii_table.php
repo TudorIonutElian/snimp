@@ -15,6 +15,7 @@ class m211225_152811_create_servicii_exceptii_table extends Migration
         $this->createTable('{{%serviciu_exceptie}}', [
             'id' => $this->primaryKey(),
             'se_serviciu' => $this->integer(11)->notNull(),
+            'se_mesaj_public' => $this->text()->notNull(),
             'se_serviciu_start_exceptie' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
             'se_serviciu_end_exceptie' => $this->dateTime()->null(),
             'se_serviciu_added_by' => $this->integer(11),

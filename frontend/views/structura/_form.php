@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'structura_minister')->textInput() ?>
-
     <?= $form->field($model, 'structura_nume')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'structura_start_date')->textInput() ?>

@@ -62,7 +62,7 @@ class Minister extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMinisterLocalitate()
+    public function getLocalitate()
     {
         return $this->hasOne(Localitate::className(), ['id' => 'minister_localitate']);
     }

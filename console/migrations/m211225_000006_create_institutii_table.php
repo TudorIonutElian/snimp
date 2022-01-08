@@ -18,6 +18,8 @@ class m211225_000006_create_institutii_table extends Migration
             'institutie_denumire' => $this->string(255)->notNull(),
             'institutie_localitate_id' => $this->integer(11)->notNull(),
             'institutie_data_creare' => $this->date()->defaultExpression('CURRENT_TIMESTAMP'),
+            'institutie_contact_public' => $this->string(30)->notNull(),
+            'institutie_email_public' => $this->string(30)->notNull(),
             'institutie_status' => $this->tinyInteger(1)->defaultValue(1),
         ]);
 
