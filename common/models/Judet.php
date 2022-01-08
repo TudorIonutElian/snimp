@@ -66,7 +66,7 @@ class Judet extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getJudetRegiune()
+    public function getRegiune()
     {
         return $this->hasOne(Regiune::className(), ['id' => 'judet_regiune']);
     }

@@ -76,7 +76,7 @@ class Localitate extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLocalitateJudet()
+    public function getJudet()
     {
         return $this->hasOne(Judet::className(), ['id' => 'localitate_judet']);
     }

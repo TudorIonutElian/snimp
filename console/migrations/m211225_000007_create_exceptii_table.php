@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%exceptii}}`.
  */
-class m211225_000006_create_exceptii_table extends Migration
+class m211225_000007_create_exceptii_table extends Migration
 {
     /**
      * {@inheritdoc}
