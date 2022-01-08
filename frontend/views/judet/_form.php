@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Regiune;
+use frontend\controllers\StringController;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -10,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\Judet */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = 'Adaugă Județ';
+$titlu_modificabil_judet = StringController::getJudetFromString();
 ?>
 
 <div class="judet-form">
@@ -20,7 +21,7 @@ $this->title = 'Adaugă Județ';
     <div class="container">
         <div class="row my-2">
             <div class="col-12 text-center bg-success text-white p-2">
-                <h1><?= Html::encode($this->title) ?></h1>
+                <h1><?= Html::encode($titlu_modificabil_judet) ?></h1>
             </div>
         </div>
         <div class="row">
@@ -60,7 +61,7 @@ $this->title = 'Adaugă Județ';
         <div class="row my-2">
             <div class="col-12">
                 <div class="form-group">
-                    <?= Html::submitButton('Adauga Județ', ['class' => 'btn btn-outline-success btn-block']) ?>
+                    <?= Html::submitButton($titlu_modificabil_judet, ['class' => 'btn btn-outline-success btn-block']) ?>
                 </div>
             </div>
         </div>
