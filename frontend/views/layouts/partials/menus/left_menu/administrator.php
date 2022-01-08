@@ -41,6 +41,15 @@ use yii\helpers\Html;
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-list nav-icon"></i>Sesizări', ['sesizare/index'], ['class' => 'nav-link']) ?>
                 </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Roluri', ['auth-item/index'], ['class' => 'nav-link']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Permisiuni', ['auth-item-child/index'], ['class' => 'nav-link']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Utilizatori', ['user/index'], ['class' => 'nav-link']) ?>
+                </li>
             </ul>
         </li>
         <li class="nav-item">

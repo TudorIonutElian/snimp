@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\AuthAssignment;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -56,7 +57,13 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
 
-        return $user->save() && $this->sendEmail($user);
+        if($user->save() && $this->sendEmail($user)){
+            $auth_assignment = new AuthAssignment();
+            $auth_assignment->item_name = 'contribuabil';
+            $auth_assignment->user_id = $user->id;
+
+            return $auth_assignment->save();
+        }
     }
 
     /**
