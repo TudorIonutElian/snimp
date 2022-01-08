@@ -15,10 +15,11 @@ class m211226_173833_create_auth_item_table extends Migration
         $this->createTable('{{%auth_item}}', [
             'name' => $this->string(64),
             'type' => $this->integer()->notNull(),
+            'description' => $this->text(),
             'rule_name' => $this->string(64),
             'data' => $this->text(),
-            'created_at' => $this->integer(),
-            'updated_at' => $this->integer(),
+            'created_at' => $this->integer()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->integer()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
 
     }
