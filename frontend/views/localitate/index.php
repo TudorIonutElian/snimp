@@ -12,7 +12,7 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\LocalitateSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Localitates';
+$this->title = 'Lista Localități';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="localitate-index">
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Localitate', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Adauga Localitate nouă', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

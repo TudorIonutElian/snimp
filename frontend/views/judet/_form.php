@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\Judet */
 /* @var $form yii\widgets\ActiveForm */
 
-$titlu_modificabil_judet = StringController::getJudetFromString();
+$titlu_modificabil_judet = StringController::getJudetFromRoute();
 ?>
 
 <div class="judet-form">

@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Judet;
+use frontend\controllers\StringController;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -9,6 +10,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Localitate */
 /* @var $form yii\widgets\ActiveForm */
+
+$string_localitate = StringController::getLocalitateFromRoute();
 ?>
 
 <div class="localitate-form">
@@ -18,7 +21,7 @@ use yii\widgets\ActiveForm;
     <div class="container">
         <div class="row my-2">
             <div class="col-12 text-center bg-success text-white p-2">
-                <h1>Adaugă Localitate</h1>
+                <h1><?= $string_localitate ?></h1>
             </div>
         </div>
         <div class="row my-2">
@@ -75,7 +78,7 @@ use yii\widgets\ActiveForm;
         <div class="row my-2">
             <div class="col-12">
                 <div class="form-group">
-                    <?= Html::submitButton('Salveaza Datele', ['class' => 'btn btn-success btn-block']) ?>
+                    <?= Html::submitButton($string_localitate, ['class' => 'btn btn-outline-success btn-block']) ?>
                 </div>
             </div>
         </div>
