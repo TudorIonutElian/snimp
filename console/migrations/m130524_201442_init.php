@@ -29,6 +29,7 @@ class m130524_201442_init extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'localitate_id' => $this->integer()->null(),
+            'institutie_id' => $this->integer()->null(),
         ], $tableOptions);
     }
 

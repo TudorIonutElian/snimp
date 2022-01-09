@@ -116,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return Html::a('<i class="fas fa-edit"></i>', $model, ['class' => 'btn btn-sm btn-outline-secondary rounded']);
                                 },
                                 'delete' => function ($model) {
-                                    return Html::a('<i class="fas fa-trash-alt"></i>', $model, ['class' => 'btn btn-sm btn-outline-danger rounded']);
+                                    return Html::a('<i class="fas fa-trash-alt"></i>', $model, ['class' => 'btn btn-sm btn-outline-danger rounded', 'data-method' => 'post']);
                                 }
                             ]
                         ],

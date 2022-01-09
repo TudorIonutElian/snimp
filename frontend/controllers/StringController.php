@@ -64,4 +64,24 @@ class StringController extends \yii\web\Controller
         return $titlu_modificabil_minister;
     }
 
+
+    //=======================getUserFromString
+    public static function getUserFromString(){
+        // Preluare ACTION ID din url
+        $actionID = Yii::$app->controller->action->id;
+
+        // Creare variabila de titlu si initializare blank
+        $titlu_modificabil_user = "";
+
+        // Verificare ACTION ID
+        if($actionID === 'create'){
+            $titlu_modificabil_user = 'Adaugă Utilizator';
+        }else if($actionID === 'update'){
+            $titlu_modificabil_user = 'Actualizează Utilizator';
+        }
+
+        // Returnare variabila
+        return $titlu_modificabil_user;
+    }
+
 }
