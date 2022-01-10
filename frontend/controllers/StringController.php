@@ -84,4 +84,46 @@ class StringController extends \yii\web\Controller
         return $titlu_modificabil_user;
     }
 
+    //=======================getRolString
+    public static function getRolString(){
+        // Preluare ACTION ID din url
+        $actionID = Yii::$app->controller->action->id;
+
+        // Creare variabila de titlu si initializare blank
+        $titlu_modificabil_rol = "";
+
+        // Verificare ACTION ID
+        if($actionID === 'create'){
+            $titlu_modificabil_rol = 'Adaugă Rol Utilizator';
+        }else if($actionID === 'update'){
+            $titlu_modificabil_rol = 'Actualizează Rol Utilizator';
+        }
+
+        // Returnare variabila
+        return $titlu_modificabil_rol;
+    }
+
+    //=======================getStructuraString
+    public static function getStructuraString()
+    {
+        // Preluare ACTION ID din url
+        $actionID = Yii::$app->controller->action->id;
+
+        // Creare variabila de titlu si initializare blank
+        $titlu_modificabil_structura = "";
+
+        // Verificare ACTION ID
+        if ($actionID === 'create') {
+            $titlu_modificabil_structura = 'Adaugă Structura';
+        } else if ($actionID === 'update') {
+            $titlu_modificabil_structura = 'Actualizează Structura';
+        }
+
+        // Returnare variabila
+        return $titlu_modificabil_structura;
+    }
+
+
+
+
 }

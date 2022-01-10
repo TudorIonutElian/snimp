@@ -228,8 +228,8 @@ $user_string = StringController::getUserFromString();
                           {input}
                         </div>'
                 ])->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Institutie::find()->all(), 'name', 'data'),
-                    'language' => 'de',
+                    'data' => ArrayHelper::map(Institutie::find()->all(), 'id', 'institutie_denumire'),
+                    'language' => 'ro',
                     'options' => ['placeholder' => 'Institutie ...'],
                     'pluginOptions' => [
                         'allowClear' => true

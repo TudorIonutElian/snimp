@@ -1,5 +1,8 @@
 <?php
 
+use common\models\AuthItem;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,13 +15,45 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'parent')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'child')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <?= $form->field($model, 'parent')->widget(Select2::classname(), [
+                        'data' => ArrayHelper::map(AuthItem::find()->where(['type' => 1])->all(), 'name', 'data'),
+                        'language' => 'de',
+                        'options' => ['placeholder' => 'Selectează rol'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                ?>
+            </div>
+            <div class="col-6">
+                <?= $form->field($model, 'child')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(AuthItem::find()->where(['type' => 2])->orderBy(['data' => SORT_ASC])->all(), 'name', 'data'),
+                    'language' => 'de',
+                    'options' => ['placeholder' => 'Selectează permisiune'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+
 
     <?php ActiveForm::end(); ?>
 
