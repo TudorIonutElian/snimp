@@ -31,9 +31,43 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'name',
-            'description:ntext',
-
+            [
+                'label' => 'Denumire ROL / Permisiune',
+                'attribute' => 'name',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+            ],
+            [
+                'label' => 'Descriere ROL / Permisiune',
+                'attribute' => 'description',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+            ],
+            [
+                'label' => 'Tip',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'attribute' => 'type',
+                'value' => function ($model) {
+                    if ($model->type === 1) {
+                        return '<span class="bg-success text-white px-3 rounded">Rol</span>';
+                    }
+                    return '<span class="bg-info text-white px-3 rounded">Permisiune</span>';
+                }
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{delete}',

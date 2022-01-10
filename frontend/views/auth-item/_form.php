@@ -1,6 +1,7 @@
 <?php
 
 use frontend\controllers\StringController;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -21,14 +22,27 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-6">
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Denumire Rol') ?>
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <?= $form->field($model, 'description')->textarea(['rows' => 2]) ?>
             </div>
-            <div class="col-4">
+        </div>
+        <div class="row">
+            <div class="col-6">
                 <?= $form->field($model, 'data')->textarea(['rows' => 2])->label('Detalii Rol') ?>
+            </div>
+            <div class="col-6">
+                <?= $form->field($model, 'type')->widget(Select2::classname(), [
+                    'data' => ['1' => 'Rol', '2' => 'Permisiune'],
+                    'language' => 'de',
+                    'options' => ['placeholder' => 'Tipul'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])
+                ?>
             </div>
         </div>
         <div class="row">
