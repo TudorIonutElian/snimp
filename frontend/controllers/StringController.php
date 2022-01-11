@@ -6,6 +6,26 @@ use Yii;
 
 class StringController extends \yii\web\Controller
 {
+    //=======================getStringRegiune
+
+    public static function getStringRegiune(){
+        // Preluare ACTION ID din url
+        $actionID = Yii::$app->controller->action->id;
+
+        // Creare variabila de titlu si initializare blank
+        $titlu_modificabil_regiune = "";
+
+        // Verificare ACTION ID
+        if($actionID === 'create'){
+            $titlu_modificabil_regiune = 'Adaugă Regiune';
+        }else if($actionID === 'update'){
+            $titlu_modificabil_regiune = 'Actualizează Regiune';
+        }
+
+        // Returnare variabila
+        return $titlu_modificabil_regiune;
+    }
+
     //=======================getJudetFromString
 
     public static function getJudetFromRoute(){
