@@ -18,6 +18,21 @@ class m220110_203535_create_zile_libere_table extends Migration
             'data_calendaristica' => $this->date()->notNull(),
 
         ]);
+
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-01-01']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-02-02']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-01-24']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-04-22']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-04-24']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-04-25']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-05-01']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-06-01']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-06-12']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-08-15']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-11-30']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-12-01']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-12-25']);
+        $this->insert('zile_libere', ['anul_calendaristic' => 2021, 'data_calendaristica' => '2022-12-26']);
     }
 
     /**

@@ -144,6 +144,27 @@ class StringController extends \yii\web\Controller
     }
 
 
+    //=======================getTipuriServiciuString
+    public static function getTipuriServiciuString()
+    {
+        // Preluare ACTION ID din url
+        $actionID = Yii::$app->controller->action->id;
+
+        // Creare variabila de titlu si initializare blank
+        $titlu_modificabil_tipuri_serviciu = "";
+
+        // Verificare ACTION ID
+        if ($actionID === 'create') {
+            $titlu_modificabil_tipuri_serviciu = 'Adaugă SERVICIU PUBLIC';
+        } else if ($actionID === 'update') {
+            $titlu_modificabil_tipuri_serviciu = 'Actualizează SERVICIU PUBLIC';
+        }
+
+        // Returnare variabila
+        return $titlu_modificabil_tipuri_serviciu;
+    }
+
+
 
 
 }
