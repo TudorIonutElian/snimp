@@ -24,6 +24,26 @@ class m211225_195503_create_recenzie_table extends Migration
             'recenzie_contact_mobil' => $this->string(14),
             'recenzie_data_adaugare' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
+
+        $this->addForeignKey(
+            'fk_recenzie_institutie',
+            'recenzie',
+            'recenzie_institutie',
+            'institutie',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'fk_recenzie_serviciu',
+            'recenzie',
+            'recenzie_serviciu',
+            'institutie_serviciu',
+            'is_serviciu',
+            'CASCADE',
+            'CASCADE'
+        );
     }
 
     /**
@@ -31,6 +51,7 @@ class m211225_195503_create_recenzie_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey('fk_recenzie_institutie', 'recenzie');
         $this->dropTable('{{%recenzie}}');
     }
 }

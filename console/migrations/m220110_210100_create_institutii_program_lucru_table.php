@@ -30,6 +30,16 @@ class m220110_210100_create_institutii_program_lucru_table extends Migration
             'RESTRICT',
             'CASCADE'
         );
+
+        $this->addForeignKey(
+            'fk_ipl_program_id',
+            'institutii_program_lucru',
+            'ipl_program_lucru_id',
+            'tipuri_program_lucru',
+            'id',
+            'RESTRICT',
+            'CASCADE'
+        );
     }
 
     /**
@@ -38,6 +48,7 @@ class m220110_210100_create_institutii_program_lucru_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey('fk_ipl_institutie', 'institutii_program_lucru');
+        $this->dropForeignKey('fk_ipl_program_id', 'institutii_program_lucru');
         $this->dropTable('{{%institutii_program_lucru}}');
     }
 }

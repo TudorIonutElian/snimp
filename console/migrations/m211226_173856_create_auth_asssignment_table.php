@@ -18,6 +18,28 @@ class m211226_173856_create_auth_asssignment_table extends Migration
             'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
 
+        $this->addPrimaryKey('pk_item_user', 'auth_assignment', ['item_name', 'user_id']);
+
+        $this->addForeignKey(
+            'fk_auth_user',
+            'auth_assignment',
+            'user_id',
+            'user',
+            'id',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
+        $this->addForeignKey(
+            'fk_aa_item',
+            'auth_assignment',
+            'item_name',
+            'auth_item',
+            'name',
+            'RESTRICT',
+            'RESTRICT'
+        );
+
         $this->insert('auth_assignment', [
            'item_name' => 'admin',
            'user_id' => 1
@@ -29,6 +51,8 @@ class m211226_173856_create_auth_asssignment_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey('fk_aa_item', 'auth_assignment');
+        $this->dropForeignKey('fk_auth_user', 'auth_assignment');
         $this->dropTable('{{%auth_asssignment}}');
     }
 }

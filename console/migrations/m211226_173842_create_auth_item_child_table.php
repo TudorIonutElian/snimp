@@ -17,6 +17,11 @@ class m211226_173842_create_auth_item_child_table extends Migration
             'child' => $this->string(64)->notNull(),
         ]);
 
+
+        $this->addPrimaryKey('pk_parent_child', 'auth_item_child', ['parent', 'child']);
+
+        $this->addForeignKey('fk_aac_parent', 'auth_item_child', 'parent', 'auth_item', 'name', 'RESTRICT', 'CASCADE');
+
     }
 
     /**

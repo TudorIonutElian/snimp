@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m220108_134757_create_insert_auth_items
+ * Class m211226_173855_insert_auth_items
  */
-class m220108_134757_create_insert_auth_items extends Migration
+class m211226_173855_insert_auth_items extends Migration
 {
     /**
      * {@inheritdoc}
@@ -21,7 +21,6 @@ class m220108_134757_create_insert_auth_items extends Migration
         $this->insert('auth_item', ['name'  => 'director_institutie', 'type' => 1, 'description' => 'director_institutie', 'rule_name'=> '', 'data'=> 'Director institutie']);
         $this->insert('auth_item', ['name'  => 'sef_serviciu', 'type' => 1, 'description' => 'sef_serviciu', 'rule_name'=> '', 'data'=> 'Sef serviciu']);
         $this->insert('auth_item', ['name'  => 'lucrator_serviciu', 'type' => 1, 'description' => 'lucrator_serviciu', 'rule_name'=> '', 'data'=> 'Lucrator serviciu']);
-        $this->insert('auth_item', ['name'  => 'contribuabil', 'type' => 1, 'description' => 'Contribuabil', 'rule_name'=> '', 'data'=> 'Contribuabil']);
         $this->insert('auth_item', ['name'  => 'contribuabil', 'type' => 1, 'description' => 'Contribuabil', 'rule_name'=> '', 'data'=> 'Contribuabil']);
 
         // PERMISIUNI
@@ -70,7 +69,7 @@ class m220108_134757_create_insert_auth_items extends Migration
 
     public function down()
     {
-        echo "m220108_134757_create_insert_auth_items cannot be reverted.\n";
+        echo "m211226_173855_insert_auth_items cannot be reverted.\n";
 
         return false;
     }

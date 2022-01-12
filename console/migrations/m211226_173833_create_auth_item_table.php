@@ -22,6 +22,8 @@ class m211226_173833_create_auth_item_table extends Migration
             'updated_at' => $this->integer()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
 
+        $this->addPrimaryKey('pk_aa_name', 'auth_item', 'name');
+
     }
 
     /**
