@@ -25,13 +25,17 @@ use yii\helpers\Html;
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-list nav-icon"></i>Localitati', ['localitate/index'], ['class' => 'nav-link']) ?>
                 </li>
-
-                <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Ministere', ['minister/index'], ['class' => 'nav-link']) ?>
-                </li>
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-list nav-icon"></i>Structuri', ['structura/index'], ['class' => 'nav-link']) ?>
                 </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Ministere', ['minister/index'], ['class' => 'nav-link']) ?>
+                </li>
+
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Instituții', ['ins/index'], ['class' => 'nav-link']) ?>
+                </li>
+
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-list nav-icon"></i>Servicii', ['tipuri-serviciu/index'], ['class' => 'nav-link']) ?>
                 </li>

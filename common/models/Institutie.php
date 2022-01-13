@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "institutie".
  *
  * @property int $id
+ * @property int $institutie_minister_id
  * @property int $institutie_structura
  * @property string $institutie_denumire
  * @property int $institutie_localitate_id
@@ -36,7 +37,7 @@ class Institutie extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['institutie_structura', 'institutie_denumire', 'institutie_localitate_id'], 'required'],
+            [['institutie_minister_id', 'institutie_structura', 'institutie_denumire', 'institutie_localitate_id'], 'required'],
             [['institutie_structura', 'institutie_localitate_id', 'institutie_status'], 'integer'],
             [['institutie_data_creare'], 'safe'],
             [['institutie_denumire'], 'string', 'max' => 255],
@@ -51,6 +52,7 @@ class Institutie extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'institutie_minister_id' => 'Minister',
             'institutie_structura' => 'Institutie Structura',
             'institutie_denumire' => 'Institutie Denumire',
             'institutie_localitate_id' => 'Institutie Localitate ID',

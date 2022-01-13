@@ -67,7 +67,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'email',
                     'status',
                     'localitate_id',
-                    'institutie_id',
+                    'minister_id',
                     'rol'
                 ], 'required', 'message' => 'Câmpul este obligatoriu, vă rugăm să introduceți o valoare'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],

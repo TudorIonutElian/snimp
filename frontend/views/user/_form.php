@@ -3,6 +3,7 @@
 use common\models\AuthItem;
 use common\models\Institutie;
 use common\models\Localitate;
+use common\models\Minister;
 use frontend\controllers\StringController;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
@@ -210,7 +211,7 @@ $user_string = StringController::getUserFromString();
                           {input}
                         </div>'
                 ])->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(AuthItem::find()->all(), 'name', 'data'),
+                    'data' => ArrayHelper::map(AuthItem::find()->where(['type'=> 1])->all(), 'name', 'data'),
                     'language' => 'de',
                     'options' => ['placeholder' => 'Rol ...'],
                     'pluginOptions' => [
@@ -219,18 +220,18 @@ $user_string = StringController::getUserFromString();
                 ])->label(false) ?>
             </div>
             <div class="col-6">
-                <?= $form->field($model, 'institutie_id', [
+                <?= $form->field($model, 'minister_id', [
                     'inputTemplate' => '
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text">Instituție:</span>
+                            <span class="input-group-text">Minister:</span>
                           </div>
                           {input}
                         </div>'
                 ])->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Institutie::find()->all(), 'id', 'institutie_denumire'),
+                    'data' => ArrayHelper::map(Minister::find()->all(), 'id', 'minister_denumire'),
                     'language' => 'ro',
-                    'options' => ['placeholder' => 'Institutie ...'],
+                    'options' => ['placeholder' => 'Minister ...'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],

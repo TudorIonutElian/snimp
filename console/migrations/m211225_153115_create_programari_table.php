@@ -23,6 +23,7 @@ class m211225_153115_create_programari_table extends Migration
             'programare_numar_unic' => $this->string(10)->null(),
             'programare_data_numar_unic' => $this->date()->null(),
             'programare_data_finalizare' => $this->tinyInteger(1)->defaultValue(0),
+            'programare_document_solicitat' => $this->integer(11)->null(),
         ]);
 
         // add foreign key for table `institutie`
@@ -57,6 +58,17 @@ class m211225_153115_create_programari_table extends Migration
             'RESTRICT',
             'CASCADE'
         );
+
+        // add foreign key for table `institutie_serviciu`
+        $this->addForeignKey(
+            'fk-programare_document',
+            'programare',
+            'programare_document_solicitat',
+            'tipuri_document',
+            'id',
+            'RESTRICT',
+            'CASCADE'
+        );
     }
 
     /**
@@ -67,6 +79,7 @@ class m211225_153115_create_programari_table extends Migration
         $this->dropForeignKey('fk-programare_institutie_id', 'programare');
         $this->dropForeignKey('fk-programare_serviciu_id', 'programare');
         $this->dropForeignKey('fk-programare_localitate_id', 'programare');
+        $this->dropForeignKey('fk-programare_document', 'programare');
         $this->dropTable('{{%programare}}');
     }
 }
