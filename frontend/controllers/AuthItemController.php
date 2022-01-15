@@ -37,13 +37,17 @@ class AuthItemController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AuthItemSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $searchModel = new AuthItemSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return  $this->redirect(['site/login']);
+
     }
 
     /**
@@ -54,9 +58,12 @@ class AuthItemController extends Controller
      */
     public function actionView($name)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($name),
-        ]);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            return $this->render('view', [
+                'model' => $this->findModel($name),
+            ]);
+        }
+        return  $this->redirect(['site/login']);
     }
 
     /**
@@ -66,19 +73,22 @@ class AuthItemController extends Controller
      */
     public function actionCreate()
     {
-        $model = new AuthItem();
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $model = new AuthItem();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'name' => $model->name]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'name' => $model->name]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+        return  $this->redirect(['site/login']);
     }
 
     /**
@@ -90,15 +100,18 @@ class AuthItemController extends Controller
      */
     public function actionUpdate($name)
     {
-        $model = $this->findModel($name);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $model = $this->findModel($name);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'name' => $model->name]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'name' => $model->name]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return  $this->redirect(['site/login']);
     }
 
     /**
@@ -107,12 +120,17 @@ class AuthItemController extends Controller
      * @param string $name Name
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($name)
     {
-        $this->findModel($name)->delete();
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $this->findModel($name)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }
+        return  $this->redirect(['site/login']);
     }
 
     /**
@@ -124,7 +142,7 @@ class AuthItemController extends Controller
      */
     protected function findModel($name)
     {
-        if (($model = AuthItem::findOne($id)) !== null) {
+        if (($model = AuthItem::findOne($name)) !== null) {
             return $model;
         }
 

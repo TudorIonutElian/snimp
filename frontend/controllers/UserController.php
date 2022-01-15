@@ -38,13 +38,16 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $searchModel = new UserSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return  $this->redirect(['site/login']);
     }
 
     /**
@@ -55,9 +58,12 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+        return  $this->redirect(['site/login']);
     }
 
     /**
@@ -67,21 +73,24 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $model = new User();
 
-        if ($this->request->isPost) {
-            $userCreateRequest = \Yii::$app->request->post();
-            if($this->createNewUser($userCreateRequest)){
-                return $this->redirect(['index']);
-            };
-            return $this->redirect(['user/create']);
-        } else {
-            $model->loadDefaultValues();
+            if ($this->request->isPost) {
+                $userCreateRequest = \Yii::$app->request->post();
+                if($this->createNewUser($userCreateRequest)){
+                    return $this->redirect(['index']);
+                };
+                return $this->redirect(['user/create']);
+            } else {
+                $model->loadDefaultValues();
+            }
+
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->renderAjax('create', [
-            'model' => $model,
-        ]);
+        return  $this->redirect(['site/login']);
     }
 
     /**
