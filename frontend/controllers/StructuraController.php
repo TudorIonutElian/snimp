@@ -4,9 +4,9 @@ namespace frontend\controllers;
 
 use common\models\Structura;
 use common\models\StructuraSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * StructuraController implements the CRUD actions for Structura model.
@@ -37,13 +37,16 @@ class StructuraController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new StructuraSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (SystemController::userIsAdmin()) {
+            $searchModel = new StructuraSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -54,65 +57,12 @@ class StructuraController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Structura model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Structura();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        if (SystemController::userIsAdmin()) {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Structura model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Structura model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -129,5 +79,70 @@ class StructuraController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Creates a new Structura model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        if (SystemController::userIsAdmin()) {
+            $model = new Structura();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                $model->loadDefaultValues();
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect(['site/index']);
+    }
+
+    /**
+     * Updates an existing Structura model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id ID
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        if (SystemController::userIsAdmin()) {
+            $model = $this->findModel($id);
+
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect(['site/index']);
+    }
+
+    /**
+     * Deletes an existing Structura model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id ID
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        if (SystemController::userIsAdmin()) {
+            $this->findModel($id)->delete();
+
+            return $this->redirect(['index']);
+        }
+        return $this->redirect(['site/index']);
     }
 }
