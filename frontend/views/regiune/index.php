@@ -1,5 +1,6 @@
 <?php
 
+use frontend\controllers\ModelController;
 use kartik\dialog\Dialog;
 use kartik\grid\GridView;
 use kartik\select2\Select2;
@@ -15,47 +16,11 @@ use yii\web\JsExpression;
 $this->title = 'Nomenclator Regiuni';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php
-Modal::begin([
-    'title' => '<h2 
-            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
-            style="width: 100%">Adăugare Regiune Nouă</h2>',
-    'id' => 'modal-adaugare-regiune',
-    'size' => 'modal-md',
-]);
 
-echo '<div id="modal-adaugare-regiune-content"></div>';
+<?php \frontend\controllers\RegiuneController::renderViewModal()?>
+<?php \frontend\controllers\RegiuneController::renderAddModal()?>
+<?php \frontend\controllers\RegiuneController::renderUpdateModal()?>
 
-Modal::end();
-?>
-
-<?php
-Modal::begin([
-    'title' => '<h2 
-            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
-            style="width: 100%">Editare regiune</h2>',
-    'id' => 'modal-editare-regiune',
-    'size' => 'modal-md',
-]);
-
-echo '<div id="modal-editare-regiune-content"></div>';
-
-Modal::end();
-?>
-
-<?php
-Modal::begin([
-    'title' => '<h2 
-            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
-            style="width: 100%">Vizualizare regiune</h2>',
-    'id' => 'modal-vizualizare-regiune',
-    'size' => 'modal-md',
-]);
-
-echo '<div id="modal-vizualizare-regiune-content"></div>';
-
-Modal::end();
-?>
 
 <div class="container mb-3">
     <div class="row">
@@ -159,24 +124,14 @@ Modal::end();
                             'template' => '{view} {update} {delete}',
                             'buttons' => [
                                 'view' => function ($model) {
-                                    $urlData = parse_url($model);
-                                    $queryString = $urlData["query"];
-                                    $id_string_position = strpos($queryString, "id=");
-
-                                    $id_regiune = substr($queryString, $id_string_position);
-                                    $id_regiune_final = substr($id_regiune, 3);
+                                    $id_regiune_final = ModelController::getIdFromModelString($model);
 
                                     return Html::button('<i class="fas fa-eye"></i>', [
                                         'value' => Url::to($model),
-                                        'class' => 'btn btn-sm btn-outline-primary rounded view-regiune-buttton']);
+                                        'class' => 'btn btn-sm btn-outline-primary rounded view-regiune-button']);
                                 },
                                 'update' => function ($model) {
-                                    $urlData = parse_url($model);
-                                    $queryString = $urlData["query"];
-                                    $id_string_position = strpos($queryString, "id=");
-
-                                    $id_regiune = substr($queryString, $id_string_position);
-                                    $id_regiune_final = substr($id_regiune, 3);
+                                    $id_regiune_final = ModelController::getIdFromModelString($model);
 
                                     return Html::button('<i class="fas fa-edit"></i>', [
                                         'value' => Url::to(['regiune/update', 'id' => $id_regiune_final]),
@@ -185,12 +140,7 @@ Modal::end();
                                     ]);
                                 },
                                 'delete' => function ($model) {
-                                    $urlData = parse_url($model);
-                                    $queryString = $urlData["query"];
-                                    $id_string_position = strpos($queryString, "id=");
-
-                                    $id_regiune = substr($queryString, $id_string_position);
-                                    $id_regiune_final = substr($id_regiune, 3);
+                                    $id_regiune_final = ModelController::getIdFromModelString($model);
 
                                     return Html::button('<i class="fas fa-trash-alt"></i>', [
                                         'value' => $model,

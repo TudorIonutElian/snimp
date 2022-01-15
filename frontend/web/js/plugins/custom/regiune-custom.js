@@ -36,10 +36,10 @@ $(function () {
     });
 
     /*==============================================================
-   * ================ UPDATE REGIUNE ==============================
+   * ================ VIEW REGIUNE ==============================
    * ============================================================== */
 
-    $('.view-regiune-buttton').click(function (){
+    $('.view-regiune-button').click(function (){
         let modalViewRegiune = $('#modal-vizualizare-regiune');
         modalViewRegiune.removeAttr('tabindex');
         $('.modal-content').css({

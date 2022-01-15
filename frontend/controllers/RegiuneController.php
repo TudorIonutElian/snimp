@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Regiune;
 use common\models\RegiuneSearch;
+use yii\bootstrap4\Modal;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -144,5 +145,58 @@ class RegiuneController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /*=======================================================================
+    * ================ ADAUGARE REGIUNE MODAL  ==============================
+    * =======================================================================*/
+    public static function renderAddModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Adăugare Regiune Nouă</h2>',
+            'id' => 'modal-adaugare-regiune',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-adaugare-regiune-content"></div>';
+
+        Modal::end();
+    }
+
+    /*=======================================================================
+    * ================ ACTUALIZARE REGIUNE MODAL  ===========================
+    * =======================================================================*/
+
+    public static function renderUpdateModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Editare regiune</h2>',
+            'id' => 'modal-editare-regiune',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-editare-regiune-content"></div>';
+
+        Modal::end();
+    }
+
+    /*=======================================================================
+    * ================ VIZUALIZARE REGIUNE MODAL  ===========================
+    * =======================================================================*/
+
+    public static function renderViewModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Vizualizare regiune</h2>',
+            'id' => 'modal-vizualizare-regiune',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-vizualizare-regiune-content"></div>';
+
+        Modal::end();
     }
 }
