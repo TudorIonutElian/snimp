@@ -33,7 +33,7 @@ use yii\helpers\Html;
                 </li>
 
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Instituții', ['ins/index'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Instituții', ['institutie/index'], ['class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">
