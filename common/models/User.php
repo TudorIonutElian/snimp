@@ -22,6 +22,15 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property mixed|null nume
+ * @property mixed|null prenume
+ * @property mixed|null nume_anterior
+ * @property mixed|null cod_numeric_personal
+ * @property mixed|null data_nasterii
+ * @property mixed|null localitatea_nasterii
+ * @property mixed|null localitate_id
+ * @property-read string $authKey
+ * @property mixed|null minister_id
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -30,8 +39,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
     public $rol;
-
-
+    /**
+     * @var mixed|null
+     */
     /**
      * {@inheritdoc}
      */
@@ -68,10 +78,10 @@ class User extends ActiveRecord implements IdentityInterface
                     'status',
                     'localitate_id',
                     'minister_id',
-                    'rol'
                 ], 'required', 'message' => 'Câmpul este obligatoriu, vă rugăm să introduceți o valoare'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            //[['email'], 'unique']
         ];
     }
 
@@ -225,5 +235,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Get AuthAssignment ITEM_NAME
+     */
+    public function getAuthAssignment(){
+        return $this->hasOne(AuthAssignment::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * Get Localitate
+     */
+    public function getLocalitate(){
+        return $this->hasOne(Localitate::class, ['id' => 'localitate_id']);
     }
 }

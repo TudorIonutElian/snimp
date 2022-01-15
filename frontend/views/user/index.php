@@ -1,7 +1,8 @@
 <?php
 
-use yii\helpers\Html;
+use common\models\Judet;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\UserSearch */
@@ -26,24 +27,155 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'summary' => false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '1%'
+                    ]
+                ],
+            ],
 
-            'username',
-            'cod_numeric_personal',
-            'nume',
-            'prenume',
-            //'nume_anterior',
-            //'data_nasterii',
-            //'localitatea_nasterii',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            //'email:email',
-            //'status',
-            //'created_at',
-            //'updated_at',
-            //'localitate_id',
-            //'verification_token',
+            [
+                'label' => 'Username',
+                'attribute' => 'username',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '10%'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->username;
+                }
+            ],
+            [
+                'label' => 'Nume',
+                'attribute' => 'nume',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '8%'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->nume;
+                }
+            ],
+            [
+                'label' => 'Prenume',
+                'attribute' => 'prenume',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '8%'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->prenume;
+                }
+            ],
+            [
+                'label' => 'Email',
+                'attribute' => 'email',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '8%'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->email;
+                }
+            ],
+            [
+                'label' => 'Stare',
+                'attribute' => 'status',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '8%'
+                    ]
+                ],
+                'value' => function ($model) {
+                    if ($model->status === 10) {
+                        return '<span class="text-success font-weight-bold">Activ</span>';
+                    }
+                    return '<span class="text-danger font-weight-bold">Inactiv</span>';
+                }
+            ],
+            [
+                'label' => 'Localitate',
+                'attribute' => 'localitate_id',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '8%'
+                    ]
+                ],
+                'value' => function ($model) {
+                    if (!is_null($model->localitate)) {
+                        return $model->localitate->localitate_nume;
+                    }
+                    return '-';
+
+                }
+            ],
+            [
+                'label' => 'Judet',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '8%'
+                    ]
+                ],
+                'value' => function ($model) {
+                    if (!is_null($model->localitate)) {
+                        $judet = Judet::findOne($model->localitate->id);
+                        if(!is_null($judet)){
+                            return $judet->judet_nume;
+                        }
+                        return '-';
+                    }
+                    return '-';
+
+                }
+            ],
+            [
+                'label' => 'Rol',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'white-space' => 'pre-line',
+                        'width' => '8%'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->authAssignment->item_name;
+                }
+            ],
 
             [
                 'header' => 'Acțiuni Utilizatori',

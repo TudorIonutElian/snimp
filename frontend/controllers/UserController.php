@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\AuthAssignment;
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
@@ -69,9 +70,11 @@ class UserController extends Controller
         $model = new User();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            $userCreateRequest = \Yii::$app->request->post();
+            if($this->createNewUser($userCreateRequest)){
+                return $this->redirect(['index']);
+            };
+            return $this->redirect(['user/create']);
         } else {
             $model->loadDefaultValues();
         }
@@ -129,5 +132,32 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function createNewUser(array $userCreateRequest)
+    {
+        $user_details = $userCreateRequest["User"];
+        $user_new = new User();
+        $user_new->username = $user_details["username"];
+        $user_new->nume = $user_details["nume"];
+        $user_new->prenume = $user_details["prenume"];
+        $user_new->nume_anterior = $user_details["nume_anterior"];
+        $user_new->cod_numeric_personal = $user_details["cod_numeric_personal"];
+        $user_new->data_nasterii = $user_details["data_nasterii"];
+        $user_new->localitatea_nasterii = $user_details["localitatea_nasterii"];
+        $user_new->email = $user_details["email"];
+        $user_new->localitate_id = $user_details["localitate_id"];
+        $user_new->minister_id = $user_details["minister_id"];
+        $user_new->status = $user_details["status"];
+
+        if($user_new->save() && isset($user_details["rol"])){
+            $userRole = new AuthAssignment();
+            $userRole->item_name = $user_details["rol"];
+            $userRole->user_id = $user_new->id;
+
+            return $userRole->save();
+        }else{
+            return false;
+        }
     }
 }

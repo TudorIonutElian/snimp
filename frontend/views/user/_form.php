@@ -5,22 +5,25 @@ use common\models\Institutie;
 use common\models\Localitate;
 use common\models\Minister;
 use frontend\controllers\StringController;
+use yii\helpers\Url;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
 
 $user_string = StringController::getUserFromString();
+$urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
 ?>
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([]); ?>
 
     <div class="container">
         <div class="row mb-3">
@@ -126,11 +129,22 @@ $user_string = StringController::getUserFromString();
                           {input}
                         </div>'
                 ])->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Localitate::find()->all(), 'id', 'localitate_nume'),
-                    'language' => 'de',
+                    'data' => ArrayHelper::map(Localitate::find()->limit(5)->all(), 'id', 'localitate_nume'),
+                    'language' => 'ro',
                     'options' => ['placeholder' => 'Localitate ...'],
                     'pluginOptions' => [
-                        'allowClear' => true
+                        'allowClear' => true,
+                        'language' => [
+                            'errorLoading' => new JsExpression("function () { return 'Așteptare rezultate..'; }"),
+                        ],
+                        'ajax' => [
+                            'url' => $urlToLocalitatiAjax,
+                            'dataType' => 'json',
+                            'data' => new JsExpression('function(params) { return {q:params.term}; }')
+                        ],
+                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                        'templateResult' => new JsExpression('function(city) { return city.text; }'),
+                        'templateSelection' => new JsExpression('function (city) { return city.text; }'),
                     ],
                 ])->label(false)
                 ?>
@@ -189,11 +203,22 @@ $user_string = StringController::getUserFromString();
                           {input}
                         </div>'
                 ])->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Localitate::find()->all(), 'id', 'localitate_nume'),
-                    'language' => 'de',
+                    'data' => ArrayHelper::map(Localitate::find()->limit(5)->all(), 'id', 'localitate_nume'),
+                    'language' => 'ro',
                     'options' => ['placeholder' => 'Localitate Curenta...'],
                     'pluginOptions' => [
-                        'allowClear' => true
+                        'allowClear' => true,
+                        'language' => [
+                            'errorLoading' => new JsExpression("function () { return 'Așteptare rezultate..'; }"),
+                        ],
+                        'ajax' => [
+                            'url' => $urlToLocalitatiAjax,
+                            'dataType' => 'json',
+                            'data' => new JsExpression('function(params) { return {q:params.term}; }')
+                        ],
+                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                        'templateResult' => new JsExpression('function(city) { return city.text; }'),
+                        'templateSelection' => new JsExpression('function (city) { return city.text; }'),
                     ],
                 ])->label(false) ?>
             </div>
@@ -273,3 +298,9 @@ $user_string = StringController::getUserFromString();
     }
 
 </style>
+
+<script>
+    $('#user-localitatea_nasterii').keypress(function() {
+        console.log( "Handler for .keypress() called." );
+    });
+</script>

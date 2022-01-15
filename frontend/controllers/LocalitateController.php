@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use common\models\Localitate;
 use common\models\LocalitateSearch;
+use yii\db\Exception;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -129,5 +131,39 @@ class LocalitateController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionLocalitatiByName($q = null){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'localitate_nume' => '']];
+        $data = null;
+
+        if(is_null($q)){
+
+            $query = new Query;
+            $query->select('id, localitate_nume AS text')
+                ->from('localitate')
+                ->limit(20);
+            $command = $query->createCommand();
+            try {
+                $data = $command->queryAll();
+            } catch (Exception $e) {
+            }
+            $out['results'] = array_values($data);
+
+        }else {
+            $query = new Query;
+            $query->select('id, localitate_nume AS text')
+                ->from('localitate')
+                ->where(['like', 'localitate_nume', $q])
+                ->limit(20);
+            $command = $query->createCommand();
+            try {
+                $data = $command->queryAll();
+            } catch (Exception $e) {
+            }
+            $out['results'] = array_values($data);
+        }
+        return $out;
     }
 }

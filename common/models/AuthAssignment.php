@@ -10,6 +10,7 @@ use Yii;
  * @property string $item_name
  * @property int $user_id
  * @property string|null $created_at
+ * @property mixed|null auth_item
  */
 class AuthAssignment extends \yii\db\ActiveRecord
 {

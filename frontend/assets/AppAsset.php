@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle
         'css/plugins/daterangepicker/daterangepicker.css',
     ];
     public $js = [
-        'js/plugins/jquery/jquery.min.js',
+        //'js/plugins/jquery/jquery.min.js',
         'js/plugins/jquery-ui/jquery-ui.min.js',
         'js/plugins/bootstrap/js/bootstrap.bundle.min.js',
         'js/plugins/jqvmap/jquery.vmap.min.js',
@@ -31,6 +31,7 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap4\BootstrapAsset',
+        'yii\web\JqueryAsset',
     ];
     public $jsOptions = array(
         'position' => \yii\web\View::POS_HEAD
