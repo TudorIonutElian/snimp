@@ -122,14 +122,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view} {update} {delete}',
                 'buttons' => [
                     'view' => function ($model) {
-                        $id_judet_final = ModelController::getIdFromModelString($model);
                         return Html::button('<i class="fas fa-eye"></i>', [
                             'value' => Url::to($model),
                             'class' => 'btn btn-sm btn-outline-primary rounded view-judet-button'
                         ]);
                     },
                     'update' => function ($model) {
-                        $id_judet_final = ModelController::getIdFromModelString($model);
                         return Html::button('<i class="fas fa-edit"></i>', [
                             'value' => Url::to($model),
                             'class' => 'btn btn-sm btn-outline-secondary rounded update-judet-button'

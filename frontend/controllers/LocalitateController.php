@@ -6,6 +6,7 @@ use common\models\Localitate;
 use common\models\LocalitateSearch;
 use Throwable;
 use Yii;
+use yii\bootstrap4\Modal;
 use yii\db\Exception;
 use yii\db\Query;
 use yii\db\StaleObjectException;
@@ -65,7 +66,7 @@ class LocalitateController extends Controller
     public function actionView($id)
     {
         if (SystemController::userIsAdmin()) {
-            return $this->render('view', [
+            return $this->renderAjax('view', [
                 'model' => $this->findModel($id),
             ]);
         }
@@ -91,7 +92,7 @@ class LocalitateController extends Controller
                 $model->loadDefaultValues();
             }
 
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -115,7 +116,7 @@ class LocalitateController extends Controller
                 return $this->redirect(['view', 'id' => $model->id]);
             }
 
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
@@ -136,8 +137,7 @@ class LocalitateController extends Controller
         if (SystemController::userIsAdmin()) {
             $this->findModel($id)->delete();
 
-            return $this->redirect(['index']);
-        }
+            return $this->redirect(['index']);}
         return $this->redirect(['site/index']);
     }
 
@@ -190,5 +190,58 @@ class LocalitateController extends Controller
             $out['results'] = array_values($data);
         }
         return $out;
+    }
+
+    /*=======================================================================
+* ================ ADAUGARE JUDET MODAL  ==============================
+* =======================================================================*/
+    public static function renderAddModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Adăugare Localitate Nouă</h2>',
+            'id' => 'modal-adaugare-localitate',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-adaugare-localitate-content"></div>';
+
+        Modal::end();
+    }
+
+    /*=======================================================================
+    * ================ ACTUALIZARE JUDET MODAL    ===========================
+    * =======================================================================*/
+
+    public static function renderUpdateModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Editare Localitate</h2>',
+            'id' => 'modal-editare-localitate',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-editare-localitate-content"></div>';
+
+        Modal::end();
+    }
+
+    /*=======================================================================
+    * ================ VIZUALIZARE JUDET MODAL    ===========================
+    * =======================================================================*/
+
+    public static function renderViewModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Vizualizare Localitate</h2>',
+            'id' => 'modal-vizualizare-localitate',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-vizualizare-localitate-content"></div>';
+
+        Modal::end();
     }
 }

@@ -20,15 +20,10 @@ $string_localitate = StringController::getLocalitateFromRoute();
 
     <div class="container">
         <div class="row my-2">
-            <div class="col-12 text-center bg-success text-white p-2">
-                <h1><?= $string_localitate ?></h1>
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-4">
+            <div class="col-12">
                 <?= $form->field($model, 'localitate_nume')->textInput(['maxlength' => true]) ?>
             </div>
-            <div class="col-4">
+            <div class="col-12">
                 <?= $form->field($model, 'localitate_judet')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(Judet::find()->orderBy(['judet_nume' => SORT_ASC])->all(), 'id', 'judet_nume'),
                     'language' => 'de',
@@ -39,7 +34,7 @@ $string_localitate = StringController::getLocalitateFromRoute();
                 ])
                 ?>
             </div>
-            <div class="col-4">
+            <div class="col-12">
                 <?= $form->field($model, 'localitate_urban')->widget(Select2::classname(), [
                         'data' => ['0' => 'NU', '1' => 'DA'],
                         'language' => 'de',
@@ -52,7 +47,7 @@ $string_localitate = StringController::getLocalitateFromRoute();
             </div>
         </div>
         <div class="row my-2">
-            <div class="col-4">
+            <div class="col-6">
                 <?= $form->field($model, 'localitate_resedinta')->widget(Select2::classname(), [
                         'data' => ['0' => 'NU', '1' => 'DA'],
                         'language' => 'de',
@@ -63,7 +58,7 @@ $string_localitate = StringController::getLocalitateFromRoute();
                     ])
                 ?>
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <?= $form->field($model, 'localitate_status')->widget(Select2::classname(), [
                         'data' => ['0' => 'Inactivă', '1' => 'Activă'],
                         'language' => 'de',
