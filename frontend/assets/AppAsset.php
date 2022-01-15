@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/plugins/custom/user-custom.js',
+        'js/plugins/custom/regiune-custom.js',
         'js/plugins/jquery-ui/jquery-ui.min.js',
         'js/plugins/bootstrap/js/bootstrap.bundle.min.js',
         'js/plugins/jqvmap/jquery.vmap.min.js',

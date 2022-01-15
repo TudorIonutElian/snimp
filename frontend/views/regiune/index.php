@@ -2,7 +2,9 @@
 
 use kartik\grid\GridView;
 use kartik\select2\Select2;
+use yii\bootstrap4\Modal;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\RegiuneSearch */
@@ -11,11 +13,27 @@ use yii\helpers\Html;
 $this->title = 'Nomenclator Regiuni';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php
+Modal::begin([
+    'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Adăugare Regiune Nouă</h2>',
+    'id' => 'modal-adaugare-regiune',
+    'size' => 'modal-md',
+]);
+
+echo '<div id="modal-adaugare-regiune-content"></div>';
+
+Modal::end();
+?>
 <div class="container mb-3">
     <div class="row">
         <div class="col-12 text-center col-flex-row">
             <h1><?= Html::encode($this->title) ?></h1>
-            <?= Html::a('Adaugă REGIUNE', ['create'], ['class' => 'btn btn-success mx-3']) ?>
+            <?= Html::button('Adaugă REGIUNE', [
+                'value' => Url::to(['regiune/create']),
+                'class' => 'btn btn-success mx-3',
+                'id' => 'add-regiune-btn']) ?>
         </div>
     </div>
 </div>
