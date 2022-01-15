@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Judet;
 use common\models\JudetSearch;
+use yii\bootstrap4\Modal;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -58,7 +59,8 @@ class JudetController extends Controller
     public function actionView($id)
     {
         if (SystemController::userIsAdmin()) {
-            return $this->render('view', [
+
+            return $this->renderAjax('view', [
                 'model' => $this->findModel($id),
             ]);
         }
@@ -99,7 +101,7 @@ class JudetController extends Controller
                 $model->loadDefaultValues();
             }
 
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -122,7 +124,7 @@ class JudetController extends Controller
                 return $this->redirect(['view', 'id' => $model->id]);
             }
 
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
@@ -144,5 +146,58 @@ class JudetController extends Controller
             return $this->redirect(['index']);
         }
         return $this->redirect(['site/index']);
+    }
+
+    /*=======================================================================
+    * ================ ADAUGARE JUDET MODAL  ==============================
+    * =======================================================================*/
+    public static function renderAddModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Adăugare Județ Nou</h2>',
+            'id' => 'modal-adaugare-judet',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-adaugare-judet-content"></div>';
+
+        Modal::end();
+    }
+
+    /*=======================================================================
+    * ================ ACTUALIZARE JUDET MODAL    ===========================
+    * =======================================================================*/
+
+    public static function renderUpdateModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Editare Județ</h2>',
+            'id' => 'modal-editare-judet',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-editare-judet-content"></div>';
+
+        Modal::end();
+    }
+
+    /*=======================================================================
+    * ================ VIZUALIZARE JUDET MODAL    ===========================
+    * =======================================================================*/
+
+    public static function renderViewModal(){
+        Modal::begin([
+            'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Vizualizare Județ</h2>',
+            'id' => 'modal-vizualizare-judet',
+            'size' => 'modal-md',
+        ]);
+
+        echo '<div id="modal-vizualizare-judet-content"></div>';
+
+        Modal::end();
     }
 }

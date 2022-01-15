@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -9,33 +9,55 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Judets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 ?>
 <div class="judet-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'judet_indicativ',
-            'judet_nume',
-            'judet_regiune',
-            'judet_status',
-            'judet_created',
-            'judet_updated',
+            [
+                'label' => 'Indicativ Județ',
+                'value' => function ($model) {
+                    return $model->judet_indicativ;
+                }
+            ],
+            [
+                'label' => 'Nume Județ',
+                'value' => function ($model) {
+                    return $model->judet_nume;
+                }
+            ],
+            [
+                'label' => 'Regiune Județ',
+                'value' => function ($model) {
+                    return $model->regiune->regiune_nume;
+                }
+            ],
+            [
+                'label' => 'Stare Județ',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if ($model->judet_status === 1) {
+                        return '<span class="text-success font-weight-bold">Activ</span>';
+                    }
+                    return '<span class="text-danger font-weight-bold">Inactiv</span>';
+                }
+            ],
+            [
+                'label' => 'Data creare Județ',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<span class="text-info">'.$model->judet_created.'</span>';
+                }
+            ],
+            [
+                'label' => 'Data actualizare Județ',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<span class="text-info">'.$model->judet_updated.'</span>';
+                }
+            ],
         ],
     ]) ?>
 

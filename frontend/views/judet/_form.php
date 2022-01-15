@@ -19,22 +19,17 @@ $titlu_modificabil_judet = StringController::getJudetFromRoute();
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="container">
-        <div class="row my-2">
-            <div class="col-12 text-center bg-success text-white p-2">
-                <h1><?= Html::encode($titlu_modificabil_judet) ?></h1>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <?= $form->field($model, 'judet_indicativ')->textInput(['maxlength' => true]) ?>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <?= $form->field($model, 'judet_nume')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
 
         <div class="row my-2">
-            <div class="col-6">
+            <div class="col-12">
 
                 <?= $form->field($model, 'judet_regiune')->widget(Select2::classname(), [
                         'data' => ArrayHelper::map(Regiune::find()->orderBy(['regiune_nume' => SORT_ASC])->all(), 'id', 'regiune_nume'),
@@ -46,7 +41,7 @@ $titlu_modificabil_judet = StringController::getJudetFromRoute();
                     ])
                 ?>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <?= $form->field($model, 'judet_status')->widget(Select2::classname(), [
                     'data' => ['0' => 'Inactiv', '1' => 'Activ'],
                     'language' => 'de',
