@@ -4,9 +4,9 @@ namespace frontend\controllers;
 
 use common\models\Regiune;
 use common\models\RegiuneSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * RegiuneController implements the CRUD actions for Regiune model.
@@ -37,13 +37,16 @@ class RegiuneController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new RegiuneSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (SystemController::userIsAdmin()) {
+            $searchModel = new RegiuneSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -54,9 +57,12 @@ class RegiuneController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (SystemController::userIsAdmin()) {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -66,19 +72,22 @@ class RegiuneController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Regiune();
+        if (SystemController::userIsAdmin()) {
+            $model = new Regiune();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -90,15 +99,18 @@ class RegiuneController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (SystemController::userIsAdmin()) {
+            $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -110,9 +122,12 @@ class RegiuneController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (SystemController::userIsAdmin()) {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
