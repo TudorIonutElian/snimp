@@ -58,7 +58,7 @@ class RegiuneController extends Controller
     public function actionView($id)
     {
         if (SystemController::userIsAdmin()) {
-            return $this->render('view', [
+            return $this->renderAjax('view', [
                 'model' => $this->findModel($id),
             ]);
         }
@@ -106,7 +106,7 @@ class RegiuneController extends Controller
                 return $this->redirect(['view', 'id' => $model->id]);
             }
 
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }

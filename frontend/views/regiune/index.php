@@ -1,10 +1,12 @@
 <?php
 
+use kartik\dialog\Dialog;
 use kartik\grid\GridView;
 use kartik\select2\Select2;
 use yii\bootstrap4\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\RegiuneSearch */
@@ -26,6 +28,35 @@ echo '<div id="modal-adaugare-regiune-content"></div>';
 
 Modal::end();
 ?>
+
+<?php
+Modal::begin([
+    'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Editare regiune</h2>',
+    'id' => 'modal-editare-regiune',
+    'size' => 'modal-md',
+]);
+
+echo '<div id="modal-editare-regiune-content"></div>';
+
+Modal::end();
+?>
+
+<?php
+Modal::begin([
+    'title' => '<h2 
+            class="text-center text-success font-weight-bold d-flex flex-row align-content-center justify-content-center"
+            style="width: 100%">Vizualizare regiune</h2>',
+    'id' => 'modal-vizualizare-regiune',
+    'size' => 'modal-md',
+]);
+
+echo '<div id="modal-vizualizare-regiune-content"></div>';
+
+Modal::end();
+?>
+
 <div class="container mb-3">
     <div class="row">
         <div class="col-12 text-center col-flex-row">
@@ -128,13 +159,44 @@ Modal::end();
                             'template' => '{view} {update} {delete}',
                             'buttons' => [
                                 'view' => function ($model) {
-                                    return Html::a('<i class="fas fa-eye"></i>', $model, ['class' => 'btn btn-sm btn-outline-primary rounded']);
+                                    $urlData = parse_url($model);
+                                    $queryString = $urlData["query"];
+                                    $id_string_position = strpos($queryString, "id=");
+
+                                    $id_regiune = substr($queryString, $id_string_position);
+                                    $id_regiune_final = substr($id_regiune, 3);
+
+                                    return Html::button('<i class="fas fa-eye"></i>', [
+                                        'value' => Url::to($model),
+                                        'class' => 'btn btn-sm btn-outline-primary rounded view-regiune-buttton']);
                                 },
                                 'update' => function ($model) {
-                                    return Html::a('<i class="fas fa-edit"></i>', $model, ['class' => 'btn btn-sm btn-outline-secondary rounded']);
+                                    $urlData = parse_url($model);
+                                    $queryString = $urlData["query"];
+                                    $id_string_position = strpos($queryString, "id=");
+
+                                    $id_regiune = substr($queryString, $id_string_position);
+                                    $id_regiune_final = substr($id_regiune, 3);
+
+                                    return Html::button('<i class="fas fa-edit"></i>', [
+                                        'value' => Url::to(['regiune/update', 'id' => $id_regiune_final]),
+                                        'class' => 'btn btn-sm btn-outline-secondary rounded update-regiune-button',
+                                        'data-regiune-id' => $id_regiune_final
+                                    ]);
                                 },
                                 'delete' => function ($model) {
-                                    return Html::a('<i class="fas fa-trash-alt"></i>', $model, ['class' => 'btn btn-sm btn-outline-danger rounded', 'data-method' => 'post']);
+                                    $urlData = parse_url($model);
+                                    $queryString = $urlData["query"];
+                                    $id_string_position = strpos($queryString, "id=");
+
+                                    $id_regiune = substr($queryString, $id_string_position);
+                                    $id_regiune_final = substr($id_regiune, 3);
+
+                                    return Html::button('<i class="fas fa-trash-alt"></i>', [
+                                        'value' => $model,
+                                        'class' => 'btn btn-sm btn-outline-danger rounded delete-regiune-button',
+                                        'data-regiune-id' => $id_regiune_final
+                                    ]);
                                 }
                             ]
                         ],
@@ -143,6 +205,35 @@ Modal::end();
             </div>
         </div>
     </div>
-
-
 </div>
+
+<?php
+// widget with default options
+echo Dialog::widget([
+    'options' => [
+        'size' => Dialog::SIZE_MEDIUM,
+        'type' => Dialog::TYPE_INFO,
+        'message' => 'This is an entirely customized bootstrap dialog from scratch. Click buttons below to test this:',
+        'draggable' => false,
+        'closable' => true,
+    ]
+]);
+$js = <<< JS
+        $(".delete-regiune-button").on("click", function(e) {
+            const idRegiune = parseInt(this.attributes["data-regiune-id"].value);
+            
+            krajeeDialog.confirm("Sunteți sigur că doriți să ștergeți Regiunea?", function (result) {
+                if (result) {
+                    console.log(idRegiune);
+                    $.ajax({
+                        url: 'index.php?r=regiune/delete&id=' + idRegiune,
+                        method : 'post'
+                    });
+                }
+            });
+        });
+JS;
+// register your javascript
+$this->registerJs($js);
+?>
+

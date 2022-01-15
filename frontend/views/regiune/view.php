@@ -1,39 +1,52 @@
 <?php
 
-use yii\helpers\Html;
+use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Regiune */
 
-$this->title = $model->id;
+$this->title = $model->regiune_nume;
 $this->params['breadcrumbs'][] = ['label' => 'Regiunes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 ?>
 <div class="regiune-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'regiune_nume',
-            'regiune_status',
-            'regiune_created',
-            'regiune_updated',
+            [
+                'label' => 'Denumire Regiune',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<span>' . $model->regiune_nume . '</span>';
+                }
+            ],
+            [
+                'label' => 'Stare Regiune',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if ($model->regiune_status === 1) {
+                        return '<span class="text-success font-weight-bold">Activă</span>';
+                    }
+                    return '<span class="text-danger font-weight-bold">Inactivă</span>';
+                }
+            ],
+            [
+                'label' => 'Data creării',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<span class="text-primary">'.$model->regiune_created.'</span>';
+                }
+            ],
+            [
+                'label' => 'Data actualizării',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<span class="text-primary">'.$model->regiune_updated.'</span>';
+                }
+            ],
         ],
     ]) ?>
 
