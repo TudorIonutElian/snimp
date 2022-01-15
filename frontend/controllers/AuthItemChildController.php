@@ -37,13 +37,17 @@ class AuthItemChildController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AuthItemChildSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $searchModel = new AuthItemChildSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return  $this->redirect(['site/index']);
+
     }
 
     /**
@@ -55,9 +59,13 @@ class AuthItemChildController extends Controller
      */
     public function actionView($parent, $child)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($parent, $child),
-        ]);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            return $this->render('view', [
+                'model' => $this->findModel($parent, $child),
+            ]);
+        }
+        return  $this->redirect(['site/index']);
+
     }
 
     /**
@@ -67,19 +75,23 @@ class AuthItemChildController extends Controller
      */
     public function actionCreate()
     {
-        $model = new AuthItemChild();
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $model = new AuthItemChild();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'parent' => $model->parent, 'child' => $model->child]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'parent' => $model->parent, 'child' => $model->child]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+        return  $this->redirect(['site/index']);
+
     }
 
     /**
@@ -92,15 +104,19 @@ class AuthItemChildController extends Controller
      */
     public function actionUpdate($parent, $child)
     {
-        $model = $this->findModel($parent, $child);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $model = $this->findModel($parent, $child);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'parent' => $model->parent, 'child' => $model->child]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'parent' => $model->parent, 'child' => $model->child]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
+        return  $this->redirect(['site/index']);
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -113,9 +129,13 @@ class AuthItemChildController extends Controller
      */
     public function actionDelete($parent, $child)
     {
-        $this->findModel($parent, $child)->delete();
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+            $this->findModel($parent, $child)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }
+        return  $this->redirect(['site/index']);
+;
     }
 
     /**
