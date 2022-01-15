@@ -1,7 +1,6 @@
 <?php
 
 use common\models\AuthItem;
-use common\models\Institutie;
 use common\models\Localitate;
 use common\models\Minister;
 use frontend\controllers\StringController;
@@ -12,6 +11,7 @@ use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\JsExpression;
+use yii\bootstrap4\modal;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */

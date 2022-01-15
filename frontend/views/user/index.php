@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Judet;
+use yii\bootstrap4\Modal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -10,15 +11,28 @@ use yii\helpers\Html;
 
 $this->title = 'Utilizatori';
 $this->params['breadcrumbs'][] = $this->title;
+
+\kartik\select2\Select2Asset::register($this);
 ?>
 <div class="user-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
+        Modal::begin([
+            //'title' => '<h2 class="text-center text-success font-weight-bold">Adăugare Utilizator Nou</h2>',
+            'id' => 'modal-adaugare-user',
+            'size' => 'modal-lg',
+            //'toggleButton' => ['label' => 'click me'],
+        ]);
 
+        echo '<div id="modal-adaugare-user-content"></div>';
+
+        Modal::end();
+    ?>
     <div class="container mb-3">
         <div class="row">
             <div class="col-12 text-center col-flex-row">
                 <h1><?= Html::encode($this->title) ?></h1>
-                <?= Html::a('Adaugă UTILIZATOR', ['create'], ['class' => 'btn btn-success mx-3']) ?>
+                <?= Html::button('Adaugă UTILIZATOR', ['value' => \yii\helpers\Url::to(['user/create']), 'class' => 'btn btn-success mx-3', 'id' => 'add-user-btn']) ?>
             </div>
         </div>
     </div>
@@ -202,6 +216,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
-
 </div>
