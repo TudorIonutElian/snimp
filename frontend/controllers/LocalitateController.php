@@ -4,11 +4,15 @@ namespace frontend\controllers;
 
 use common\models\Localitate;
 use common\models\LocalitateSearch;
+use Throwable;
+use Yii;
 use yii\db\Exception;
 use yii\db\Query;
+use yii\db\StaleObjectException;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * LocalitateController implements the CRUD actions for Localitate model.
@@ -39,13 +43,17 @@ class LocalitateController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new LocalitateSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (SystemController::userIsAdmin()) {
+            $searchModel = new LocalitateSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -56,9 +64,13 @@ class LocalitateController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (SystemController::userIsAdmin()) {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -68,19 +80,22 @@ class LocalitateController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Localitate();
+        if (SystemController::userIsAdmin()) {
+            $model = new Localitate();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -92,15 +107,19 @@ class LocalitateController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (SystemController::userIsAdmin()) {
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model = $this->findModel($id);
+
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -109,12 +128,17 @@ class LocalitateController extends Controller
      * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (SystemController::userIsAdmin()) {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -133,12 +157,13 @@ class LocalitateController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionLocalitatiByName($q = null){
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+    public function actionLocalitatiByName($q = null)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
         $out = ['results' => ['id' => '', 'localitate_nume' => '']];
         $data = null;
 
-        if(is_null($q)){
+        if (is_null($q)) {
 
             $query = new Query;
             $query->select('id, localitate_nume AS text')
@@ -151,7 +176,7 @@ class LocalitateController extends Controller
             }
             $out['results'] = array_values($data);
 
-        }else {
+        } else {
             $query = new Query;
             $query->select('id, localitate_nume AS text')
                 ->from('localitate')
