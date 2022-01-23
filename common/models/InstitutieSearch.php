@@ -41,6 +41,7 @@ class InstitutieSearch extends Institutie
     public function search($params)
     {
         $query = Institutie::find();
+        $query->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id]);
 
         // add conditions that should always apply here
 

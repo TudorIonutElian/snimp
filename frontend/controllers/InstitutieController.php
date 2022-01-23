@@ -37,7 +37,7 @@ class InstitutieController extends Controller
      */
     public function actionIndex()
     {
-        if (SystemController::userIsAdmin()) {
+        if (SystemController::userIsAdmin() || SystemController::userIsAdminMinister()) {
             $searchModel = new InstitutieSearch();
             $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -57,7 +57,7 @@ class InstitutieController extends Controller
      */
     public function actionView($id)
     {
-        if (SystemController::userIsAdmin()) {
+        if (SystemController::userIsAdmin() || SystemController::userIsAdminMinister()) {
             return $this->render('view', [
                 'model' => $this->findModel($id),
             ]);
@@ -73,7 +73,7 @@ class InstitutieController extends Controller
      */
     public function actionCreate()
     {
-        if (SystemController::userIsAdmin()) {
+        if (SystemController::userIsAdmin() || SystemController::userIsAdminMinister()) {
             $model = new Institutie();
 
             if ($this->request->isPost) {
@@ -100,7 +100,7 @@ class InstitutieController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (SystemController::userIsAdmin()) {
+        if (SystemController::userIsAdmin() || SystemController::userIsAdminMinister()) {
             $model = $this->findModel($id);
 
             if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -123,7 +123,7 @@ class InstitutieController extends Controller
      */
     public function actionDelete($id)
     {
-        if (SystemController::userIsAdmin()) {
+        if (SystemController::userIsAdmin() || SystemController::userIsAdminMinister()) {
             $this->findModel($id)->delete();
             return $this->redirect(['index']);
         }
