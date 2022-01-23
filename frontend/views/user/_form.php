@@ -161,6 +161,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
                             <span class="input-group-text">Email</span>
                           </div>
                           {input}
+                          <div class="invalid-feedback"></div>
                         </div>'
                 ])->textInput(['maxlength' => true])->label(false) ?>
             </div>

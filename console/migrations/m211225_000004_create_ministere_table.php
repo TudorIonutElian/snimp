@@ -55,6 +55,31 @@ class m211225_000004_create_ministere_table extends Migration
         $this->insert('minister', ['minister_denumire'  => 'Ministerul Culturii', 'minister_localitate' => 13802]);
         $this->insert('minister', ['minister_denumire'  => 'Ministerul Sportului', 'minister_localitate' => 13802]);
 
+
+
+        // SETARE UTILIZATORI MINISTER
+        $this->update('user', ['minister_id' => 1], ['id' => 2]);
+        $this->update('user', ['minister_id' => 2], ['id' => 3]);
+        $this->update('user', ['minister_id' => 3], ['id' => 4]);
+        $this->update('user', ['minister_id' => 4], ['id' => 5]);
+        $this->update('user', ['minister_id' => 5], ['id' => 6]);
+        $this->update('user', ['minister_id' => 6], ['id' => 7]);
+        $this->update('user', ['minister_id' => 7], ['id' => 8]);
+        $this->update('user', ['minister_id' => 8], ['id' => 9]);
+        $this->update('user', ['minister_id' => 9], ['id' => 10]);
+        $this->update('user', ['minister_id' => 10], ['id' => 11]);
+        $this->update('user', ['minister_id' => 11], ['id' => 12]);
+        $this->update('user', ['minister_id' => 12], ['id' => 13]);
+        $this->update('user', ['minister_id' => 13], ['id' => 14]);
+        $this->update('user', ['minister_id' => 14], ['id' => 15]);
+        $this->update('user', ['minister_id' => 15], ['id' => 16]);
+        $this->update('user', ['minister_id' => 16], ['id' => 17]);
+        $this->update('user', ['minister_id' => 17], ['id' => 18]);
+        $this->update('user', ['minister_id' => 18], ['id' => 19]);
+        $this->update('user', ['minister_id' => 19], ['id' => 20]);
+        $this->update('user', ['minister_id' => 20], ['id' => 21]);
+
+
     }
 
     /**

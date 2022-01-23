@@ -31,6 +31,7 @@ class MinistereStructuri extends \yii\db\ActiveRecord
     {
         return [
             [['minister_id', 'structura_id'], 'integer'],
+            [['minister_id', 'structura_id'], 'required', 'message' => 'Câmpul este obligatoriu'],
             [['minister_id'], 'exist', 'skipOnError' => true, 'targetClass' => Minister::className(), 'targetAttribute' => ['minister_id' => 'id']],
             [['structura_id'], 'exist', 'skipOnError' => true, 'targetClass' => Structura::className(), 'targetAttribute' => ['structura_id' => 'id']],
         ];

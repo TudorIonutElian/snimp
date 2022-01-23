@@ -40,6 +40,7 @@ class MinistereStructuriSearch extends MinistereStructuri
     public function search($params)
     {
         $query = MinistereStructuri::find();
+        $query->where(['minister_id' => \Yii::$app->user->identity->minister_id]);
 
         // add conditions that should always apply here
 

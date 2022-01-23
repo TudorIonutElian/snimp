@@ -11,4 +11,8 @@ class SystemController extends \yii\web\Controller
         return !Yii::$app->user->getIsGuest() && Yii::$app->user->can("admin");
     }
 
+    public static function userIsAdminMiniser(){
+        return !\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_minister');
+    }
+
 }

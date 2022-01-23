@@ -161,6 +161,8 @@ class UserController extends Controller
         $user_new->cod_numeric_personal = $user_details["cod_numeric_personal"];
         $user_new->data_nasterii = $user_details["data_nasterii"];
         $user_new->localitatea_nasterii = $user_details["localitatea_nasterii"];
+        $user_new->generateAuthKey();
+        $user_new->setPassword(12345678);
         $user_new->email = $user_details["email"];
         $user_new->localitate_id = $user_details["localitate_id"];
         $user_new->minister_id = $user_details["minister_id"];

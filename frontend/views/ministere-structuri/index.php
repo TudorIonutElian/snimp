@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\MinistereStructuriSearch */
@@ -25,12 +25,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                'label' => 'Minister',
+                'value' => function ($model) {
+                    return $model->minister->minister_denumire;
+                }
+            ],
+            [
+                'label' => 'Structura',
+                'value' => function ($model) {
+                    return $model->structura->structura_nume;
+                }
+            ],
 
-            'id',
-            'minister_id',
-            'structura_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete} '
+            ],
         ],
     ]); ?>
 

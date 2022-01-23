@@ -145,4 +145,19 @@ class StructuraController extends Controller
         }
         return $this->redirect(['site/index']);
     }
+
+    public function actionIndexMinister(){
+        if(SystemController::userIsAdminMiniser()){
+            // TODO Implementare index structuri minister
+
+            $searchModel = new StructuraSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return $this->redirect(['site/login']);
+    }
 }

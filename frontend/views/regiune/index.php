@@ -187,3 +187,7 @@ JS;
 $this->registerJs($js);
 ?>
 
+
+<script>
+    $('#modal-adaugare-regiune').removeAttr('tabindex');
+</script>
