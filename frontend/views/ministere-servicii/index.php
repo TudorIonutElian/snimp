@@ -1,22 +1,27 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\MinistereServiciiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ministere Serviciis';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Adaugă servicii Ministerului';
 ?>
 <div class="ministere-servicii-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6 text-center">
+                <h1><?= Html::encode($this->title) ?></h1>
+                <?= Html::a('Adaugă Serviciu', ['create'], ['class'=> 'btn btn-success btn-block']); ?>
+            </div>
+            <div class="col-3"></div>
+        </div>
 
-    <p>
-        <?= Html::a('Create Ministere Servicii', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </div>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -25,12 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                'label' => 'Minister',
+                'value' => function ($model) {
+                    return $model->minister->minister_denumire;
+                }
+            ],
+            [
+                'label' => 'Serviciu',
+                'value' => function ($model) {
+                    return $model->tipServiciu->tip_serviciu_denumire;
+                }
+            ],
 
-            'id',
-            'minister_id',
-            'tip_serviciu_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}'
+            ],
         ],
     ]); ?>
 

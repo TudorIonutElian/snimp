@@ -16,8 +16,6 @@ class m220110_210050_create_ministere_program_lucru_table extends Migration
             'id' => $this->primaryKey(),
             'mpl_minister_id' => $this->integer(11)->notNull(),
             'mpl_program_lucru_id' => $this->integer(11)->notNull(),
-            'mpl_program_lucru_from' => $this->date()->notNull(),
-            'mpl_program_lucru_to' => $this->date()->notNull(),
             'mpl_program_lucru_active' => $this->tinyInteger(1)->defaultValue(1),
         ]);
 
@@ -30,6 +28,16 @@ class m220110_210050_create_ministere_program_lucru_table extends Migration
             'RESTRICT',
             'CASCADE'
         );
+
+        $this->addForeignKey(
+            'fk_mpl_program',
+            'ministere_program_lucru',
+            'mpl_program_lucru_id',
+            'tipuri_program_lucru',
+            'id',
+            'RESTRICT',
+            'CASCADE'
+        );
     }
 
     /**
@@ -38,6 +46,7 @@ class m220110_210050_create_ministere_program_lucru_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey('fk_mpl_minister', 'ministere_program_lucru');
+        $this->dropForeignKey('fk_mpl_program', 'ministere_program_lucru');
         $this->dropTable('{{%ministere_program_lucru}}');
     }
 }

@@ -4,12 +4,12 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\MinistereServicii;
+use common\models\TipuriProgramLucru;
 
 /**
- * MinistereServiciiSearch represents the model behind the search form of `common\models\MinistereServicii`.
+ * TipuriProgramLucruSearch represents the model behind the search form of `common\models\TipuriProgramLucru`.
  */
-class MinistereServiciiSearch extends MinistereServicii
+class TipuriProgramLucruSearch extends TipuriProgramLucru
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,8 @@ class MinistereServiciiSearch extends MinistereServicii
     public function rules()
     {
         return [
-            [['id', 'minister_id', 'tip_serviciu_id'], 'integer'],
+            [['id', 'tpl_is_active'], 'integer'],
+            [['tpl_ora_start', 'tpl_ora_sfarsit'], 'safe'],
         ];
     }
 
@@ -39,11 +40,7 @@ class MinistereServiciiSearch extends MinistereServicii
      */
     public function search($params)
     {
-        $query = MinistereServicii::find();
-
-        if(\Yii::$app->user->can('admin_minister')){
-            $query->where(['minister_id' => \Yii::$app->user->identity->minister_id]);
-        }
+        $query = TipuriProgramLucru::find();
 
         // add conditions that should always apply here
 
@@ -62,9 +59,11 @@ class MinistereServiciiSearch extends MinistereServicii
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'minister_id' => $this->minister_id,
-            'tip_serviciu_id' => $this->tip_serviciu_id,
+            'tpl_is_active' => $this->tpl_is_active,
         ]);
+
+        $query->andFilterWhere(['like', 'tpl_ora_start', $this->tpl_ora_start])
+            ->andFilterWhere(['like', 'tpl_ora_sfarsit', $this->tpl_ora_sfarsit]);
 
         return $dataProvider;
     }

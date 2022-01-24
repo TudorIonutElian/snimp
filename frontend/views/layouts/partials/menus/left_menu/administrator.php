@@ -90,10 +90,7 @@ use yii\helpers\Html;
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-history nav-icon"></i>
-                        <p>Program de lucru</p>
-                    </a>
+                    <?= Html::a('<i class="fas fa-history nav-icon"></i>Program de lucru', ['tipuri-program-lucru/index'], ['class' => 'nav-link']) ?>
                 </li>
             </ul>
         </li>

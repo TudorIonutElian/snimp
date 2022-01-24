@@ -2,16 +2,16 @@
 
 namespace frontend\controllers;
 
-use common\models\MinistereServicii;
-use common\models\MinistereServiciiSearch;
+use common\models\TipuriProgramLucru;
+use common\models\TipuriProgramLucruSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MinistereServiciiController implements the CRUD actions for MinistereServicii model.
+ * TipuriProgramLucruController implements the CRUD actions for TipuriProgramLucru model.
  */
-class MinistereServiciiController extends Controller
+class TipuriProgramLucruController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,12 +32,12 @@ class MinistereServiciiController extends Controller
     }
 
     /**
-     * Lists all MinistereServicii models.
+     * Lists all TipuriProgramLucru models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MinistereServiciiSearch();
+        $searchModel = new TipuriProgramLucruSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -47,17 +47,30 @@ class MinistereServiciiController extends Controller
     }
 
     /**
-     * Creates a new MinistereServicii model.
+     * Displays a single TipuriProgramLucru model.
+     * @param int $id ID
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new TipuriProgramLucru model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MinistereServicii();
+        $model = new TipuriProgramLucru();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -68,9 +81,28 @@ class MinistereServiciiController extends Controller
         ]);
     }
 
+    /**
+     * Updates an existing TipuriProgramLucru model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id ID
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
 
     /**
-     * Deletes an existing MinistereServicii model.
+     * Deletes an existing TipuriProgramLucru model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return mixed
@@ -78,26 +110,21 @@ class MinistereServiciiController extends Controller
      */
     public function actionDelete($id)
     {
-        // verificare daca ministerul e la fel
+        $this->findModel($id)->delete();
 
-        $model = $this->findModel($id);
-        if($model->minister_id === \Yii::$app->user->identity->minister_id){
-            $model->delete();
-            return $this->redirect(['index']);
-        }
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the MinistereServicii model based on its primary key value.
+     * Finds the TipuriProgramLucru model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return MinistereServicii the loaded model
+     * @return TipuriProgramLucru the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MinistereServicii::findOne($id)) !== null) {
+        if (($model = TipuriProgramLucru::findOne($id)) !== null) {
             return $model;
         }
 
