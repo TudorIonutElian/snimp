@@ -76,9 +76,30 @@ class Institutie extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getInstitutieStructura()
+    public function getStructura()
     {
         return $this->hasOne(Structura::className(), ['id' => 'institutie_structura']);
+    }
+
+
+    /**
+     * Gets query for [[InstitutieStructura]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMinister()
+    {
+        return $this->hasOne(Minister::className(), ['id' => 'institutie_minister_id']);
+    }
+
+    /**
+     * Gets query for [[InstitutieStructura]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLocalitate()
+    {
+        return $this->hasOne(Localitate::className(), ['id' => 'institutie_localitate_id']);
     }
 
     /**

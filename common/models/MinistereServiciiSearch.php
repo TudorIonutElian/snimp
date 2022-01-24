@@ -4,12 +4,12 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Institutie;
+use common\models\MinistereServicii;
 
 /**
- * InstitutieSearch represents the model behind the search form of `common\models\Institutie`.
+ * MinistereServiciiSearch represents the model behind the search form of `common\models\MinistereServicii`.
  */
-class InstitutieSearch extends Institutie
+class MinistereServiciiSearch extends MinistereServicii
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class InstitutieSearch extends Institutie
     public function rules()
     {
         return [
-            [['id', 'institutie_structura', 'institutie_localitate_id', 'institutie_status'], 'integer'],
-            [['institutie_denumire', 'institutie_data_creare'], 'safe'],
+            [['id', 'minister_id', 'tip_serviciu_id'], 'integer'],
         ];
     }
 
@@ -40,11 +39,7 @@ class InstitutieSearch extends Institutie
      */
     public function search($params)
     {
-        $query = Institutie::find();
-        if(\Yii::$app->user->can('admin_minister')){
-            $query->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id]);
-        }
-
+        $query = MinistereServicii::find();
 
         // add conditions that should always apply here
 
@@ -63,13 +58,9 @@ class InstitutieSearch extends Institutie
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'institutie_structura' => $this->institutie_structura,
-            'institutie_localitate_id' => $this->institutie_localitate_id,
-            'institutie_data_creare' => $this->institutie_data_creare,
-            'institutie_status' => $this->institutie_status,
+            'minister_id' => $this->minister_id,
+            'tip_serviciu_id' => $this->tip_serviciu_id,
         ]);
-
-        $query->andFilterWhere(['like', 'institutie_denumire', $this->institutie_denumire]);
 
         return $dataProvider;
     }

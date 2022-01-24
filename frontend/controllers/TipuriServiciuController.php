@@ -37,7 +37,7 @@ class TipuriServiciuController extends Controller
      */
     public function actionIndex()
     {
-        if (SystemController::userIsAdmin()) {
+        if (SystemController::userIsAdmin() || SystemController::userIsAdminMinister()) {
             $searchModel = new TipuriServiciuSearch();
             $dataProvider = $searchModel->search($this->request->queryParams);
 
