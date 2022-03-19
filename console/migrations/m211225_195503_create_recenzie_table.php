@@ -39,7 +39,7 @@ class m211225_195503_create_recenzie_table extends Migration
             'fk_recenzie_serviciu',
             'recenzie',
             'recenzie_serviciu',
-            'institutie_serviciu',
+            'institutii_servicii',
             'is_serviciu',
             'CASCADE',
             'CASCADE'

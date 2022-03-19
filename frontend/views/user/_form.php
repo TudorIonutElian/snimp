@@ -16,6 +16,8 @@ use yii\bootstrap4\modal;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $roluri */
+/* @var $ministere */
 
 $user_string = StringController::getUserFromString();
 $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
@@ -237,7 +239,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
                           {input}
                         </div>'
                 ])->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(AuthItem::find()->where(['type'=> 1])->all(), 'name', 'data'),
+                    'data' => ArrayHelper::map($roluri, 'name', 'data'),
                     'language' => 'de',
                     'options' => ['placeholder' => 'Rol ...'],
                     'pluginOptions' => [
@@ -255,7 +257,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
                           {input}
                         </div>'
                 ])->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Minister::find()->all(), 'id', 'minister_denumire'),
+                    'data' => ArrayHelper::map($ministere, 'id', 'minister_denumire'),
                     'language' => 'ro',
                     'options' => ['placeholder' => 'Minister ...'],
                     'pluginOptions' => [

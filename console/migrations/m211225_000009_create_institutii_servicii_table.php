@@ -5,14 +5,14 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%institutie_serviciu}}`.
  */
-class m211225_000009_create_institutie_serviciu_table extends Migration
+class m211225_000009_create_institutii_servicii_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%institutie_serviciu}}', [
+        $this->createTable('{{%institutii_servicii}}', [
             'id' => $this->primaryKey(),
             'is_institutie' => $this->integer(11)->notNull(),
             'is_serviciu' => $this->integer(11)->notNull(),
@@ -25,7 +25,7 @@ class m211225_000009_create_institutie_serviciu_table extends Migration
         // add foreign key for table `institutie`
         $this->addForeignKey(
             'fk-is_institutie_id',
-            'institutie_serviciu',
+            'institutii_servicii',
             'is_institutie',
             'institutie',
             'id',
@@ -36,7 +36,7 @@ class m211225_000009_create_institutie_serviciu_table extends Migration
         // add foreign key for table `tipuri_serviciu`
         $this->addForeignKey(
             'fk-is_serviciu_id',
-            'institutie_serviciu',
+            'institutii_servicii',
             'is_serviciu',
             'tipuri_serviciu',
             'id',
@@ -47,7 +47,7 @@ class m211225_000009_create_institutie_serviciu_table extends Migration
         // add foreign key for table `localitati`
         $this->addForeignKey(
             'fk-is_localitate_id',
-            'institutie_serviciu',
+            'institutii_servicii',
             'is_localitate',
             'localitate',
             'id',
@@ -62,9 +62,9 @@ class m211225_000009_create_institutie_serviciu_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('fk-is_institutie_id', 'institutie_serviciu');
+        $this->dropForeignKey('fk-is_institutie_id', 'institutii_servicii');
         $this->dropForeignKey('fk-is_serviciu_id', 'tipuri_serviciu');
         $this->dropForeignKey('fk-is_localitate_id', 'tipuri_serviciu');
-        $this->dropTable('{{%institutie_serviciu}}');
+        $this->dropTable('{{%institutii_servicii}}');
     }
 }

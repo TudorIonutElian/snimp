@@ -42,7 +42,7 @@ class m211225_235900_create_sesizari_table extends Migration
             'fk-sesizare_serviciu_id',
             'sesizare',
             'sesizare_serviciu',
-            'institutie_serviciu',
+            'institutii_servicii',
             'id',
             'RESTRICT',
             'CASCADE'

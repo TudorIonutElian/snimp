@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\AuthAssignment;
+use common\models\AuthItem;
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
@@ -46,6 +47,22 @@ class UserController extends Controller
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]);
+        }else if(SystemController::userIsAdminMinister()){
+            return  $this->redirect(['user/index-minister']);
+        }
+        return  $this->redirect(['site/login']);
+    }
+
+
+    public function actionIndexMinister(){
+        if(SystemController::userIsAdminMinister()){
+            $searchModel = new UserSearch();
+            $dataProvider = $searchModel->searchUserMinister($this->request->queryParams);
+
+            return $this->render('index-minister', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
         }
         return  $this->redirect(['site/login']);
     }
@@ -58,7 +75,7 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        if(SystemController::userIsAdmin()){
+        if(SystemController::userIsAdmin() || SystemController::userIsAdminMinister()){
             return $this->render('view', [
                 'model' => $this->findModel($id),
             ]);
@@ -73,13 +90,16 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        if(SystemController::userIsAdmin()){
+        if(SystemController::userIsAdmin() || SystemController::userIsAdminMinister()){
+            $roluri = AuthItemController::getRoluri();
+            $ministere = MinisterController::getMinistere();
+
             $model = new User();
 
             if ($this->request->isPost) {
                 $userCreateRequest = \Yii::$app->request->post();
                 if($this->createNewUser($userCreateRequest)){
-                    return $this->redirect(['index']);
+                    return $this->redirect(['user/index']);
                 };
                 return $this->redirect(['user/create']);
             } else {
@@ -88,9 +108,13 @@ class UserController extends Controller
 
             return $this->renderAjax('create', [
                 'model' => $model,
+                'roluri' => $roluri,
+                'ministere' => $ministere
             ]);
+        }else{
+            return  $this->redirect(['site/login']);
         }
-        return  $this->redirect(['site/login']);
+
     }
 
     /**

@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Minister;
 use common\models\MinisterSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -148,5 +149,16 @@ class MinisterController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public static function getMinistere(){
+        $ministere = NULL;
+
+        if(Yii::$app->user->can('admin')){
+            $ministere = Minister::find()->asArray()->select(['id', 'minister_denumire'])->all();
+        }else if(Yii::$app->user->can('admin_minister')){
+            $ministere = Minister::find()->where(['id' => Yii::$app->user->identity->minister_id])->asArray()->select(['id', 'minister_denumire'])->all();
+        }
+        return $ministere;
     }
 }

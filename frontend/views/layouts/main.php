@@ -59,6 +59,9 @@ AppAsset::register($this);
                 <?php if(!Yii::$app->user->getIsGuest() && Yii::$app->user->can('admin_minister')): ?>
                     <?= $this->renderFile(Yii::getAlias('@app') . '\views\layouts\partials\menus\left_menu\administrator_minister.php');?>
                 <?php endif; ?>
+                <?php if(!Yii::$app->user->getIsGuest() && Yii::$app->user->can('admin_institutie')): ?>
+                    <?= $this->renderFile(Yii::getAlias('@app') . '\views\layouts\partials\menus\left_menu\administrator_institutie.php');?>
+                <?php endif; ?>
             </div>
             <!-- /.sidebar -->
         </aside>

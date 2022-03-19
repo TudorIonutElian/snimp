@@ -26,7 +26,7 @@ class m220110_210109_create_servicii_program_lucru_table extends Migration
             'fk_spl_serviciu',
             'servicii_program_lucru',
             'spl_serviciu_id',
-            'institutie_serviciu',
+            'institutii_servicii',
             'id',
             'RESTRICT',
             'CASCADE'

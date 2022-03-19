@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use common\models\AuthItem;
 use common\models\AuthItemSearch;
+use common\models\User;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -147,5 +149,23 @@ class AuthItemController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public static function getRoluri(){
+        $roluri = NULL;
+
+        if(Yii::$app->user->can('admin')){
+            $roluri = AuthItem::find()->asArray()->select(['name', 'data'])->all();
+        }else if(Yii::$app->user->can('admin_minister')){
+            $roluri = AuthItem::find()
+                        ->where(['in', 'name', [
+                            'admin_minister',
+                            'admin_institutie'
+                        ]])
+                        ->select(['name', 'data'])
+                        ->asArray()
+                        ->all();
+        }
+        return $roluri;
     }
 }
