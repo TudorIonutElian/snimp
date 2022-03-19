@@ -74,6 +74,9 @@ class InstitutieController extends Controller
     public function actionCreate()
     {
         if (SystemController::userIsAdmin() || SystemController::userIsAdminMinister()) {
+            $ministere = MinisterController::getMinistere();
+            $structuri = StructuraController::getStructuri();
+
             $model = new Institutie();
 
             if ($this->request->isPost) {
@@ -86,6 +89,8 @@ class InstitutieController extends Controller
 
             return $this->render('create', [
                 'model' => $model,
+                'ministere' => $ministere,
+                'structuri' => $structuri
             ]);
         }
         return $this->redirect(['site/index']);
@@ -101,6 +106,9 @@ class InstitutieController extends Controller
     public function actionUpdate($id)
     {
         if (SystemController::userIsAdmin() || SystemController::userIsAdminMinister()) {
+            $ministere = MinisterController::getMinistere();
+            $structuri = StructuraController::getStructuri();
+
             $model = $this->findModel($id);
 
             if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -109,6 +117,8 @@ class InstitutieController extends Controller
 
             return $this->render('update', [
                 'model' => $model,
+                'ministere' => $ministere,
+                'structuri' => $structuri
             ]);
         }
         return $this->redirect(['site/index']);

@@ -155,7 +155,11 @@ class AuthItemController extends Controller
         $roluri = NULL;
 
         if(Yii::$app->user->can('admin')){
-            $roluri = AuthItem::find()->asArray()->select(['name', 'data'])->all();
+            $roluri = AuthItem::find()
+                                    ->where(['type' => 1])
+                                    ->asArray()
+                                    ->select(['name', 'data'])
+                                    ->all();
         }else if(Yii::$app->user->can('admin_minister')){
             $roluri = AuthItem::find()
                         ->where(['in', 'name', [

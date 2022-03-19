@@ -10,4 +10,4 @@ $(function () {
         });
         $('#modal-adaugare-user').modal('show').find('#modal-adaugare-user-content').load($(this).attr('value'));
     })
-})
+});

@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "institutie_serviciu".
+ * This is the model class for table "institutii_servicii".
  *
  * @property int $id
  * @property int $is_institutie
@@ -19,16 +19,18 @@ use Yii;
  * @property Localitate $isLocalitate
  * @property TipuriServiciu $isServiciu
  * @property Programare[] $programares
+ * @property Recenzie[] $recenzies
+ * @property ServiciiProgramLucru[] $serviciiProgramLucrus
  * @property Sesizare[] $sesizares
  */
-class InstitutieServiciu extends \yii\db\ActiveRecord
+class InstitutiiServicii extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'institutie_serviciu';
+        return 'institutii_servicii';
     }
 
     /**
@@ -66,7 +68,7 @@ class InstitutieServiciu extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIsInstitutie()
+    public function getInstitutie()
     {
         return $this->hasOne(Institutie::className(), ['id' => 'is_institutie']);
     }
@@ -76,7 +78,7 @@ class InstitutieServiciu extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIsLocalitate()
+    public function getLocalitate()
     {
         return $this->hasOne(Localitate::className(), ['id' => 'is_localitate']);
     }
@@ -86,7 +88,7 @@ class InstitutieServiciu extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getIsServiciu()
+    public function getServiciu()
     {
         return $this->hasOne(TipuriServiciu::className(), ['id' => 'is_serviciu']);
     }
@@ -99,6 +101,26 @@ class InstitutieServiciu extends \yii\db\ActiveRecord
     public function getProgramares()
     {
         return $this->hasMany(Programare::className(), ['programare_serviciu' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Recenzies]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecenzies()
+    {
+        return $this->hasMany(Recenzie::className(), ['recenzie_serviciu' => 'is_serviciu']);
+    }
+
+    /**
+     * Gets query for [[ServiciiProgramLucrus]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getServiciiProgramLucrus()
+    {
+        return $this->hasMany(ServiciiProgramLucru::className(), ['spl_serviciu_id' => 'id']);
     }
 
     /**

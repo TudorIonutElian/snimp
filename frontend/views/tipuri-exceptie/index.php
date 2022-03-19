@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'te_exceptie_denumire',
             'te_exceptie_start',
             'te_exceptie_end',

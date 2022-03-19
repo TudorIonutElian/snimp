@@ -2,8 +2,10 @@
 
 namespace frontend\controllers;
 
+use common\models\MinistereStructuri;
 use common\models\Structura;
 use common\models\StructuraSearch;
+use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -159,5 +161,23 @@ class StructuraController extends Controller
             ]);
         }
         return $this->redirect(['site/login']);
+    }
+
+    public static function getStructuri(){
+        $structuri = NULL;
+
+        if(Yii::$app->user->can('admin')){
+            $structuri = Structura::find()->asArray()->select(['id', 'structura_nume'])->all();
+        }else if(Yii::$app->user->can('admin_minister')){
+            // preluare structuri din cadrul ministerului
+            $structuri_din_ministere = MinistereStructuri::find()
+                                                                ->where(['minister_id' => Yii::$app->user->identity->minister_id])
+                                                                ->select(['structura_id'])
+                                                                ->asArray()
+                                                                ->all();
+            $structuri_din_ministere_id = array_column($structuri_din_ministere, "structura_id");
+            $structuri = Structura::find()->where(['in', 'id', $structuri_din_ministere_id])->asArray()->select(['id', 'structura_nume'])->all();
+        }
+        return $structuri;
     }
 }

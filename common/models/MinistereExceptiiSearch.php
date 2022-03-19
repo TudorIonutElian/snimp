@@ -4,12 +4,12 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\InstitutieServiciu;
+use common\models\MinistereExceptii;
 
 /**
- * InstitutieServiciuSearch represents the model behind the search form of `common\models\InstitutieServiciu`.
+ * MinistereExceptiiSearch represents the model behind the search form of `common\models\MinistereExceptii`.
  */
-class InstitutieServiciuSearch extends InstitutieServiciu
+class MinistereExceptiiSearch extends MinistereExceptii
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,7 @@ class InstitutieServiciuSearch extends InstitutieServiciu
     public function rules()
     {
         return [
-            [['id', 'is_institutie', 'is_serviciu', 'is_localitate', 'is_open_weekend', 'is_open_nonstop', 'is_active'], 'integer'],
+            [['id', 'minister_id', 'exceptie_id'], 'integer'],
         ];
     }
 
@@ -39,7 +39,7 @@ class InstitutieServiciuSearch extends InstitutieServiciu
      */
     public function search($params)
     {
-        $query = InstitutieServiciu::find();
+        $query = MinistereExceptii::find();
 
         // add conditions that should always apply here
 
@@ -58,12 +58,8 @@ class InstitutieServiciuSearch extends InstitutieServiciu
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_institutie' => $this->is_institutie,
-            'is_serviciu' => $this->is_serviciu,
-            'is_localitate' => $this->is_localitate,
-            'is_open_weekend' => $this->is_open_weekend,
-            'is_open_nonstop' => $this->is_open_nonstop,
-            'is_active' => $this->is_active,
+            'minister_id' => $this->minister_id,
+            'exceptie_id' => $this->exceptie_id,
         ]);
 
         return $dataProvider;

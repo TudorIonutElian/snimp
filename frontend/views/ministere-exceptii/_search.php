@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\InstitutieServiciuSearch */
+/* @var $model common\models\MinistereExceptiiSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="institutie-serviciu-search">
+<div class="ministere-exceptii-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,17 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'is_institutie') ?>
+    <?= $form->field($model, 'minister_id') ?>
 
-    <?= $form->field($model, 'is_serviciu') ?>
-
-    <?= $form->field($model, 'is_localitate') ?>
-
-    <?= $form->field($model, 'is_open_weekend') ?>
-
-    <?php // echo $form->field($model, 'is_open_nonstop') ?>
-
-    <?php // echo $form->field($model, 'is_active') ?>
+    <?= $form->field($model, 'exceptie_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

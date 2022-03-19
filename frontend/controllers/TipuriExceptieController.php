@@ -49,6 +49,7 @@ class TipuriExceptieController extends Controller
         return  $this->redirect(['site/index']);
     }
 
+
     /**
      * Displays a single TipuriExceptie model.
      * @param int $id ID

@@ -11,12 +11,20 @@ $this->title = 'Ministere Structuris';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ministere-structuri-index">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
+        </div>
+        <div class="col-12">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            <p class="text-center">
+                <?= Html::a('Create Ministere Structuri', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
+        </div>
+    </div>
 
-    <p>
-        <?= Html::a('Create Ministere Structuri', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
+
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

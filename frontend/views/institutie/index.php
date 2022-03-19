@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap5\Modal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -7,16 +8,38 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\InstitutieSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Instituties';
+$this->title = 'Instituții';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="institutie-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php
+    Modal::begin([
+        //'title' => '<h2 class="text-center text-success font-weight-bold">Adăugare Utilizator Nou</h2>',
+        'id' => 'modal-adaugare-institutie',
+        'size' => 'modal-lg',
+        //'toggleButton' => ['label' => 'click me'],
+    ]);
 
-    <p>
-        <?= Html::a('Create Institutie', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    echo '<div id="modal-adaugare-institutie-content"></div>';
+
+    Modal::end();
+    ?>
+
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">
+                <i class="fas fa-university mr-2"></i>
+                <?= Html::encode($this->title) ?>
+                <?= Html::a('Adaugă Institutie', ['institutie/create'], ['class' => 'btn btn-success mx-3', 'id' => 'add-institutie-btn']) ?>
+            </h1>
+
+        </div>
+    </div>
+
+
+
+
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -94,6 +117,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-
 </div>

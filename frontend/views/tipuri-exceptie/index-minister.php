@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\InstitutieServiciuSearch */
+/* @var $searchModel common\models\TipuriExceptieSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Institutie Servicius';
+$this->title = 'Tipuri Excepties';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="institutie-serviciu-index">
+<div class="tipuri-exceptie-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Institutie Serviciu', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Tipuri Exceptie', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,12 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'is_institutie',
-            'is_serviciu',
-            'is_localitate',
-            'is_open_weekend',
-            //'is_open_nonstop',
-            //'is_active',
+            'te_exceptie_denumire',
+            'te_exceptie_start',
+            'te_exceptie_end',
+            'te_exceptie_status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

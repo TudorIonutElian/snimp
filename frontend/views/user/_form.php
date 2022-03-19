@@ -1,6 +1,7 @@
 <?php
 
 use common\models\AuthItem;
+use common\models\Institutie;
 use common\models\Localitate;
 use common\models\Minister;
 use frontend\controllers\StringController;
@@ -247,7 +248,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
                     ],
                 ])->label(false) ?>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <?= $form->field($model, 'minister_id', [
                     'inputTemplate' => '
                         <div class="input-group mb-3">
@@ -260,6 +261,27 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
                     'data' => ArrayHelper::map($ministere, 'id', 'minister_denumire'),
                     'language' => 'ro',
                     'options' => ['placeholder' => 'Minister ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])->label(false) ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <?= $form->field($model, 'institutie_id', [
+                    'inputTemplate' => '
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Institutie:</span>
+                          </div>
+                          {input}
+                        </div>'
+                ])->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(Institutie::find()->all(), 'id', 'institutie_denumire'),
+                    'language' => 'ro',
+                    'options' => ['placeholder' => 'Institutie ...'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],

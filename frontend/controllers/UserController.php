@@ -127,6 +127,9 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         if(SystemController::userIsAdmin()){
+            $roluri = AuthItemController::getRoluri();
+            $ministere = MinisterController::getMinistere();
+
             $model = $this->findModel($id);
 
             if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -135,6 +138,8 @@ class UserController extends Controller
 
             return $this->render('update', [
                 'model' => $model,
+                'roluri' => $roluri,
+                'ministere' => $ministere
             ]);
         }
         return  $this->redirect(['site/index']);
@@ -190,6 +195,7 @@ class UserController extends Controller
         $user_new->email = $user_details["email"];
         $user_new->localitate_id = $user_details["localitate_id"];
         $user_new->minister_id = $user_details["minister_id"];
+        $user_new->institutie_id = $user_details["institutie_id"];
         $user_new->status = $user_details["status"];
 
         if($user_new->save() && isset($user_details["rol"])){

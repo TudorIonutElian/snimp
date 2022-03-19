@@ -17,24 +17,17 @@ use yii\helpers\Html;
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Structuri', ['institutii-structuri/index'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Servicii', ['institutii-servicii/index'], ['class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Servicii', ['institutie/index'], ['class' => 'nav-link']) ?>
-                </li>
-
-                <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Servicii', ['institutie-serviciu/index/index'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Excepții', ['institutii-exceptii/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Excepții', ['tipuri-exceptie/index-institutie'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Sesizări', ['sesizare/index-institutie'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Sesizări', ['sesizare/index-minister'], ['class' => 'nav-link']) ?>
-                </li>
-                <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Utilizatori', ['user/index-minister'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Utilizatori', ['user/index-institutie'], ['class' => 'nav-link']) ?>
                 </li>
             </ul>
         </li>

@@ -2,6 +2,7 @@
 
 use common\models\Localitate;
 use common\models\Minister;
+use common\models\MinistereStructuri;
 use common\models\Structura;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
@@ -13,6 +14,11 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Institutie */
 /* @var $form yii\widgets\ActiveForm */
+/** @var $ministere */
+/** @var $structuri */
+
+$urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
+
 ?>
 
 <div class="institutie-form">
@@ -23,10 +29,8 @@ use yii\widgets\ActiveForm;
             <div class="col-3"></div>
             <div class="col-6">
                 <?= $form->field($model, 'institutie_minister_id')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Minister::find()->where([
-                            'id' => Yii::$app->user->identity->minister_id
-                    ])->orderBy(['minister_denumire' => SORT_ASC])->all(), 'id', 'minister_denumire'),
-                    'language' => 'de',
+                    'data' => ArrayHelper::map($ministere, 'id', 'minister_denumire'),
+                    'language' => 'ro',
                     'options' => ['placeholder' => 'Minister ...'],
                     'pluginOptions' => [
                         'allowClear' => true
@@ -40,20 +44,9 @@ use yii\widgets\ActiveForm;
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
-                <?php
-                    $minister_id = Yii::$app->user->identity->minister_id;
-                    $structuri_deja_salvate = \common\models\MinistereStructuri::find()->where(['minister_id' => $minister_id])->select(['structura_id'])->all();
-                    $structuri_disponibile = [];
-
-                    foreach ($structuri_deja_salvate as $sds){
-                        array_push($structuri_disponibile, $sds->structura_id);
-                    }
-
-                    echo $form->field($model, 'institutie_structura')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Structura::find()->where([
-                        'in', 'id', $structuri_disponibile
-                    ])->orderBy(['structura_nume' => SORT_ASC])->all(), 'id', 'structura_nume'),
-                    'language' => 'de',
+                <?= $form->field($model, 'institutie_structura')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map($structuri, 'id', 'structura_nume'),
+                    'language' => 'ro',
                     'options' => ['placeholder' => 'Structura ...'],
                     'pluginOptions' => [
                         'allowClear' => true
@@ -77,7 +70,7 @@ use yii\widgets\ActiveForm;
                 <?php $urlToLocalitatiAjax  = Url::to(['localitate/localitati-by-name'])?>
                 <?= $form->field($model, 'institutie_localitate_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(Localitate::find()->orderBy(['localitate_nume' => SORT_ASC])->limit(10)->all(), 'id', 'localitate_nume'),
-                    'language' => 'de',
+                    'language' => 'ro',
                     'options' => ['placeholder' => 'Localitate ...'],
                     'pluginOptions' => [
                         'allowClear' => true,
@@ -103,7 +96,7 @@ use yii\widgets\ActiveForm;
             <div class="col-6">
                 <?= $form->field($model, 'institutie_status')->widget(Select2::classname(), [
                     'data' => ['0' => 'Inactivă', '1' => 'Activă'],
-                    'language' => 'de',
+                    'language' => 'ro',
                     'options' => ['placeholder' => 'Localitate ...'],
                     'pluginOptions' => [
                         'allowClear' => true
@@ -130,5 +123,4 @@ use yii\widgets\ActiveForm;
 
 
     <?php ActiveForm::end(); ?>
-
 </div>
