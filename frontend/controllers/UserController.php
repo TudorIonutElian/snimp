@@ -67,6 +67,20 @@ class UserController extends Controller
         return  $this->redirect(['site/login']);
     }
 
+    public function actionIndexInstitutie(){
+        if(SystemController::userIsAdminInstitutie()){
+            $searchModel = new UserSearch();
+            $dataProvider = $searchModel->searchUserInstitutie($this->request->queryParams);
+
+            return $this->render('index-minister', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return  $this->redirect(['site/login']);
+    }
+
+
     /**
      * Displays a single User model.
      * @param int $id ID
@@ -90,7 +104,9 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        if(SystemController::userIsAdmin() || SystemController::userIsAdminMinister()){
+        if(
+            SystemController::canManageUsers()
+        ){
             $roluri = AuthItemController::getRoluri();
             $ministere = MinisterController::getMinistere();
 
@@ -99,7 +115,13 @@ class UserController extends Controller
             if ($this->request->isPost) {
                 $userCreateRequest = \Yii::$app->request->post();
                 if($this->createNewUser($userCreateRequest)){
-                    return $this->redirect(['user/index']);
+                    if(\Yii::$app->user->can('admin')){
+                        return $this->redirect(['user/index']);
+                    }else if(SystemController::userIsAdminMinister()){
+                        return $this->redirect(['user/index-minister']);
+                    }else if(SystemController::userIsAdminInstitutie()){
+                        return $this->redirect(['user/index-institutie']);
+                    }
                 };
                 return $this->redirect(['user/create']);
             } else {

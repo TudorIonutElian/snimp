@@ -39,6 +39,7 @@ class MinisterController extends Controller
     public function actionIndex()
     {
         if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin')){
+
             $searchModel = new MinisterSearch();
             $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -157,6 +158,8 @@ class MinisterController extends Controller
         if(Yii::$app->user->can('admin')){
             $ministere = Minister::find()->asArray()->select(['id', 'minister_denumire'])->all();
         }else if(Yii::$app->user->can('admin_minister')){
+            $ministere = Minister::find()->where(['id' => Yii::$app->user->identity->minister_id])->asArray()->select(['id', 'minister_denumire'])->all();
+        }else if(Yii::$app->user->can('admin_institutie')){
             $ministere = Minister::find()->where(['id' => Yii::$app->user->identity->minister_id])->asArray()->select(['id', 'minister_denumire'])->all();
         }
         return $ministere;

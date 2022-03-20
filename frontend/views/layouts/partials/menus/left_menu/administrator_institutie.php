@@ -21,6 +21,10 @@ use yii\helpers\Html;
                 </li>
 
                 <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Prestari', ['prestari/index'], ['class' => 'nav-link']) ?>
+                </li>
+
+                <li class="nav-item">
                     <?= Html::a('<i class="fas fa-list nav-icon"></i>Excepții', ['institutii-exceptii/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
