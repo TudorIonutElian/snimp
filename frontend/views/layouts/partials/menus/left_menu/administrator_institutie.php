@@ -31,6 +31,9 @@ use yii\helpers\Html;
                     <?= Html::a('<i class="fas fa-list nav-icon"></i>Sesizări', ['sesizare/index-institutie'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-list nav-icon"></i>Structuri subordonate', ['institutii-structuri-subordonate/index'], ['class' => 'nav-link']) ?>
+                </li>
+                <li class="nav-item">
                     <?= Html::a('<i class="fas fa-list nav-icon"></i>Utilizatori', ['user/index-institutie'], ['class' => 'nav-link']) ?>
                 </li>
             </ul>

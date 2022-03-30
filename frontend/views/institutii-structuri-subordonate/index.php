@@ -5,36 +5,28 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\InstitutiiServiciiSearch */
+/* @var $searchModel common\models\InstitutiiStructuriSubordonateSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Lista serviciilor oferite de Instituție';
+$this->title = 'Listă instituții subordonate direct';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="institutii-servicii-index">
+<div class="institutii-structuri-subordonate-index">
 
-    <h1 class="text-center my-2"><?= Html::encode($this->title) ?></h1>
-
-    <p class="text-center my-2">
-        <?= Html::a('Adaugă serviciu oferit de instituție', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <h1 class="text-center my-2">
+        <?= Html::encode($this->title) ?><br>
+        <?= Html::a('<i class="fas fa-plus mr-2"></i>Adaugă instituție subordonată', ['create'], ['class' => 'btn btn-success']) ?>
+    </h1>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'headerRowOptions' => [
-            'style' => [
-                'text-align' => 'center',
-                'vertical-align' => 'middle'
-            ]
-        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             [
-                'label' => 'Instituție',
+                'label' => 'Instituție Centrală',
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
@@ -42,11 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ],
                 'value' => function ($model) {
-                    return $model->institutie->institutie_denumire;
+                    return $model->institutieParinte->institutie_denumire;
                 }
             ],
             [
-                'label' => 'Serviciu',
+                'label' => 'Instituție subordonată',
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
@@ -54,12 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ],
                 'value' => function ($model) {
-                    return $model->serviciu->tip_serviciu_denumire;
+                    return $model->institutie_denumire_iss;
                 }
             ],
-
             [
-                'label' => 'Localitate',
+                'label' => 'Data creare',
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
@@ -67,12 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ],
                 'value' => function ($model) {
-                    return $model->localitate->localitate_nume;
+                    return $model->institutie_data_creare_iss;
                 }
             ],
-
             [
-                'label' => 'Deschis în weekend ?',
+                'label' => 'Data actualizare',
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
@@ -80,36 +70,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ],
                 'value' => function ($model) {
-                    return $model->is_open_weekend ? 'DA' : 'NU';
+                    return $model->institutie_data_actualizare_iss;
                 }
             ],
-
             [
-                'label' => 'Deschis NONSTOP ?',
+                'label' => 'Stare',
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
                         'vertical-align' => 'middle'
                     ]
                 ],
-                'value' => function ($model) {
-                    return $model->is_open_nonstop ? 'DA' : 'NU';
+                'format' => 'raw',
+                'value' => function ($model){
+                    $content = "";
+
+                    switch($model->institutie_stare_iss){
+                        case 0:
+                            $content = '<span class="text-danger font-weight-bold">Inactivă</span>';
+                            break;
+                        case 1:
+                            $content = '<span class="text-success font-weight-bold">Activă</span>';
+                            break;
+                    }
+                    return $content;
                 }
             ],
-
-            [
-                'label' => 'Activ',
-                'contentOptions' => [
-                    'style' => [
-                        'text-align' => 'center',
-                        'vertical-align' => 'middle'
-                    ]
-                ],
-                'value' => function ($model) {
-                    return $model->is_active ? 'DA' : 'NU';
-                }
-            ],
-
             [
                 'class' => ActionColumn::className(),
             ],

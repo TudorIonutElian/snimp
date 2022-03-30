@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
             <div class="col-3"></div>
             <div class="col-6">
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
                 </div>
             </div>
             <div class="col-3"></div>

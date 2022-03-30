@@ -31,6 +31,7 @@ class m130524_201442_init extends Migration
             'localitate_id' => $this->integer()->null(),
             'minister_id' => $this->integer()->null(),
             'institutie_id' => $this->integer()->null(),
+            'institutie_subordonata_id' => $this->integer()->null(),
         ], $tableOptions);
     }
 

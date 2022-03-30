@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'vertical-align' => 'middle',
+                        'text-align' => 'center',
                         'width' => '15%'
                     ]
                 ],
@@ -67,6 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'vertical-align' => 'middle',
+                        'text-align' => 'center',
                         'width' => '20%'
                     ]
                 ],
@@ -80,6 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'vertical-align' => 'middle',
+                        'text-align' => 'center',
                         'width' => '20%'
                     ]
                 ],
@@ -93,6 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'vertical-align' => 'middle',
+                        'text-align' => 'center',
                         'width' => '20%'
                     ]
                 ],
@@ -101,10 +105,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->localitate->localitate_nume;
                 }
             ],
-            'institutie_data_creare',
+            [
+                'label' => 'Data creare',
+                'contentOptions' => [
+                    'style' => [
+                        'vertical-align' => 'middle',
+                        'text-align' => 'center',
+                        'width' => '20%'
+                    ]
+                ],
+                'attribute' => 'institutie_data_creare',
+                'value' => function ($model) {
+                    return $model->institutie_data_creare;
+                }
+            ],
             [
                 'label' => 'Stare',
                 'format' => 'raw',
+                'contentOptions' => [
+                    'style' => [
+                        'vertical-align' => 'middle',
+                        'text-align' => 'center',
+                    ]
+                ],
                 'attribute' => 'institutie_status',
                 'value' => function($model){
                     if($model->institutie_status === 1){
