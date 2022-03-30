@@ -7,16 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\TipuriExceptieSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tipuri Excepties';
+$this->title = 'Lista excepțiilor';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tipuri-exceptie-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Tipuri Exceptie', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <h1 class="text-center my-2">
+        <?= Html::encode($this->title) ?>
+        <?= Html::a('Adaugă Excepție', ['create'], ['class' => 'btn btn-success']) ?>
+    </h1>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

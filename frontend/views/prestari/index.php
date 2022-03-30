@@ -32,7 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'institutie_id_p',
             'serviciu_id_p',
             'denumire_p',
-            'stare_p',
+            'is_open_weekend',
+            //'is_open_nonstop',
+            //'is_active',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Prestari $model, $key, $index, $column) {

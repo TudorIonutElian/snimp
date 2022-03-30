@@ -16,7 +16,7 @@ class m220320_125027_create_prestari_table extends Migration
             'id' => $this->primaryKey(),
             'institutie_id_p' => $this->integer(11)->notNull(),
             'serviciu_id_p' => $this->integer(11)->notNull(),
-            'denumire_p' => $this->integer(11)->notNull(),
+            'denumire_p' => $this->string(200)->notNull(),
             'is_open_weekend' => $this->tinyInteger(1)->defaultValue(0),
             'is_open_nonstop' => $this->tinyInteger(1)->defaultValue(0),
             'is_active' => $this->tinyInteger(1)->defaultValue(1),

@@ -66,9 +66,9 @@ class Institutie extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getInstitutieServicius()
+    public function getInstitutieServicii()
     {
-        return $this->hasMany(InstitutieServiciu::className(), ['is_institutie' => 'id']);
+        return $this->hasMany(InstitutieServicii::className(), ['is_institutie' => 'id']);
     }
 
     /**

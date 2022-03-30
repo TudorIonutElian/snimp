@@ -10,8 +10,10 @@ use Yii;
  * @property int $id
  * @property int $institutie_id_p
  * @property int $serviciu_id_p
- * @property int $denumire_p
- * @property int|null $stare_p
+ * @property string $denumire_p
+ * @property int|null $is_open_weekend
+ * @property int|null $is_open_nonstop
+ * @property int|null $is_active
  *
  * @property Institutie $institutieIdP
  * @property InstitutiiServicii $serviciuIdP
@@ -33,7 +35,8 @@ class Prestari extends \yii\db\ActiveRecord
     {
         return [
             [['institutie_id_p', 'serviciu_id_p', 'denumire_p'], 'required'],
-            [['institutie_id_p', 'serviciu_id_p', 'denumire_p', 'stare_p'], 'integer'],
+            [['institutie_id_p', 'serviciu_id_p', 'is_open_weekend', 'is_open_nonstop', 'is_active'], 'integer'],
+            [['denumire_p'], 'string', 'max' => 200],
             [['institutie_id_p'], 'exist', 'skipOnError' => true, 'targetClass' => Institutie::className(), 'targetAttribute' => ['institutie_id_p' => 'id']],
             [['serviciu_id_p'], 'exist', 'skipOnError' => true, 'targetClass' => InstitutiiServicii::className(), 'targetAttribute' => ['serviciu_id_p' => 'is_serviciu']],
         ];
@@ -49,7 +52,9 @@ class Prestari extends \yii\db\ActiveRecord
             'institutie_id_p' => 'Institutie Id P',
             'serviciu_id_p' => 'Serviciu Id P',
             'denumire_p' => 'Denumire P',
-            'stare_p' => 'Stare P',
+            'is_open_weekend' => 'Is Open Weekend',
+            'is_open_nonstop' => 'Is Open Nonstop',
+            'is_active' => 'Is Active',
         ];
     }
 

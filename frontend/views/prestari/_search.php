@@ -23,7 +23,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'denumire_p') ?>
 
-    <?= $form->field($model, 'stare_p') ?>
+    <?= $form->field($model, 'is_open_weekend') ?>
+
+    <?php // echo $form->field($model, 'is_open_nonstop') ?>
+
+    <?php // echo $form->field($model, 'is_active') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

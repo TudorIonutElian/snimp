@@ -17,7 +17,8 @@ class PrestariSearch extends Prestari
     public function rules()
     {
         return [
-            [['id', 'institutie_id_p', 'serviciu_id_p', 'denumire_p', 'stare_p'], 'integer'],
+            [['id', 'institutie_id_p', 'serviciu_id_p', 'is_open_weekend', 'is_open_nonstop', 'is_active'], 'integer'],
+            [['denumire_p'], 'safe'],
         ];
     }
 
@@ -60,9 +61,12 @@ class PrestariSearch extends Prestari
             'id' => $this->id,
             'institutie_id_p' => $this->institutie_id_p,
             'serviciu_id_p' => $this->serviciu_id_p,
-            'denumire_p' => $this->denumire_p,
-            'stare_p' => $this->stare_p,
+            'is_open_weekend' => $this->is_open_weekend,
+            'is_open_nonstop' => $this->is_open_nonstop,
+            'is_active' => $this->is_active,
         ]);
+
+        $query->andFilterWhere(['like', 'denumire_p', $this->denumire_p]);
 
         return $dataProvider;
     }

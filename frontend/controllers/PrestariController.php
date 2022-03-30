@@ -70,6 +70,13 @@ class PrestariController extends Controller
         $model = new Prestari();
 
         if ($this->request->isPost) {
+
+            $request = \Yii::$app->request->post();
+            $prestare = $request["Prestari"];
+
+            var_dump($prestare);
+            die();
+
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

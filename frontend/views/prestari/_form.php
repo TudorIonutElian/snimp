@@ -34,10 +34,10 @@ use yii\widgets\ActiveForm;
             <div class="col-3"></div>
             <div class="col-6">
                 <?php
-                    $servicii_institutie = InstitutiiServicii::find()->where(['is_institutie' => Yii::$app->user->identity->institutie_id])->select(['is_serviciu'])->all();
-                    $servicii_institutie_id = array_column($servicii_institutie, "is_serviciu");
+                $servicii_institutie = InstitutiiServicii::find()->where(['is_institutie' => Yii::$app->user->identity->institutie_id])->select(['is_serviciu'])->all();
+                $servicii_institutie_id = array_column($servicii_institutie, "is_serviciu");
 
-                    $servicii_disponibile = TipuriServiciu::find()->where(['in', 'id', $servicii_institutie_id])->select(['id', 'tip_serviciu_denumire'])->all();
+                $servicii_disponibile = TipuriServiciu::find()->where(['in', 'id', $servicii_institutie_id])->select(['id', 'tip_serviciu_denumire'])->all();
 
                 ?>
                 <?= $form->field($model, 'serviciu_id_p')->widget(Select2::classname(), array(
@@ -63,7 +63,7 @@ use yii\widgets\ActiveForm;
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
-                <?= $form->field($model, 'stare_p')->widget(Select2::classname(), array(
+                <?= $form->field($model, 'is_active')->widget(Select2::classname(), array(
                     'data' => ['0' => 'Inactiv', '1' => 'Activ'],
                     'language' => 'ro',
                     'options' => array('placeholder' => 'Stare ...'),
@@ -85,14 +85,6 @@ use yii\widgets\ActiveForm;
             <div class="col-3"></div>
         </div>
     </div>
-
-
-
-
-
-
-
-
 
     <?php ActiveForm::end(); ?>
 
