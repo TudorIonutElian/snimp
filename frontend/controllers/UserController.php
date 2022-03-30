@@ -72,7 +72,7 @@ class UserController extends Controller
             $searchModel = new UserSearch();
             $dataProvider = $searchModel->searchUserInstitutie($this->request->queryParams);
 
-            return $this->render('index-minister', [
+            return $this->render('index-institutie', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]);
@@ -218,6 +218,7 @@ class UserController extends Controller
         $user_new->localitate_id = $user_details["localitate_id"];
         $user_new->minister_id = $user_details["minister_id"];
         $user_new->institutie_id = $user_details["institutie_id"];
+        $user_new->institutie_subordonata_id = $user_details["institutie_subordonata_id"];
         $user_new->status = $user_details["status"];
 
         if($user_new->save() && isset($user_details["rol"])){

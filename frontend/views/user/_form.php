@@ -1,18 +1,16 @@
 <?php
 
-use common\models\AuthItem;
 use common\models\Institutie;
+use common\models\InstitutiiStructuriSubordonate;
 use common\models\Localitate;
-use common\models\Minister;
 use frontend\controllers\StringController;
-use yii\helpers\Url;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\JsExpression;
-use yii\bootstrap4\modal;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -37,7 +35,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
         <div class="row mb-3">
             <div class="col-6">
                 <?= $form->field($model, 'username', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -51,7 +49,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
             </div>
             <div class="col-6">
                 <?= $form->field($model, 'nume', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -65,7 +63,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
             </div>
             <div class="col-6">
                 <?= $form->field($model, 'prenume', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -80,7 +78,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
 
             <div class="col-6">
                 <?= $form->field($model, 'nume_anterior', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -97,7 +95,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
         <div class="row mb-3">
             <div class="col-6">
                 <?= $form->field($model, 'cod_numeric_personal', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -121,7 +119,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
             </div>
             <div class="col-6">
                 <?= $form->field($model, 'localitatea_nasterii', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -155,7 +153,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
 
             <div class="col-6">
                 <?= $form->field($model, 'email', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -173,7 +171,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
         <div class="row mb-3">
             <div class="col-6">
                 <?= $form->field($model, 'status', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -196,7 +194,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
 
             <div class="col-6">
                 <?= $form->field($model, 'localitate_id', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -229,7 +227,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
 
             <div class="col-6">
                 <?= $form->field($model, 'rol', [
-                    'errorOptions'  => [
+                    'errorOptions' => [
                         'class' => 'form-control-feedback-error',
                     ],
                     'inputTemplate' => '
@@ -289,6 +287,31 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
             </div>
         </div>
 
+        <?php if (NULL !== Institutie::findOne(Yii::$app->user->identity->institutie_id) && Institutie::findOne(Yii::$app->user->identity->institutie_id)->hasStructuriSubordonate()): ?>
+            <div class="row">
+                <div class="col-12">
+                    <?= $form->field($model, 'institutie_subordonata_id', [
+                        'inputTemplate' => '
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Institutie subordonata:</span>
+                          </div>
+                          {input}
+                        </div>'
+                    ])->widget(Select2::classname(), [
+                        'data' => ArrayHelper::map(InstitutiiStructuriSubordonate::find()
+                            ->where(['institutie_parinte_iss' => Yii::$app->user->identity->institutie_id])
+                            ->all(), 'id_iss', 'institutie_denumire_iss'),
+                        'language' => 'ro',
+                        'options' => ['placeholder' => 'Institutie subordonată...'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false) ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="row">
             <div class="col-12">
                 <div class="form-group">
@@ -304,28 +327,32 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
 
 
 <style>
-    .input-group-prepend{
+    .input-group-prepend {
         width: 40%;
         text-align: right;
     }
-    .input-group-text{
+
+    .input-group-text {
         width: 100%;
     }
+
     .input-group-text.kv-date-picker,
-    .input-group-text.kv-date-remove{
+    .input-group-text.kv-date-remove {
         width: 8%;
     }
-    input.form-control{
+
+    input.form-control {
         text-align: center;
     }
-    .form-control-feedback-error{
+
+    .form-control-feedback-error {
         color: #e74c3c;
     }
 
 </style>
 
 <script>
-    $('#user-localitatea_nasterii').keypress(function() {
-        console.log( "Handler for .keypress() called." );
+    $('#user-localitatea_nasterii').keypress(function () {
+        console.log("Handler for .keypress() called.");
     });
 </script>

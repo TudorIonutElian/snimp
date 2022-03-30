@@ -251,4 +251,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getLocalitate(){
         return $this->hasOne(Localitate::class, ['id' => 'localitate_id']);
     }
+    public function getInstitutie(){
+        return $this->hasOne(Institutie::class, ['id' => 'institutie_id']);
+    }
+
+    public function getInstitutieSubordonata(){
+        return $this->hasOne(InstitutiiStructuriSubordonate::class, ['id_iss' => 'institutie_subordonata_id']);
+    }
 }

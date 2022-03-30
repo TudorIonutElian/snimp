@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use Yii;
-
 /**
  * This is the model class for table "institutie".
  *
@@ -130,5 +128,17 @@ class Institutie extends \yii\db\ActiveRecord
     public function getSesizares()
     {
         return $this->hasMany(Sesizare::className(), ['sesizare_institutie' => 'id']);
+    }
+
+    /*==========================================================
+     * === Verificare daca institutia are unitati subordonate
+     * === pentru a putea adauga utilizatori in cadrul acestora
+     * ========================================================*/
+    public function hasStructuriSubordonate()
+    {
+        $numarStructuriSubordonate = InstitutiiStructuriSubordonate::find()
+            ->where(['institutie_parinte_iss' => $this->id])
+            ->count();
+        return (int)$numarStructuriSubordonate > 0;
     }
 }

@@ -155,4 +155,9 @@ class InstitutieController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /*==========================================================
+     * === Verificare daca institutia are unitati subordonate
+     * === pentru a putea adauga utilizatori in cadrul acestora
+     * ========================================================*/
 }
