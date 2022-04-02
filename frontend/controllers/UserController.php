@@ -218,7 +218,11 @@ class UserController extends Controller
         $user_new->localitate_id = $user_details["localitate_id"];
         $user_new->minister_id = $user_details["minister_id"];
         $user_new->institutie_id = $user_details["institutie_id"];
-        $user_new->institutie_subordonata_id = $user_details["institutie_subordonata_id"];
+
+        if(isset($user_details["institutie_subordonata_id"])){
+            $user_new->institutie_subordonata_id = $user_details["institutie_subordonata_id"];
+        }
+
         $user_new->status = $user_details["status"];
 
         if($user_new->save() && isset($user_details["rol"])){

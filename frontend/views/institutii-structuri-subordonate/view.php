@@ -13,28 +13,108 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="institutii-structuri-subordonate-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id_iss' => $model->id_iss], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id_iss' => $model->id_iss], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <p>
+                <?= Html::a('Actualizare date', ['update', 'id_iss' => $model->id_iss], ['class' => 'btn btn-primary btn-sm']) ?>
+                <?= Html::a('Ștergere înregistrare', ['delete', 'id_iss' => $model->id_iss], [
+                    'class' => 'btn btn-danger btn-sm',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
+        </div>
+    </div>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_iss',
-            'institutie_parinte_iss',
-            'institutie_denumire_iss',
-            'institutie_data_creare_iss',
-            'institutie_data_actualizare_iss',
-            'institutie_stare_iss',
+            [
+                'label' => 'ID',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->id_iss;
+                }
+            ],
+            [
+                'label' => 'Instituția coordonatoare',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->institutieParinte->institutie_denumire;
+                }
+            ],
+            [
+                'label' => 'Denumire structură subordonată',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->institutie_denumire_iss;
+                }
+            ],
+            [
+                'label' => 'Data adăugării',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->institutie_data_creare_iss;
+                }
+            ],
+
+            [
+                'label' => 'Data actualizării',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'value' => function ($model) {
+                    return $model->institutie_data_actualizare_iss;
+                }
+            ],
+
+            [
+                'label' => 'Stare',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    switch ($model->institutie_stare_iss) {
+                        case 0:
+                            return '<span class="text-danger font-weight-bold">Inactivă</span>';
+                            break;
+                        case 1:
+                            return '<span class="text-success font-weight-bold">Activă</span>';
+                            break;
+                    }
+                }
+            ],
         ],
     ]) ?>
 
