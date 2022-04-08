@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -27,17 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
+            'programare_minister',
             'programare_institutie',
             'programare_serviciu',
             'programare_localitate',
-            'programare_user',
+            //'programare_user',
             //'programare_datetime',
             //'programare_validata_de',
             //'programare_numar_unic',
             //'programare_data_numar_unic',
             //'programare_data_finalizare',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            //'programare_document_solicitat',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Programare $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                 }
+            ],
         ],
     ]); ?>
 

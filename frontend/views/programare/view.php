@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'programare_minister',
             'programare_institutie',
             'programare_serviciu',
             'programare_localitate',
@@ -39,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'programare_numar_unic',
             'programare_data_numar_unic',
             'programare_data_finalizare',
+            'programare_document_solicitat',
         ],
     ]) ?>
 

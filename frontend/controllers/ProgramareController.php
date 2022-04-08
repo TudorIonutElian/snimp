@@ -33,7 +33,8 @@ class ProgramareController extends Controller
 
     /**
      * Lists all Programare models.
-     * @return mixed
+     *
+     * @return string
      */
     public function actionIndex()
     {
@@ -49,7 +50,7 @@ class ProgramareController extends Controller
     /**
      * Displays a single Programare model.
      * @param int $id ID
-     * @return mixed
+     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
@@ -62,7 +63,7 @@ class ProgramareController extends Controller
     /**
      * Creates a new Programare model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
@@ -85,7 +86,7 @@ class ProgramareController extends Controller
      * Updates an existing Programare model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return mixed
+     * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
@@ -105,7 +106,7 @@ class ProgramareController extends Controller
      * Deletes an existing Programare model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return mixed
+     * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
@@ -124,7 +125,7 @@ class ProgramareController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Programare::findOne($id)) !== null) {
+        if (($model = Programare::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

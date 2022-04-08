@@ -4,10 +4,14 @@ namespace frontend\controllers;
 
 use common\models\Regiune;
 use common\models\RegiuneSearch;
+use Yii;
+use yii\base\Exception;
 use yii\bootstrap4\Modal;
+use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * RegiuneController implements the CRUD actions for Regiune model.
@@ -198,5 +202,41 @@ class RegiuneController extends Controller
         echo '<div id="modal-vizualizare-regiune-content"></div>';
 
         Modal::end();
+    }
+
+    public function actionRegiuniByName($q = null)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'regiune_nume' => '']];
+        $data = null;
+
+        if (is_null($q)) {
+
+            $query = new Query;
+            $query->select('id, regiune_nume AS text')
+                ->from('regiune')
+                ->limit(20);
+
+            $command = $query->createCommand();
+            try {
+                $data = $command->queryAll();
+            } catch (Exception $e) {
+            }
+            $out['results'] = array_values($data);
+
+        } else {
+            $query = new Query;
+            $query->select('id, regiune_nume AS text')
+                ->from('regiune')
+                ->where(['like', 'regiune_nume', $q])
+                ->limit(20);
+            $command = $query->createCommand();
+            try {
+                $data = $command->queryAll();
+            } catch (Exception $e) {
+            }
+            $out['results'] = array_values($data);
+        }
+        return $out;
     }
 }

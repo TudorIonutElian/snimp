@@ -17,7 +17,7 @@ class ProgramareSearch extends Programare
     public function rules()
     {
         return [
-            [['id', 'programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_user', 'programare_validata_de', 'programare_data_finalizare'], 'integer'],
+            [['id', 'programare_minister', 'programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_user', 'programare_validata_de', 'programare_data_finalizare', 'programare_document_solicitat'], 'integer'],
             [['programare_datetime', 'programare_numar_unic', 'programare_data_numar_unic'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class ProgramareSearch extends Programare
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'programare_minister' => $this->programare_minister,
             'programare_institutie' => $this->programare_institutie,
             'programare_serviciu' => $this->programare_serviciu,
             'programare_localitate' => $this->programare_localitate,
@@ -67,6 +68,7 @@ class ProgramareSearch extends Programare
             'programare_validata_de' => $this->programare_validata_de,
             'programare_data_numar_unic' => $this->programare_data_numar_unic,
             'programare_data_finalizare' => $this->programare_data_finalizare,
+            'programare_document_solicitat' => $this->programare_document_solicitat,
         ]);
 
         $query->andFilterWhere(['like', 'programare_numar_unic', $this->programare_numar_unic]);

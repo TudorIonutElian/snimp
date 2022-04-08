@@ -20,7 +20,7 @@ use Yii;
  *
  * @property Institutie $programareInstitutie
  * @property Localitate $programareLocalitate
- * @property InstitutieServiciu $programareServiciu
+ * @property int $programare_document_solicitat [int(11)]
  */
 class Programare extends \yii\db\ActiveRecord
 {
@@ -38,13 +38,14 @@ class Programare extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_datetime'], 'required'],
-            [['programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_user', 'programare_validata_de', 'programare_data_finalizare'], 'integer'],
+            [['programare_minister', 'programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_datetime'], 'required'],
+            [['programare_minister', 'programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_user', 'programare_validata_de', 'programare_data_finalizare'], 'integer'],
             [['programare_datetime', 'programare_data_numar_unic'], 'safe'],
             [['programare_numar_unic'], 'string', 'max' => 10],
             [['programare_institutie'], 'exist', 'skipOnError' => true, 'targetClass' => Institutie::className(), 'targetAttribute' => ['programare_institutie' => 'id']],
             [['programare_localitate'], 'exist', 'skipOnError' => true, 'targetClass' => Localitate::className(), 'targetAttribute' => ['programare_localitate' => 'id']],
-            [['programare_serviciu'], 'exist', 'skipOnError' => true, 'targetClass' => InstitutieServiciu::className(), 'targetAttribute' => ['programare_serviciu' => 'id']],
+            [['programare_serviciu'], 'exist', 'skipOnError' => true, 'targetClass' => InstitutiiServicii::className(), 'targetAttribute' => ['programare_serviciu' => 'id']],
+            [['programare_minister'], 'exist', 'skipOnError' => true, 'targetClass' => Minister::className(), 'targetAttribute' => ['programare_minister' => 'id']],
         ];
     }
 
@@ -55,7 +56,8 @@ class Programare extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'programare_institutie' => 'Programare Institutie',
+            'programare_minister' => 'Minister',
+            'programare_institutie' => 'Institutie',
             'programare_serviciu' => 'Programare Serviciu',
             'programare_localitate' => 'Programare Localitate',
             'programare_user' => 'Programare User',
@@ -65,6 +67,16 @@ class Programare extends \yii\db\ActiveRecord
             'programare_data_numar_unic' => 'Programare Data Numar Unic',
             'programare_data_finalizare' => 'Programare Data Finalizare',
         ];
+    }
+
+    /**
+     * Gets query for [[ProgramareInstitutie]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProgramareMinister()
+    {
+        return $this->hasOne(Minister::className(), ['id' => 'programare_minister']);
     }
 
     /**

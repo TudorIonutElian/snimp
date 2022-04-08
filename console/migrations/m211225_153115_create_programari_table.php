@@ -14,6 +14,7 @@ class m211225_153115_create_programari_table extends Migration
     {
         $this->createTable('{{%programare}}', [
             'id' => $this->primaryKey(),
+            'programare_minister' => $this->integer(11)->notNull(),
             'programare_institutie' => $this->integer(11)->notNull(),
             'programare_serviciu' => $this->integer(11)->notNull(),
             'programare_localitate' => $this->integer(11)->notNull(),
@@ -25,6 +26,17 @@ class m211225_153115_create_programari_table extends Migration
             'programare_data_finalizare' => $this->tinyInteger(1)->defaultValue(0),
             'programare_document_solicitat' => $this->integer(11)->null(),
         ]);
+
+        // add foreign key for table `minister`
+        $this->addForeignKey(
+            'fk-programare_minister_id',
+            'programare',
+            'programare_minister',
+            'minister',
+            'id',
+            'RESTRICT',
+            'CASCADE'
+        );
 
         // add foreign key for table `institutie`
         $this->addForeignKey(

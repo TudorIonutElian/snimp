@@ -17,13 +17,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'programare_minister') ?>
+
     <?= $form->field($model, 'programare_institutie') ?>
 
     <?= $form->field($model, 'programare_serviciu') ?>
 
     <?= $form->field($model, 'programare_localitate') ?>
 
-    <?= $form->field($model, 'programare_user') ?>
+    <?php // echo $form->field($model, 'programare_user') ?>
 
     <?php // echo $form->field($model, 'programare_datetime') ?>
 
@@ -34,6 +36,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'programare_data_numar_unic') ?>
 
     <?php // echo $form->field($model, 'programare_data_finalizare') ?>
+
+    <?php // echo $form->field($model, 'programare_document_solicitat') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

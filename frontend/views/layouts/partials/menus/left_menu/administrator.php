@@ -54,6 +54,9 @@ use yii\helpers\Html;
                 <li class="nav-item">
                     <?= Html::a('<i class="fas fa-list nav-icon"></i>Utilizatori', ['user/index'], ['class' => 'nav-link']) ?>
                 </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-history nav-icon"></i>Program de lucru', ['tipuri-program-lucru/index'], ['class' => 'nav-link']) ?>
+                </li>
             </ul>
         </li>
         <li class="nav-item">
@@ -89,9 +92,7 @@ use yii\helpers\Html;
                         <p>Zile Libere</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-history nav-icon"></i>Program de lucru', ['tipuri-program-lucru/index'], ['class' => 'nav-link']) ?>
-                </li>
+
             </ul>
         </li>
     </ul>

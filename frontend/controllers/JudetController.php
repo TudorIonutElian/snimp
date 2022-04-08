@@ -4,10 +4,14 @@ namespace frontend\controllers;
 
 use common\models\Judet;
 use common\models\JudetSearch;
+use Yii;
+use yii\base\Exception;
 use yii\bootstrap4\Modal;
+use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * JudetController implements the CRUD actions for Judet model.
@@ -199,5 +203,42 @@ class JudetController extends Controller
         echo '<div id="modal-vizualizare-judet-content"></div>';
 
         Modal::end();
+    }
+
+    public function actionJudeteByName($id_regiune, $q = null)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'judet_nume' => '']];
+        $data = null;
+
+        if (is_null($q)) {
+
+            $query = new Query;
+            $query->select('id, judet_nume AS text')
+                ->from('judet')
+                ->where('judet.judet_regiune='.$id_regiune)
+                ->limit(20);
+
+            $command = $query->createCommand();
+            try {
+                $data = $command->queryAll();
+            } catch (Exception $e) {
+            }
+            $out['results'] = array_values($data);
+
+        } else {
+            $query = new Query;
+            $query->select('id, judet_nume AS text')
+                ->from('judet')
+                ->where(['like', 'judet_nume', $q])
+                ->limit(20);
+            $command = $query->createCommand();
+            try {
+                $data = $command->queryAll();
+            } catch (Exception $e) {
+            }
+            $out['results'] = array_values($data);
+        }
+        return $out;
     }
 }
