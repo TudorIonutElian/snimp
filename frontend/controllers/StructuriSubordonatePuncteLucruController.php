@@ -2,17 +2,16 @@
 
 namespace frontend\controllers;
 
-use common\models\InstitutiiServicii;
-use common\models\InstitutiiServiciiSearch;
-use common\models\TipuriServiciu;
+use common\models\StructuriSubordonatePuncteLucru;
+use common\models\StructuriSubordonatePuncteLucruSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * InstitutiiServiciiController implements the CRUD actions for InstitutiiServicii model.
+ * StructuriSubordonatePuncteLucruController implements the CRUD actions for StructuriSubordonatePuncteLucru model.
  */
-class InstitutiiServiciiController extends Controller
+class StructuriSubordonatePuncteLucruController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +32,13 @@ class InstitutiiServiciiController extends Controller
     }
 
     /**
-     * Lists all InstitutiiServicii models.
+     * Lists all StructuriSubordonatePuncteLucru models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new InstitutiiServiciiSearch();
+        $searchModel = new StructuriSubordonatePuncteLucruSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,30 +48,30 @@ class InstitutiiServiciiController extends Controller
     }
 
     /**
-     * Displays a single InstitutiiServicii model.
-     * @param int $id ID
+     * Displays a single StructuriSubordonatePuncteLucru model.
+     * @param int $id_sspl Id Sspl
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id_sspl)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id_sspl),
         ]);
     }
 
     /**
-     * Creates a new InstitutiiServicii model.
+     * Creates a new StructuriSubordonatePuncteLucru model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new InstitutiiServicii();
+        $model = new StructuriSubordonatePuncteLucru();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id_sspl' => $model->id_sspl]);
             }
         } else {
             $model->loadDefaultValues();
@@ -84,18 +83,18 @@ class InstitutiiServiciiController extends Controller
     }
 
     /**
-     * Updates an existing InstitutiiServicii model.
+     * Updates an existing StructuriSubordonatePuncteLucru model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $id_sspl Id Sspl
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id_sspl)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id_sspl);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id_sspl' => $model->id_sspl]);
         }
 
         return $this->render('update', [
@@ -104,39 +103,32 @@ class InstitutiiServiciiController extends Controller
     }
 
     /**
-     * Deletes an existing InstitutiiServicii model.
+     * Deletes an existing StructuriSubordonatePuncteLucru model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $id_sspl Id Sspl
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id_sspl)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id_sspl)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the InstitutiiServicii model based on its primary key value.
+     * Finds the StructuriSubordonatePuncteLucru model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return InstitutiiServicii the loaded model
+     * @param int $id_sspl Id Sspl
+     * @return StructuriSubordonatePuncteLucru the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id_sspl)
     {
-        if (($model = InstitutiiServicii::findOne(['id' => $id])) !== null) {
+        if (($model = StructuriSubordonatePuncteLucru::findOne(['id_sspl' => $id_sspl])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public static function getServiciiByInstitutie($institutie_id){
-        $id_servicii = InstitutiiServicii::find()->where(['is_institutie' => $institutie_id])->select(['is_serviciu'])->all();
-        $servicii = TipuriServiciu::find()->where(['in', 'id', array_column($id_servicii, "is_serviciu")])->all();
-
-        return $servicii;
     }
 }
