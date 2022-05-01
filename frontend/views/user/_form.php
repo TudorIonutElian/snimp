@@ -287,7 +287,10 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
             </div>
         </div>
 
-        <?php if (NULL !== Institutie::findOne(Yii::$app->user->identity->institutie_id) && Institutie::findOne(Yii::$app->user->identity->institutie_id)->hasStructuriSubordonate()): ?>
+        <?php
+            if (NULL !== Institutie::findOne(Yii::$app->user->identity->institutie_id) &&
+                Institutie::findOne(Yii::$app->user->identity->institutie_id)->hasStructuriSubordonate()): ?>
+
             <div class="row">
                 <div class="col-12">
                     <?= $form->field($model, 'institutie_subordonata_id', [

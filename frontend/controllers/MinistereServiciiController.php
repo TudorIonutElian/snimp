@@ -37,13 +37,16 @@ class MinistereServiciiController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new MinistereServiciiSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_minister')){
+            $searchModel = new MinistereServiciiSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -53,19 +56,26 @@ class MinistereServiciiController extends Controller
      */
     public function actionCreate()
     {
-        $model = new MinistereServicii();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_minister')){
+            return $this->redirect(['site/index']);
+            $model = new MinistereServicii();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['index']);
+                }
+            } else {
+                $model->loadDefaultValues();
             }
-        } else {
-            $model->loadDefaultValues();
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['site/index']);
+
     }
 
 
@@ -78,14 +88,17 @@ class MinistereServiciiController extends Controller
      */
     public function actionDelete($id)
     {
-        // verificare daca ministerul e la fel
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_minister')){
+            // verificare daca ministerul e la fel
 
-        $model = $this->findModel($id);
-        if($model->minister_id === \Yii::$app->user->identity->minister_id){
-            $model->delete();
+            $model = $this->findModel($id);
+            if($model->minister_id === \Yii::$app->user->identity->minister_id){
+                $model->delete();
+                return $this->redirect(['index']);
+            }
             return $this->redirect(['index']);
         }
-        return $this->redirect(['index']);
+        return $this->redirect(['site/index']);
     }
 
     /**

@@ -230,7 +230,8 @@ class JudetController extends Controller
             $query = new Query;
             $query->select('id, judet_nume AS text')
                 ->from('judet')
-                ->where(['like', 'judet_nume', $q])
+                ->where('judet.judet_regiune='.$id_regiune)
+                ->andWhere(['like', 'judet_nume', $q])
                 ->limit(20);
             $command = $query->createCommand();
             try {

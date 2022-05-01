@@ -157,31 +157,49 @@ class LocalitateController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionLocalitatiByName($q = null)
+    public function actionLocalitatiByName($id_judet = null, $q = null)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $out = ['results' => ['id' => '', 'localitate_nume' => '']];
         $data = null;
 
-        if (is_null($q)) {
+        if (is_null($q) && is_null($id_judet)) {
 
             $query = new Query;
             $query->select('id, localitate_nume AS text')
                 ->from('localitate')
                 ->limit(20);
+
+            $command = $query->createCommand();
+            try {
+                $data = $command->queryAll();
+            } catch (Exception $e) {
+
+            }
+
+            $out['results'] = array_values($data);
+
+        } else if(is_null($id_judet)){
+            $query = new Query;
+            $query->select('id, localitate_nume AS text')
+                ->from('localitate')
+                ->where(['like', 'localitate_nume', $q])
+                ->limit(20);
+
             $command = $query->createCommand();
             try {
                 $data = $command->queryAll();
             } catch (Exception $e) {
             }
             $out['results'] = array_values($data);
-
-        } else {
+        }else {
             $query = new Query;
-            $query->select('id, localitate_nume AS text')
-                ->from('localitate')
-                ->where(['like', 'localitate_nume', $q])
-                ->limit(20);
+                    $query->select('id, localitate_nume AS text')
+                        ->from('localitate')
+                        ->where('localitate.localitate_judet='.$id_judet)
+                        ->andWhere(['like', 'localitate_nume', $q])
+                        ->limit(20);
+
             $command = $query->createCommand();
             try {
                 $data = $command->queryAll();

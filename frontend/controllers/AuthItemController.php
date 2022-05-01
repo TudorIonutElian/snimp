@@ -44,6 +44,15 @@ class AuthItemController extends Controller
                 ->select(['name', 'data'])
                 ->asArray()
                 ->all();
+        }else if(Yii::$app->user->can('director_institutie')){
+            $roluri = AuthItem::find()
+                ->where(['in', 'name', [
+                    'director_institutie',
+                    'lucrator_serviciu'
+                ]])
+                ->select(['name', 'data'])
+                ->asArray()
+                ->all();
         }
         return $roluri;
     }

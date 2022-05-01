@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\InstitutiiStructuriSubordonate;
 use common\models\InstitutiiStructuriSubordonateSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,6 +72,7 @@ class InstitutiiStructuriSubordonateController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+
                 return $this->redirect(['view', 'id_iss' => $model->id_iss]);
             }
         } else {
@@ -131,4 +133,5 @@ class InstitutiiStructuriSubordonateController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

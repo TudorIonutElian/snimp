@@ -11,30 +11,44 @@ use yii\widgets\ActiveForm;
 <div class="programare-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <?= $form->field($model, 'programare_localitate')->textInput() ?>
+            </div>
+            <div class="col-4">
+                <?= $form->field($model, 'programare_institutie')->textInput() ?>
+            </div>
+            <div class="col-4">
+                <?= $form->field($model, 'programare_serviciu')->textInput() ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'programare_minister')->textInput() ?>
+        <div class="row">
+            <div class="col-4">
+                <?= $form->field($model, 'programare_user')->textInput() ?>
+            </div>
+            <div class="col-4">
+                <?= $form->field($model, 'programare_datetime')->textInput() ?>
+            </div>
+            <div class="col-4">
+                <?= $form->field($model, 'programare_serviciu')->textInput() ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'programare_institutie')->textInput() ?>
-
-    <?= $form->field($model, 'programare_serviciu')->textInput() ?>
-
-    <?= $form->field($model, 'programare_localitate')->textInput() ?>
-
-    <?= $form->field($model, 'programare_user')->textInput() ?>
-
-    <?= $form->field($model, 'programare_datetime')->textInput() ?>
-
-    <?= $form->field($model, 'programare_validata_de')->textInput() ?>
-
-    <?= $form->field($model, 'programare_numar_unic')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'programare_data_numar_unic')->textInput() ?>
-
-    <?= $form->field($model, 'programare_data_finalizare')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="form-group">
+                    <?= Html::submitButton('Salveaza programarea', ['class' => 'btn btn-success btn-block']) ?>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
     </div>
+
+
+
 
     <?php ActiveForm::end(); ?>
 

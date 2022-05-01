@@ -156,8 +156,18 @@ class InstitutieController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    /*==========================================================
-     * === Verificare daca institutia are unitati subordonate
-     * === pentru a putea adauga utilizatori in cadrul acestora
-     * ========================================================*/
+    public static function getInstitutii(){
+        $institutii = [];
+        if(!\Yii::$app->user->getIsGuest()){
+            if(\Yii::$app->user->can('admin')){
+                $institutii = Institutie::find()->all();
+            }else if(\Yii::$app->user->can('admin_minister')){
+                $institutii = Institutie::find()->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id])->all();
+            }else if(\Yii::$app->user->can('admin_institutie')){
+                $institutii = Institutie::find()->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id, 'id' => \Yii::$app->user->identity->institutie_id])->all();
+            }
+        }
+
+        return $institutii;
+    }
 }

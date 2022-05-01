@@ -37,7 +37,7 @@ class InstitutiiStructuriSubordonate extends \yii\db\ActiveRecord
             [['institutie_data_creare_iss', 'institutie_data_actualizare_iss'], 'safe'],
             [['institutie_denumire_iss'], 'string', 'max' => 100],
             [['institutie_parinte_iss'], 'exist', 'skipOnError' => true, 'targetClass' => Institutie::className(), 'targetAttribute' => ['institutie_parinte_iss' => 'id']],
-            [['institutie_localitate_iss'], 'exist', 'skipOnError' => true, 'targetClass' => Localitate::className(), 'targetAttribute' => ['institutie_localitate_iss' => 'id']],
+            [['institutie_localitate_id_iss'], 'exist', 'skipOnError' => true, 'targetClass' => Localitate::className(), 'targetAttribute' => ['institutie_localitate_id_iss' => 'id']],
             [['institutie_judet_id_iss'], 'exist', 'skipOnError' => true, 'targetClass' => Judet::className(), 'targetAttribute' => ['institutie_judet_id_iss' => 'id']],
             [['institutie_regiune_id_iss'], 'exist', 'skipOnError' => true, 'targetClass' => Regiune::className(), 'targetAttribute' => ['institutie_regiune_id_iss' => 'id']],
         ];
@@ -51,7 +51,7 @@ class InstitutiiStructuriSubordonate extends \yii\db\ActiveRecord
         return [
             'id_iss' => 'Id Iss',
             'institutie_parinte_iss' => 'Institutie Parinte Iss',
-            'institutie_localitate_iss' => 'Localitate',
+            'institutie_localitate_id_iss' => 'Localitate',
             'institutie_judet_id_iss' => 'Judet',
             'institutie_regiune_id_iss' => 'Regiune',
             'institutie_denumire_iss' => 'Institutie Denumire Iss',

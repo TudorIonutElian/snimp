@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\AuthAssignment;
 use common\models\AuthItem;
+use common\models\InstitutiiStructuriSubordonate;
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
@@ -80,6 +81,19 @@ class UserController extends Controller
         return  $this->redirect(['site/login']);
     }
 
+    public function actionIndexStructura(){
+        if(SystemController::userIsDirectorInstitutie()){
+            $searchModel = new UserSearch();
+            $dataProvider = $searchModel->searchUserStructura($this->request->queryParams);
+
+            return $this->render('index-structura', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return  $this->redirect(['site/login']);
+    }
+
 
     /**
      * Displays a single User model.
@@ -107,8 +121,9 @@ class UserController extends Controller
         if(
             SystemController::canManageUsers()
         ){
-            $roluri = AuthItemController::getRoluri();
-            $ministere = MinisterController::getMinistere();
+            $roluri         = AuthItemController::getRoluri();
+            $ministere      = MinisterController::getMinistere();
+            $institutii     = InstitutieController::getInstitutii();
 
             $model = new User();
 
@@ -121,6 +136,8 @@ class UserController extends Controller
                         return $this->redirect(['user/index-minister']);
                     }else if(SystemController::userIsAdminInstitutie()){
                         return $this->redirect(['user/index-institutie']);
+                    }else if(SystemController::userIsDirectorInstitutie()){
+                        return $this->redirect(['user/index-structura']);
                     }
                 };
                 return $this->redirect(['user/create']);
@@ -131,7 +148,8 @@ class UserController extends Controller
             return $this->renderAjax('create', [
                 'model' => $model,
                 'roluri' => $roluri,
-                'ministere' => $ministere
+                'ministere' => $ministere,
+                'institutii' => $institutii
             ]);
         }else{
             return  $this->redirect(['site/login']);
@@ -148,7 +166,7 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(SystemController::userIsAdmin()){
+        if(SystemController::canManageUsers()){
             $roluri = AuthItemController::getRoluri();
             $ministere = MinisterController::getMinistere();
 

@@ -19,7 +19,7 @@ use yii\bootstrap4\Html;
 
     <li class="nav-item d-none d-sm-inline-block">
         <a href="index.php?r=site/logout" class="nav-link btn btn-sm btn-danger text-white" data-method="post">
-           Logout
+           Logout <?= Yii::$app->user->identity->username;?>
         </a>
     </li>
 

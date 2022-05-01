@@ -161,6 +161,8 @@ class MinisterController extends Controller
             $ministere = Minister::find()->where(['id' => Yii::$app->user->identity->minister_id])->asArray()->select(['id', 'minister_denumire'])->all();
         }else if(Yii::$app->user->can('admin_institutie')){
             $ministere = Minister::find()->where(['id' => Yii::$app->user->identity->minister_id])->asArray()->select(['id', 'minister_denumire'])->all();
+        }        else if(Yii::$app->user->can('director_institutie')){
+            $ministere = Minister::find()->where(['id' => Yii::$app->user->identity->minister_id])->asArray()->select(['id', 'minister_denumire'])->all();
         }
         return $ministere;
     }

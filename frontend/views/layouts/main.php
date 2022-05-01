@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use frontend\assets\AppAsset;
+use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 
 AppAsset::register($this);
@@ -62,12 +63,18 @@ AppAsset::register($this);
                 <?php if(!Yii::$app->user->getIsGuest() && Yii::$app->user->can('admin_institutie')): ?>
                     <?= $this->renderFile(Yii::getAlias('@app') . '\views\layouts\partials\menus\left_menu\administrator_institutie.php');?>
                 <?php endif; ?>
+                <?php if(!Yii::$app->user->getIsGuest() && Yii::$app->user->can('director_institutie')): ?>
+                    <?= $this->renderFile(Yii::getAlias('@app') . '\views\layouts\partials\menus\left_menu\director_structura.php');?>
+                <?php endif; ?>
             </div>
             <!-- /.sidebar -->
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <?= $content; ?>

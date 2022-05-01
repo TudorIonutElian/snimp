@@ -100,11 +100,22 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'institutie_localitate_id_iss')->widget(Select2::classname(), array(
                     'data' => [],
                     'language' => 'ro',
-                    'options' => array('placeholder' => 'Selectați localitatea ...'),
-                    'pluginOptions' => array(
-                        'allowClear' => true
-                    ),
-                ))->label('Localitate') ?>
+                    'options' => array('placeholder' => 'Selectați localitate ...'),
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        'language' => [
+                            'errorLoading' => new JsExpression("function () { return 'Așteptare rezultate..'; }"),
+                        ],
+                        'ajax' => [
+                            'url' => Url::to(['localitate/localitati-by-name', 'id_regiune' => $model->institutie_localitate_id_iss]),
+                            'dataType' => 'json',
+                            'data' => new JsExpression('function(params) { return {q:params.term, id_judet: $(\'#institutiistructurisubordonate-institutie_judet_id_iss\').val()} }')
+                        ],
+                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                        'templateResult' => new JsExpression('function(city) { return city.text; }'),
+                        'templateSelection' => new JsExpression('function (city) { return city.text; }'),
+                    ],
+                ))->label('Județ') ?>
             </div>
             <div class="col-3"></div>
         </div>
