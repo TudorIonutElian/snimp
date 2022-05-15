@@ -18,6 +18,12 @@ class m220501_072509_create_structuri_subordonate_puncte_lucru_table extends Mig
             'institutie_id_sspl' => $this->integer(11)->notNull(),
             'structura_subordonata_id_sspl' => $this->integer(11)->notNull(),
             'localitate_id_sspl' => $this->integer(11)->notNull(),
+            'strada_sspl' => $this->string(11)->notNull(),
+            'numar_strada_sspl' => $this->string(5)->notNull(),
+            'bloc_strada_sspl' => $this->string(5)->notNull(),
+            'scara_bloc_sspl' => $this->string(5)->notNull(),
+            'etaj_bloc_sspl' => $this->string(3)->notNull(),
+            'apartament_sspl' => $this->string(4)->notNull(),
         ]);
 
         // add foreign key for table `institutie`

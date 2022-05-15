@@ -8,15 +8,18 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\StructuriSubordonateServiciiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Structuri Subordonate Serviciis';
+$this->title = 'Lista servicii';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="structuri-subordonate-servicii-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center">
+        <?= Html::encode($this->title) ?>
+        <?= Html::a('Adaugă Serviciu Nou', ['create'], ['class' => 'btn btn-success']) ?>
+    </h1>
 
     <p>
-        <?= Html::a('Create Structuri Subordonate Servicii', ['create'], ['class' => 'btn btn-success']) ?>
+
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

@@ -34,6 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'institutie_id_sspl',
             'structura_subordonata_id_sspl',
             'localitate_id_sspl',
+            'strada_sspl',
+            'numar_strada_sspl',
+            'bloc_strada_sspl',
+            'scara_bloc_sspl',
+            'etaj_bloc_sspl',
+            'apartament_sspl',
         ],
     ]) ?>
 

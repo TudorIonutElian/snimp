@@ -55,6 +55,13 @@ class m211225_000009_create_institutii_servicii_table extends Migration
             'CASCADE'
         );
 
+        $this->batchInsert('institutii_servicii', ['is_institutie', 'is_serviciu', 'is_localitate', 'is_open_weekend', 'is_opne_nonstop', 'is_active'], [
+            [2, 8, 13802, 1, 1, 1],
+            [2, 16, 13802, 1, 1, 1],
+            [2, 17, 13802, 1, 1, 1],
+            [2, 18, 13802, 1, 1, 1],
+        ]);
+
     }
 
     /**

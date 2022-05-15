@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\InstitutiiServicii;
 use common\models\Prestari;
 use common\models\PrestariSearch;
 use yii\web\Controller;
@@ -72,13 +73,9 @@ class PrestariController extends Controller
         if ($this->request->isPost) {
 
             $request = \Yii::$app->request->post();
-            $prestare = $request["Prestari"];
-
-            var_dump($prestare);
-            die();
-
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $prestareNoua = $this->adaugaPrestare($request["Prestari"]);
+            if($prestareNoua){
+                return $this->redirect(['view', 'id' => $prestareNoua->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -87,6 +84,28 @@ class PrestariController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    private function adaugaPrestare($data){
+        $prestareNoua = new Prestari();
+        $prestareNoua->institutie_id_p      = $data["institutie_id_p"];
+        $prestareNoua->serviciu_id_p        = $data["serviciu_id_p"];
+        $prestareNoua->denumire_p           = $data["denumire_p"];
+
+        // preluare valori de la institutiiServicii
+        $dataInstitutiiServicii             = InstitutiiServicii::find()
+                                                                ->where(['is_institutie' => $data["institutie_id_p"], 'is_serviciu' => $data["serviciu_id_p"]])
+                                                                ->select(['is_open_weekend', 'is_open_nonstop'])
+                                                                ->one();
+
+        $prestareNoua->is_open_weekend = $dataInstitutiiServicii->is_open_weekend;
+        $prestareNoua->is_open_nonstop = $dataInstitutiiServicii->is_open_nonstop;
+
+        if($prestareNoua->save()){
+            return $prestareNoua;
+        }
+
+        return NULL;
     }
 
     /**

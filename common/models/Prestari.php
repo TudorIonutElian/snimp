@@ -63,7 +63,7 @@ class Prestari extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getInstitutieIdP()
+    public function getInstitutie()
     {
         return $this->hasOne(Institutie::className(), ['id' => 'institutie_id_p']);
     }
@@ -73,8 +73,12 @@ class Prestari extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getServiciuIdP()
+    public function getServiciu()
     {
         return $this->hasOne(InstitutiiServicii::className(), ['is_serviciu' => 'serviciu_id_p']);
+    }
+
+    public function getTipServiciu(){
+        return TipuriServiciu::find()->where(['id' => $this->serviciu_id_p])->one();
     }
 }

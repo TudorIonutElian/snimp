@@ -12,6 +12,12 @@ use Yii;
  * @property int $institutie_id_sspl
  * @property int $structura_subordonata_id_sspl
  * @property int $localitate_id_sspl
+ * @property string $strada_sspl
+ * @property string $numar_strada_sspl
+ * @property string $bloc_strada_sspl
+ * @property string $scara_bloc_sspl
+ * @property string $etaj_bloc_sspl
+ * @property string $apartament_sspl
  *
  * @property Institutie $institutieIdSspl
  * @property Localitate $localitateIdSspl
@@ -34,8 +40,12 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['minister_id_sspl', 'institutie_id_sspl', 'structura_subordonata_id_sspl', 'localitate_id_sspl'], 'required'],
+            [['minister_id_sspl', 'institutie_id_sspl', 'structura_subordonata_id_sspl', 'localitate_id_sspl', 'strada_sspl', 'numar_strada_sspl', 'bloc_strada_sspl', 'scara_bloc_sspl', 'etaj_bloc_sspl', 'apartament_sspl'], 'required'],
             [['minister_id_sspl', 'institutie_id_sspl', 'structura_subordonata_id_sspl', 'localitate_id_sspl'], 'integer'],
+            [['strada_sspl'], 'string', 'max' => 11],
+            [['numar_strada_sspl', 'bloc_strada_sspl', 'scara_bloc_sspl'], 'string', 'max' => 5],
+            [['etaj_bloc_sspl'], 'string', 'max' => 3],
+            [['apartament_sspl'], 'string', 'max' => 4],
             [['institutie_id_sspl'], 'exist', 'skipOnError' => true, 'targetClass' => Institutie::className(), 'targetAttribute' => ['institutie_id_sspl' => 'id']],
             [['localitate_id_sspl'], 'exist', 'skipOnError' => true, 'targetClass' => Localitate::className(), 'targetAttribute' => ['localitate_id_sspl' => 'id']],
             [['minister_id_sspl'], 'exist', 'skipOnError' => true, 'targetClass' => Minister::className(), 'targetAttribute' => ['minister_id_sspl' => 'id']],
@@ -54,6 +64,12 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
             'institutie_id_sspl' => 'Institutie Id Sspl',
             'structura_subordonata_id_sspl' => 'Structura Subordonata Id Sspl',
             'localitate_id_sspl' => 'Localitate Id Sspl',
+            'strada_sspl' => 'Strada Sspl',
+            'numar_strada_sspl' => 'Numar Strada Sspl',
+            'bloc_strada_sspl' => 'Bloc Strada Sspl',
+            'scara_bloc_sspl' => 'Scara Bloc Sspl',
+            'etaj_bloc_sspl' => 'Etaj Bloc Sspl',
+            'apartament_sspl' => 'Apartament Sspl',
         ];
     }
 

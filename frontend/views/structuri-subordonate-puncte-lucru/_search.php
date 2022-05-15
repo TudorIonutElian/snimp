@@ -25,6 +25,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'localitate_id_sspl') ?>
 
+    <?php // echo $form->field($model, 'strada_sspl') ?>
+
+    <?php // echo $form->field($model, 'numar_strada_sspl') ?>
+
+    <?php // echo $form->field($model, 'bloc_strada_sspl') ?>
+
+    <?php // echo $form->field($model, 'scara_bloc_sspl') ?>
+
+    <?php // echo $form->field($model, 'etaj_bloc_sspl') ?>
+
+    <?php // echo $form->field($model, 'apartament_sspl') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

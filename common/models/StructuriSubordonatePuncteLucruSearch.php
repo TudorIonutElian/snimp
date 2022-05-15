@@ -18,6 +18,7 @@ class StructuriSubordonatePuncteLucruSearch extends StructuriSubordonatePuncteLu
     {
         return [
             [['id_sspl', 'minister_id_sspl', 'institutie_id_sspl', 'structura_subordonata_id_sspl', 'localitate_id_sspl'], 'integer'],
+            [['strada_sspl', 'numar_strada_sspl', 'bloc_strada_sspl', 'scara_bloc_sspl', 'etaj_bloc_sspl', 'apartament_sspl'], 'safe'],
         ];
     }
 
@@ -63,6 +64,13 @@ class StructuriSubordonatePuncteLucruSearch extends StructuriSubordonatePuncteLu
             'structura_subordonata_id_sspl' => $this->structura_subordonata_id_sspl,
             'localitate_id_sspl' => $this->localitate_id_sspl,
         ]);
+
+        $query->andFilterWhere(['like', 'strada_sspl', $this->strada_sspl])
+            ->andFilterWhere(['like', 'numar_strada_sspl', $this->numar_strada_sspl])
+            ->andFilterWhere(['like', 'bloc_strada_sspl', $this->bloc_strada_sspl])
+            ->andFilterWhere(['like', 'scara_bloc_sspl', $this->scara_bloc_sspl])
+            ->andFilterWhere(['like', 'etaj_bloc_sspl', $this->etaj_bloc_sspl])
+            ->andFilterWhere(['like', 'apartament_sspl', $this->apartament_sspl]);
 
         return $dataProvider;
     }
