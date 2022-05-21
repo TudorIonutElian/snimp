@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m220401_180954_operationalizare_minister_institutie_structuri_subordonate
+ * Class m220521_063933_configurare_mai_minister
  */
-class m220401_180954_operationalizare_minister_institutie_structuri_subordonate extends Migration
+class m220521_063933_configurare_mai_minister extends Migration
 {
     /**
      * {@inheritdoc}
@@ -167,7 +167,7 @@ class m220401_180954_operationalizare_minister_institutie_structuri_subordonate 
      */
     public function safeDown()
     {
-        echo "m220401_180954_operationalizare_minister_institutie_structuri_subordonate cannot be reverted.\n";
+        echo "m220521_063933_configurare_mai_minister cannot be reverted.\n";
 
         return false;
     }
@@ -181,7 +181,7 @@ class m220401_180954_operationalizare_minister_institutie_structuri_subordonate 
 
     public function down()
     {
-        echo "m220401_180954_operationalizare_minister_institutie_structuri_subordonate cannot be reverted.\n";
+        echo "m220521_063933_configurare_mai_minister cannot be reverted.\n";
 
         return false;
     }

@@ -19,15 +19,6 @@ class m211225_000007_create_exceptii_table extends Migration
             'te_exceptie_end' => $this->dateTime()->null(),
             'te_exceptie_status' => $this->tinyInteger()->defaultValue(1),
         ]);
-
-        $this->insert('tipuri_exceptie', ['te_exceptie_denumire' => 'Zi liberă']);
-        $this->insert('tipuri_exceptie', ['te_exceptie_denumire' => 'Reorganizare']);
-        $this->insert('tipuri_exceptie', ['te_exceptie_denumire' => 'Personal insuficient']);
-        $this->insert('tipuri_exceptie', ['te_exceptie_denumire' => 'Personal dislocat']);
-        $this->insert('tipuri_exceptie', ['te_exceptie_denumire' => 'Sistare temporară a a activității']);
-        $this->insert('tipuri_exceptie', ['te_exceptie_denumire' => 'Vacanță instituțională']);
-        $this->insert('tipuri_exceptie', ['te_exceptie_denumire' => 'Zonă carantinată']);
-        $this->insert('tipuri_exceptie', ['te_exceptie_denumire' => 'Inventar instituțional']);
     }
 
     /**

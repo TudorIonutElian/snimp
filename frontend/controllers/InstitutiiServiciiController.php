@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\InstitutiiServicii;
 use common\models\InstitutiiServiciiSearch;
 use common\models\TipuriServiciu;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -138,5 +139,31 @@ class InstitutiiServiciiController extends Controller
         $servicii = TipuriServiciu::find()->where(['in', 'id', array_column($id_servicii, "is_serviciu")])->all();
 
         return $servicii;
+    }
+
+    // ========================================================================
+    // METODA PENTRU PRELUAREA TUTUTOR SERVICIILOR DIN CADRUL UNEI INSTITUTII
+    // ========================================================================
+    public function actionGetServiciiByInstitutieId(){
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initial',
+            'response_servicii' => NULL
+        ];
+
+        $request = Yii::$app->request->post();
+        $institutie_id = $request["institutie_id"];
+
+        $servicii_disponibile = $this::getServiciiByInstitutie($institutie_id);
+
+        if(count($servicii_disponibile) > 0){
+            $dataResponse['response_code'] = 200;
+            $dataResponse['response_message'] = 'Identificate';
+            $dataResponse['response_servicii'] = $servicii_disponibile;
+        }
+
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $dataResponse;
     }
 }

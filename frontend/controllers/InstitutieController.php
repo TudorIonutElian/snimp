@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Institutie;
 use common\models\InstitutieSearch;
+use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -13,6 +14,22 @@ use yii\web\NotFoundHttpException;
  */
 class InstitutieController extends Controller
 {
+    public static function getInstitutii()
+    {
+        $institutii = [];
+        if (!\Yii::$app->user->getIsGuest()) {
+            if (\Yii::$app->user->can('admin')) {
+                $institutii = Institutie::find()->all();
+            } else if (\Yii::$app->user->can('admin_minister')) {
+                $institutii = Institutie::find()->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id])->all();
+            } else if (\Yii::$app->user->can('admin_institutie')) {
+                $institutii = Institutie::find()->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id, 'id' => \Yii::$app->user->identity->institutie_id])->all();
+            }
+        }
+
+        return $institutii;
+    }
+
     /**
      * @inheritDoc
      */
@@ -64,6 +81,22 @@ class InstitutieController extends Controller
         }
 
         return $this->redirect(['site/index']);
+    }
+
+    /**
+     * Finds the Institutie model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return Institutie the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Institutie::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     /**
@@ -140,34 +173,31 @@ class InstitutieController extends Controller
         return $this->redirect(['site/index']);
     }
 
-    /**
-     * Finds the Institutie model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Institutie the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    public function actionGetInstitutiiByLocalitateId()
     {
-        if (($model = Institutie::findOne($id)) !== null) {
-            return $model;
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initial',
+            'response_institutii' => NULL
+        ];
+
+        $request = Yii::$app->request->post();
+        $localitateId = $request["localitateId"];
+
+        $institutiiData = Institutie::find()
+            ->where(['institutie_localitate_id' => (int)$localitateId])
+            ->select(['id', 'institutie_denumire'])
+            ->orderBy(['institutie_denumire' => SORT_ASC])
+            ->all();
+
+        if(count($institutiiData) > 0){
+            $dataResponse['response_code'] = 500;
+            $dataResponse['response_message'] = 'Identificate';
+            $dataResponse['response_institutii'] = $institutiiData;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
 
-    public static function getInstitutii(){
-        $institutii = [];
-        if(!\Yii::$app->user->getIsGuest()){
-            if(\Yii::$app->user->can('admin')){
-                $institutii = Institutie::find()->all();
-            }else if(\Yii::$app->user->can('admin_minister')){
-                $institutii = Institutie::find()->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id])->all();
-            }else if(\Yii::$app->user->can('admin_institutie')){
-                $institutii = Institutie::find()->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id, 'id' => \Yii::$app->user->identity->institutie_id])->all();
-            }
-        }
-
-        return $institutii;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $dataResponse;
     }
 }

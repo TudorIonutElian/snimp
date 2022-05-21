@@ -29,11 +29,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_sspl',
-            'minister_id_sspl',
-            'institutie_id_sspl',
-            'structura_subordonata_id_sspl',
-            'localitate_id_sspl',
+
+            [
+                'label' => 'Minister',
+                'value' => function ($model) {
+                    return $model->minister->minister_denumire;
+                }
+            ],
+            [
+                'label' => 'Institutie',
+                'value' => function ($model) {
+                    return $model->institutie->institutie_denumire;
+                }
+            ],
+
+            [
+                'label' => 'Structura subordonata',
+                'value' => function ($model) {
+                    if ($model->structuraSubordonata) {
+                        return $model->structuraSubordonata->institutie_denumire_iss;
+                    }
+                    return 'Nu este cazul.';
+                }
+            ],
+
+            [
+                'label' => 'Localitate',
+                'value' => function ($model) {
+                    return $model->localitate->localitate_nume;
+                }
+            ],
+
             'strada_sspl',
             'numar_strada_sspl',
             'bloc_strada_sspl',

@@ -5,9 +5,10 @@ namespace frontend\controllers;
 use common\models\InstitutiiServicii;
 use common\models\Prestari;
 use common\models\PrestariSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PrestariController implements the CRUD actions for Prestari model.
@@ -62,6 +63,22 @@ class PrestariController extends Controller
     }
 
     /**
+     * Finds the Prestari model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return Prestari the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Prestari::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
      * Creates a new Prestari model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
@@ -74,7 +91,7 @@ class PrestariController extends Controller
 
             $request = \Yii::$app->request->post();
             $prestareNoua = $this->adaugaPrestare($request["Prestari"]);
-            if($prestareNoua){
+            if ($prestareNoua) {
                 return $this->redirect(['view', 'id' => $prestareNoua->id]);
             }
         } else {
@@ -86,22 +103,23 @@ class PrestariController extends Controller
         ]);
     }
 
-    private function adaugaPrestare($data){
+    private function adaugaPrestare($data)
+    {
         $prestareNoua = new Prestari();
-        $prestareNoua->institutie_id_p      = $data["institutie_id_p"];
-        $prestareNoua->serviciu_id_p        = $data["serviciu_id_p"];
-        $prestareNoua->denumire_p           = $data["denumire_p"];
+        $prestareNoua->institutie_id_p = $data["institutie_id_p"];
+        $prestareNoua->serviciu_id_p = $data["serviciu_id_p"];
+        $prestareNoua->denumire_p = $data["denumire_p"];
 
         // preluare valori de la institutiiServicii
-        $dataInstitutiiServicii             = InstitutiiServicii::find()
-                                                                ->where(['is_institutie' => $data["institutie_id_p"], 'is_serviciu' => $data["serviciu_id_p"]])
-                                                                ->select(['is_open_weekend', 'is_open_nonstop'])
-                                                                ->one();
+        $dataInstitutiiServicii = InstitutiiServicii::find()
+            ->where(['is_institutie' => $data["institutie_id_p"], 'is_serviciu' => $data["serviciu_id_p"]])
+            ->select(['is_open_weekend', 'is_open_nonstop'])
+            ->one();
 
         $prestareNoua->is_open_weekend = $dataInstitutiiServicii->is_open_weekend;
         $prestareNoua->is_open_nonstop = $dataInstitutiiServicii->is_open_nonstop;
 
-        if($prestareNoua->save()){
+        if ($prestareNoua->save()) {
             return $prestareNoua;
         }
 
@@ -142,19 +160,35 @@ class PrestariController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Prestari model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Prestari the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    // ========================================================================
+    // METODA PENTRU PRELUAREA PRESTARILOR OFERITE DE CATRE UN TIP DE SERVICIU
+    // ========================================================================
+
+    public function actionGetPrestariByServiciuId()
     {
-        if (($model = Prestari::findOne(['id' => $id])) !== null) {
-            return $model;
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initial',
+            'response_prestari' => NULL
+        ];
+
+        $request = Yii::$app->request->post();
+        $serviciu_id = $request["serviciu_id"];
+
+        $prestari_disponibile = Prestari::find()
+            ->where(['serviciu_id_p' => $serviciu_id])
+            ->select(['id', 'denumire_p'])
+            ->orderBy(['denumire_p' => SORT_ASC])
+            ->all();
+
+        if (count($prestari_disponibile) > 0) {
+            $dataResponse['response_code'] = 200;
+            $dataResponse['response_message'] = 'Identificate';
+            $dataResponse['response_prestari'] = $prestari_disponibile;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $dataResponse;
     }
 }

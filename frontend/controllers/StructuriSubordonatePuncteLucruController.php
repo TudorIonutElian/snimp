@@ -4,9 +4,9 @@ namespace frontend\controllers;
 
 use common\models\StructuriSubordonatePuncteLucru;
 use common\models\StructuriSubordonatePuncteLucruSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * StructuriSubordonatePuncteLucruController implements the CRUD actions for StructuriSubordonatePuncteLucru model.
@@ -61,6 +61,22 @@ class StructuriSubordonatePuncteLucruController extends Controller
     }
 
     /**
+     * Finds the StructuriSubordonatePuncteLucru model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id_sspl Id Sspl
+     * @return StructuriSubordonatePuncteLucru the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id_sspl)
+    {
+        if (($model = StructuriSubordonatePuncteLucru::findOne(['id_sspl' => $id_sspl])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
      * Creates a new StructuriSubordonatePuncteLucru model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
@@ -70,16 +86,42 @@ class StructuriSubordonatePuncteLucruController extends Controller
         $model = new StructuriSubordonatePuncteLucru();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id_sspl' => $model->id_sspl]);
+            $request = \Yii::$app->request->post();
+            $datePunctLucru = $request["StructuriSubordonatePuncteLucru"];
+            $punctLucruAdaugat = $this->adaugaPunctLucru($datePunctLucru);
+
+            if($punctLucruAdaugat){
+                return $this->redirect(['structuri-subordonate-puncte-lucru/index']);
             }
-        } else {
-            $model->loadDefaultValues();
+
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    private function adaugaPunctLucru($data)
+    {
+        $punctLucruNou = new StructuriSubordonatePuncteLucru();
+        $punctLucruNou->minister_id_sspl = \Yii::$app->user->identity->minister_id;
+        $punctLucruNou->institutie_id_sspl = \Yii::$app->user->identity->institutie_id;
+
+        if ($data["structura_subordonata_id_sspl"] && (int)$data["structura_subordonata_id_sspl"] > 0) {
+            $punctLucruNou->structura_subordonata_id_sspl = $data["structura_subordonata_id_sspl"];
+        } else {
+            $punctLucruNou->structura_subordonata_id_sspl = NULL;
+        }
+
+        $punctLucruNou->localitate_id_sspl = $data["localitate_id_sspl"];
+        $punctLucruNou->strada_sspl = $data["strada_sspl"];
+        $punctLucruNou->numar_strada_sspl = $data["numar_strada_sspl"];
+        $punctLucruNou->bloc_strada_sspl = $data["bloc_strada_sspl"];
+        $punctLucruNou->scara_bloc_sspl = $data["scara_bloc_sspl"];
+        $punctLucruNou->etaj_bloc_sspl = $data["etaj_bloc_sspl"];
+        $punctLucruNou->apartament_sspl = $data["apartament_sspl"];
+
+        return $punctLucruNou->save();
     }
 
     /**
@@ -114,21 +156,5 @@ class StructuriSubordonatePuncteLucruController extends Controller
         $this->findModel($id_sspl)->delete();
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the StructuriSubordonatePuncteLucru model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_sspl Id Sspl
-     * @return StructuriSubordonatePuncteLucru the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id_sspl)
-    {
-        if (($model = StructuriSubordonatePuncteLucru::findOne(['id_sspl' => $id_sspl])) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

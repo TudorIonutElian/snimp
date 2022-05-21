@@ -42,10 +42,7 @@ class m220320_125027_create_prestari_table extends Migration
             'cascade'
         );
 
-        $this->batchInsert('prestari', ['institutie_id_p', 'serviciu_id_p', 'denumire_p', 'is_open_weekend', 'is_opne_nonstop', 'is_active'], [
-            [2, 17, 'Eliberare Aviz pescuit ', 1, 1, 1],
-            [2, 16, 'Verificare eligibilitate viză călătorie', 1, 1, 1],
-        ]);
+
     }
 
     /**

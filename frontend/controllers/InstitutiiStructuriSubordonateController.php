@@ -70,6 +70,7 @@ class InstitutiiStructuriSubordonateController extends Controller
     {
         $model = new InstitutiiStructuriSubordonate();
 
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
 

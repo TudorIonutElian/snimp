@@ -40,9 +40,9 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['minister_id_sspl', 'institutie_id_sspl', 'structura_subordonata_id_sspl', 'localitate_id_sspl', 'strada_sspl', 'numar_strada_sspl', 'bloc_strada_sspl', 'scara_bloc_sspl', 'etaj_bloc_sspl', 'apartament_sspl'], 'required'],
+            [['minister_id_sspl', 'institutie_id_sspl', 'localitate_id_sspl', 'strada_sspl', 'numar_strada_sspl', 'bloc_strada_sspl', 'scara_bloc_sspl', 'etaj_bloc_sspl', 'apartament_sspl'], 'required'],
             [['minister_id_sspl', 'institutie_id_sspl', 'structura_subordonata_id_sspl', 'localitate_id_sspl'], 'integer'],
-            [['strada_sspl'], 'string', 'max' => 11],
+            [['strada_sspl'], 'string', 'max' => 255],
             [['numar_strada_sspl', 'bloc_strada_sspl', 'scara_bloc_sspl'], 'string', 'max' => 5],
             [['etaj_bloc_sspl'], 'string', 'max' => 3],
             [['apartament_sspl'], 'string', 'max' => 4],
@@ -78,7 +78,7 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getInstitutieIdSspl()
+    public function getInstitutie()
     {
         return $this->hasOne(Institutie::className(), ['id' => 'institutie_id_sspl']);
     }
@@ -88,7 +88,7 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLocalitateIdSspl()
+    public function getLocalitate()
     {
         return $this->hasOne(Localitate::className(), ['id' => 'localitate_id_sspl']);
     }
@@ -98,7 +98,7 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMinisterIdSspl()
+    public function getMinister()
     {
         return $this->hasOne(Minister::className(), ['id' => 'minister_id_sspl']);
     }
@@ -108,7 +108,7 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getStructuraSubordonataIdSspl()
+    public function getStructuraSubordonata()
     {
         return $this->hasOne(InstitutiiStructuriSubordonate::className(), ['id_iss' => 'structura_subordonata_id_sspl']);
     }

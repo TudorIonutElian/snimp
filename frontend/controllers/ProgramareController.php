@@ -2,11 +2,14 @@
 
 namespace frontend\controllers;
 
+use common\models\Judet;
+use common\models\Localitate;
 use common\models\Programare;
 use common\models\ProgramareSearch;
+use common\models\FormProgramare;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ProgramareController implements the CRUD actions for Programare model.
@@ -61,24 +64,44 @@ class ProgramareController extends Controller
     }
 
     /**
+     * Finds the Programare model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return Programare the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Programare::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
      * Creates a new Programare model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($judetul)
     {
-        $model = new Programare();
+        // identificare judet
+        $judetulIdentificat = Judet::find()
+            ->where("lower(judet_indicativ)='{$judetul}'")
+            ->select(['id'])->one();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
+        $localitatiJudet = Localitate::find()
+            ->where(['localitate_judet' => $judetulIdentificat->id])
+            ->select(['id', 'localitate_nume'])
+            ->orderBy(['localitate_nume' => SORT_ASC])
+            ->all();
+
+        $model = new FormProgramare();
 
         return $this->render('create', [
             'model' => $model,
+            'localitatiJudet' => $localitatiJudet
         ]);
     }
 
@@ -114,21 +137,5 @@ class ProgramareController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Programare model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Programare the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Programare::findOne(['id' => $id])) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

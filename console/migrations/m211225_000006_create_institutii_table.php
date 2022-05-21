@@ -45,14 +45,6 @@ class m211225_000006_create_institutii_table extends Migration
             'RESTRICT',
             'CASCADE'
         );
-
-        /*
-        $this->insert('institutie', [
-            'institutie_structura' => '',
-            'institutie_denumire' => '',
-            'institutie_localitate_id' => '',
-        ]);
-        */
     }
 
     /**

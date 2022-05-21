@@ -19,21 +19,6 @@ class m211225_000005_create_structuri_table extends Migration
             'structura_end_date' => $this->date()->null(),
             'structura_status' => $this->tinyInteger(1)->defaultValue(1),
         ]);
-
-        $this->insert('structura', ['structura_nume' => 'Învățământ']);
-        $this->insert('structura', ['structura_nume' => 'Sănătate și asistență socială']);
-        $this->insert('structura', ['structura_nume' => 'Cultură']);
-        $this->insert('structura', ['structura_nume' => 'Diplomație']);
-        $this->insert('structura', ['structura_nume' => 'Justiție']);
-        $this->insert('structura', ['structura_nume' => 'Apărare, Ordine Publică și Siguranță Națională']);
-        $this->insert('structura', ['structura_nume' => 'Administrație']);
-        $this->insert('structura', ['structura_nume' => 'Financiar']);
-        $this->insert('structura', ['structura_nume' => 'Taxe și impozite']);
-        $this->insert('structura', ['structura_nume' => 'Evidența populației']);
-        $this->insert('structura', ['structura_nume' => 'Evidența auto']);
-        $this->insert('structura', ['structura_nume' => 'Stare civilă']);
-        $this->insert('structura', ['structura_nume' => 'Agricultură']);
-
     }
 
     /**
