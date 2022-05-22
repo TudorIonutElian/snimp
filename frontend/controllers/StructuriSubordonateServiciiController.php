@@ -69,7 +69,23 @@ class StructuriSubordonateServiciiController extends Controller
     public function actionCreate()
     {
         $model = new StructuriSubordonateServicii();
+
+        // preluare servicii ale institutiei parinte
         $servicii = InstitutiiServiciiController::getServiciiByInstitutie(\Yii::$app->user->identity->institutie_id);
+        $serviciiParinteArray = array_column($servicii, "id");
+
+        // preluare servicii care sunt deja adaugate
+        $serviciiAdaugateDeja = StructuriSubordonateServicii::find()
+            ->where([
+                'and',
+                ['institutie_id_sss' => \Yii::$app->user->identity->institutie_id],
+                ['structura_subordonata_id_sss' => \Yii::$app->user->identity->institutie_subordonata_id]
+            ])->select(['serviciu_id_sss'])->all();
+
+        $serviciiAdaugateDejaArray = array_column($serviciiAdaugateDeja, "serviciu_id_sss");
+
+        $serviciiFinale = array_diff($serviciiParinteArray, $serviciiAdaugateDejaArray);
+
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {

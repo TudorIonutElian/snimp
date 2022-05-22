@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\InstitutiiServicii */
 
-$this->title = 'Create Institutii Servicii';
-$this->params['breadcrumbs'][] = ['label' => 'Institutii Serviciis', 'url' => ['index']];
+$this->title = 'Adaugă servicii';
+$this->params['breadcrumbs'][] = ['label' => 'Lista serviciilor oferite de Instituție', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="institutii-servicii-create">

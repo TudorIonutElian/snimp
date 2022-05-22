@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Institutie;
 use common\models\InstitutiiStructuriSubordonate;
 use common\models\InstitutiiStructuriSubordonateSearch;
+use common\models\StructuriSubordonatePuncteLucru;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -165,6 +166,44 @@ class InstitutiiStructuriSubordonateController extends Controller
         }
 
         return $structuriSubordonate;
+    }
+
+    public function actionGetPuncteLucruByStructuraId()
+    {
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initial',
+            'response_puncte_lucru' => NULL
+        ];
+
+        $request = Yii::$app->request->post();
+        $structura_id = $request["structura_id"];
+
+        $puncteLucru = StructuriSubordonatePuncteLucru::find()
+            ->joinWith('localitate', 'structuri_subordonate_puncte_lucru.localitate_id_sspl = localitate.id')
+            ->where(['structura_subordonata_id_sspl' => (int) $structura_id])
+            ->select([
+                'id_sspl',
+                'strada_sspl',
+                'numar_strada_sspl',
+                'bloc_strada_sspl',
+                'scara_bloc_sspl',
+                'etaj_bloc_sspl',
+                'apartament_sspl',
+                'localitate_nume'
+            ])
+            ->orderBy(['numar_strada_sspl' => SORT_ASC])
+            ->all();
+
+        if(count($puncteLucru) > 0){
+            $dataResponse['response_code'] = 200;
+            $dataResponse['response_message'] = 'Identificate';
+            $dataResponse['response_puncte_lucru'] = $puncteLucru;
+        }
+
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $dataResponse;
     }
 
 }

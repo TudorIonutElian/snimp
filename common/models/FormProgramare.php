@@ -20,6 +20,9 @@ class FormProgramare extends Model
     public $programare_telefon;
     public $programare_user;
     public $programare_data;
+    public $programare_punct_lucru;
+    public $programare_structura_subordonata;
+
 
 
     /**
@@ -34,7 +37,12 @@ class FormProgramare extends Model
                     'programare_localitate',
                     'programare_institutie',
                     'programare_serviciu',
-                    'programare_prestare'
+                    'programare_prestare',
+                    'programare_nume',
+                    'programare_prenume',
+                    'programare_email',
+                    'programare_telefon',
+                    'programare_data',
                 ],
                 'required',
                 'message' => 'Câmpul este obligatoriu'

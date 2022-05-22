@@ -1,5 +1,6 @@
 <?php
 
+use frontend\controllers\SetterController;
 use kartik\datetime\DateTimePicker;
 use kartik\select2\Select2;
 use yii\bootstrap4\ActiveForm;
@@ -16,7 +17,7 @@ use yii\helpers\Html;
     <?php $form = ActiveForm::begin(); ?>
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-sm-12 col-md-4">
                 <?= $form->field($model, 'programare_localitate')->widget(Select2::classname(), [
                     'data' => \yii\helpers\ArrayHelper::map($localitatiJudet, 'id', 'localitate_nume'),
                     'language' => 'de',
@@ -28,7 +29,7 @@ use yii\helpers\Html;
                 ?>
 
             </div>
-            <div class="col-4">
+            <div class="col-sm-12 col-md-4">
                 <?= $form->field($model, 'programare_institutie')->widget(Select2::classname(), [
                     'data' => [],
                     'language' => 'ro',
@@ -39,7 +40,23 @@ use yii\helpers\Html;
                 ]);
                 ?>
             </div>
-            <div class="col-4">
+
+            <div class="col-sm-12 col-md-4">
+                <?= $form->field($model, 'programare_structura_subordonata')->widget(Select2::classname(), [
+                    'data' => [],
+                    'language' => 'ro',
+                    'options' => ['placeholder' => 'Selectați structura directa...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+                ?>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
                 <?= $form->field($model, 'programare_serviciu')->widget(Select2::classname(), [
                     'data' => [],
                     'language' => 'ro',
@@ -50,10 +67,7 @@ use yii\helpers\Html;
                 ]);
                 ?>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-4">
+            <div class="col-sm-12 col-md-4">
                 <?= $form->field($model, 'programare_prestare')->widget(Select2::classname(), [
                     'data' => [],
                     'language' => 'ro',
@@ -64,7 +78,18 @@ use yii\helpers\Html;
                 ]);
                 ?>
             </div>
-            <div class="col-4">
+            <div class="col-sm-12 col-md-4">
+                <?= $form->field($model, 'programare_punct_lucru')->widget(Select2::classname(), [
+                    'data' => [],
+                    'language' => 'ro',
+                    'options' => ['placeholder' => 'Selectați punctul de lucru...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+                ?>
+            </div>
+            <div class="col-sm-12 col-md-4">
                 <?= $form->field($model, 'programare_data')->widget(DateTimePicker::classname(), [
                     'options' => [
                         'placeholder' => 'Selectează intervalul ...',
@@ -85,8 +110,34 @@ use yii\helpers\Html;
                 ]);
                 ?>
             </div>
-            <div class="col-4">
+            <div class="col-sm-12 col-md-4">
+                <?php
+                    if(!Yii::$app->user->getIsGuest()){
+                        SetterController::setFormModel($model, 'programare_email', Yii::$app->user->identity->email);
+                    }
+                ?>
                 <?= $form->field($model, 'programare_email')->textInput() ?>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <?php
+                    if(!Yii::$app->user->getIsGuest()){
+                        SetterController::setFormModel($model, 'programare_nume', Yii::$app->user->identity->nume);
+                    }
+                ?>
+                <?= $form->field($model, 'programare_nume')->textInput() ?>
+            </div>
+
+            <div class="col-sm-12 col-md-4">
+                <?php
+                if(!Yii::$app->user->getIsGuest()){
+                    SetterController::setFormModel($model, 'programare_prenume', Yii::$app->user->identity->prenume);
+                }
+                ?>
+                <?= $form->field($model, 'programare_prenume')->textInput() ?>
+            </div>
+
+            <div class="col-sm-12 col-md-4">
+                <?= $form->field($model, 'programare_telefon')->textInput() ?>
             </div>
         </div>
 

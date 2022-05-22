@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\InstitutiiServicii */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Institutii Serviciis', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Lista serviciilor oferite de Instituție', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

@@ -24,6 +24,7 @@ class m220501_072509_create_structuri_subordonate_puncte_lucru_table extends Mig
             'scara_bloc_sspl' => $this->string(5)->notNull(),
             'etaj_bloc_sspl' => $this->string(3)->notNull(),
             'apartament_sspl' => $this->string(4)->notNull(),
+            'aprobat_administrator_sspl' => $this->tinyInteger(1)->defaultValue(0),
         ]);
 
         // add foreign key for table `institutie`

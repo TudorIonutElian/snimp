@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap5\Modal;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -8,16 +9,16 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\StructuriSubordonatePuncteLucruSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Structuri Subordonate Puncte Lucrus';
+$this->title = 'Adăugare punct de lucru';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="structuri-subordonate-puncte-lucru-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center">
+        <?= Html::encode($this->title) ?>
+        <?= Html::a('<i class="fas fa-plus mr-2"></i>Adaugă punct lucru', ['create'], ['class' => 'btn btn-success']) ?>
+    </h1>
 
-    <p>
-        <?= Html::a('Create Structuri Subordonate Puncte Lucru', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -29,12 +30,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'label' => 'Minister',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
                 'value' => function ($model) {
                     return $model->minister->minister_denumire;
                 }
             ],
             [
                 'label' => 'Institutie',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
                 'value' => function ($model) {
                     return $model->institutie->institutie_denumire;
                 }
@@ -42,6 +55,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'label' => 'Structura subordonata',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
                 'value' => function ($model) {
                     if ($model->structuraSubordonata) {
                         return $model->structuraSubordonata->institutie_denumire_iss;
@@ -52,20 +71,127 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'label' => 'Localitate',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
                 'value' => function ($model) {
                     return $model->localitate->localitate_nume;
                 }
             ],
+            [
+                'label' => 'Strada',
+                'attribute' => 'strada_sspl',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+            ],
 
-            'strada_sspl',
-            'numar_strada_sspl',
-            'bloc_strada_sspl',
-            'scara_bloc_sspl',
-            'etaj_bloc_sspl',
-            'apartament_sspl',
+            [
+                'label' => 'Număr',
+                'attribute' => 'numar_strada_sspl',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+            ],
+
+            [
+                'label' => 'Bloc',
+                'attribute' => 'bloc_strada_sspl',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+            ],
+
+            [
+                'label' => 'Scara',
+                'attribute' => 'scara_bloc_sspl',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+            ],
+
+            [
+                'label' => 'Etaj',
+                'attribute' => 'etaj_bloc_sspl',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+            ],
+
+            [
+                'label' => 'Apartament',
+                'attribute' => 'apartament_sspl',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+            ],
+            [
+                'label' => 'Aprobat',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'value' => function ($model) {
+                    $content = '<span class="text-danger font-weight-bold">NU</span>';
+                    if ($model->aprobat_administrator_sspl == 1) {
+                        $content = '<span class="text-success font-weight-bold">DA</span>';
+                    }
+
+                    return $content;
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view} {update} {delete}',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'template' => '{aproba} {view} {update} {delete}',
+                'visibleButtons' => [
+                    'aproba' => function () {
+                        return Yii::$app->user->can('admin_institutie');
+                    },
+                    'view' => function () {
+                        return Yii::$app->user->can('director_institutie');
+                    },
+                    'update' => function () {
+                        return Yii::$app->user->can('director_institutie');
+                    },
+                    'delete' => function ($model, $data) {
+                        if ($model->aprobat_administrator_sspl == 0) {
+                            return Yii::$app->user->can('director_institutie');
+                        }
+                        return false;
+
+                    }
+
+                ],
                 'buttons' => [
                     'view' => function ($model, $data) {
                         return Html::a('<i class="fas fa-eye mr-2"></i>Vizualizeaza<br>', ['structuri-subordonate-puncte-lucru/view', 'id_sspl' => $data->id_sspl]);
@@ -83,11 +209,33 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['data-method' => 'POST', 'class' => ['text-danger']]
                         );
                     },
-
+                    'aproba' => function ($model, $data) {
+                        return Html::a(
+                            '<i class="fas fa-check-double mr-2"></i>Aprobă<br>',
+                            '#',
+                            [
+                                'class' => ['btn btn-outline-success btn-sm', 'aproba_punct_lucru'],
+                                'data-punct-lucru-id' => $data->id_sspl
+                            ]
+                        );
+                    },
                 ]
             ],
         ],
     ]); ?>
-
-
 </div>
+
+<?php
+Modal::begin([
+    'title' => '<h6 class="text-center font-weight-bold">Aprobare deschidere punct lucru</h6>',
+    'id' => 'modal-aprobare-punct',
+    'size' => 'modal-md',
+    //'toggleButton' => ['label' => 'click me'],
+]);
+
+echo '<div id="modal-aprobare-punct-content"></div>';
+
+Modal::end();
+?>
+
+<?php $this->registerJsFile("@web/js/plugins/views/structuri-subordonate-puncte-lucru/index.js"); ?>

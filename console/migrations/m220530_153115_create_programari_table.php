@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%programari}}`.
  */
-class m211225_153115_create_programari_table extends Migration
+class m220530_153115_create_programari_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -14,12 +14,18 @@ class m211225_153115_create_programari_table extends Migration
     {
         $this->createTable('{{%programare}}', [
             'id' => $this->primaryKey(),
+            'programare_localitate' => $this->integer(11)->notNull(),
             'programare_minister' => $this->integer(11)->notNull(),
             'programare_institutie' => $this->integer(11)->notNull(),
+            'programare_structura_subordonata' => $this->integer(11)->null(),
             'programare_serviciu' => $this->integer(11)->notNull(),
-            'programare_localitate' => $this->integer(11)->notNull(),
-            'programare_user' => $this->integer(11)->null(),
+            'programare_prestare' => $this->integer(11)->notNull(),
+            'programare_punct_lucru' => $this->integer(11)->null(),
             'programare_datetime' => $this->dateTime()->notNull(),
+            'programare_email' => $this->string(255)->notNull(),
+            'programare_nume' => $this->string(255)->notNull(),
+            'programare_prenume' => $this->string(255)->notNull(),
+            'programare_user' => $this->integer(11)->null(),
             'programare_validata_de' => $this->integer(11)->null(),
             'programare_numar_unic' => $this->string(10)->null(),
             'programare_data_numar_unic' => $this->date()->null(),
@@ -44,6 +50,39 @@ class m211225_153115_create_programari_table extends Migration
             'programare',
             'programare_institutie',
             'institutie',
+            'id',
+            'RESTRICT',
+            'CASCADE'
+        );
+
+        // add foreign key for table `structura_subordonata`
+        $this->addForeignKey(
+            'fk-programare_structuraSubordonata_id',
+            'programare',
+            'programare_structura_subordonata',
+            'institutii_structuri_subordonate',
+            'id_iss',
+            'RESTRICT',
+            'CASCADE'
+        );
+
+        // add foreign key for table `puncte lucru`
+        $this->addForeignKey(
+            'fk-programare_punctLucru_id',
+            'programare',
+            'programare_punct_lucru',
+            'structuri_subordonate_puncte_lucru',
+            'id_sspl',
+            'RESTRICT',
+            'CASCADE'
+        );
+
+        // add foreign key for table `prestari`
+        $this->addForeignKey(
+            'fk-programare_prestari_id',
+            'programare',
+            'programare_prestare',
+            'prestari',
             'id',
             'RESTRICT',
             'CASCADE'

@@ -107,11 +107,17 @@ class StructuriSubordonatePuncteLucruController extends Controller
         $punctLucruNou->minister_id_sspl = \Yii::$app->user->identity->minister_id;
         $punctLucruNou->institutie_id_sspl = \Yii::$app->user->identity->institutie_id;
 
-        if ($data["structura_subordonata_id_sspl"] && (int)$data["structura_subordonata_id_sspl"] > 0) {
-            $punctLucruNou->structura_subordonata_id_sspl = $data["structura_subordonata_id_sspl"];
-        } else {
-            $punctLucruNou->structura_subordonata_id_sspl = NULL;
+        if(\Yii::$app->user->can('admin_institutie')){
+            if ($data["structura_subordonata_id_sspl"] && (int)$data["structura_subordonata_id_sspl"] > 0) {
+                $punctLucruNou->structura_subordonata_id_sspl = $data["structura_subordonata_id_sspl"];
+            }else {
+                $punctLucruNou->structura_subordonata_id_sspl = NULL;
+            }
+        }else if(\Yii::$app->user->can('director_institutie')){
+            $punctLucruNou->structura_subordonata_id_sspl = \Yii::$app->user->identity->institutie_subordonata_id;
         }
+
+
 
         $punctLucruNou->localitate_id_sspl = $data["localitate_id_sspl"];
         $punctLucruNou->strada_sspl = $data["strada_sspl"];
@@ -120,6 +126,12 @@ class StructuriSubordonatePuncteLucruController extends Controller
         $punctLucruNou->scara_bloc_sspl = $data["scara_bloc_sspl"];
         $punctLucruNou->etaj_bloc_sspl = $data["etaj_bloc_sspl"];
         $punctLucruNou->apartament_sspl = $data["apartament_sspl"];
+
+        if(\Yii::$app->user->can('admin_institutie')){
+            $punctLucruNou->aprobat_administrator_sspl = 1;
+        }else if(\Yii::$app->user->can('director_institutie')){
+            $punctLucruNou->aprobat_administrator_sspl = 0;
+        }
 
         return $punctLucruNou->save();
     }

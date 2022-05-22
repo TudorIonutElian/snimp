@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Institutie;
 use common\models\InstitutieSearch;
+use common\models\InstitutiiStructuriSubordonate;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -202,6 +203,34 @@ class InstitutieController extends Controller
             $dataResponse['response_code'] = 500;
             $dataResponse['response_message'] = 'Identificate';
             $dataResponse['response_institutii'] = $institutiiData;
+        }
+
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $dataResponse;
+    }
+
+    public function actionGetStructuriSubordonateByInstitutieId()
+    {
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initial',
+            'response_structuri' => NULL
+        ];
+
+        $request = Yii::$app->request->post();
+        $institutieId = $request["institutie_id"];
+
+        $structuriData = InstitutiiStructuriSubordonate::find()
+            ->where(['institutie_parinte_iss' => (int) $institutieId])
+            ->select(['id_iss', 'institutie_denumire_iss'])
+            ->orderBy(['institutie_denumire_iss' => SORT_ASC])
+            ->all();
+
+        if(count($structuriData) > 0){
+            $dataResponse['response_code'] = 200;
+            $dataResponse['response_message'] = 'Identificate';
+            $dataResponse['response_structuri'] = $structuriData;
         }
 
 

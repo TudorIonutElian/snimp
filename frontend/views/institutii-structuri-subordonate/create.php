@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\InstitutiiStructuriSubordonate */
 
 $this->title = 'Adaugare structuri subordonate';
-$this->params['breadcrumbs'][] = ['label' => 'Institutii Structuri Subordonates', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Listă instituții subordonate direct', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="institutii-structuri-subordonate-create">
