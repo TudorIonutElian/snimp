@@ -17,6 +17,8 @@ use yii\web\JsExpression;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $roluri */
 /* @var $ministere */
+/* @var $institutii */
+/* @var $structuriSubordonate */
 
 $user_string = StringController::getUserFromString();
 $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
@@ -277,7 +279,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
                           {input}
                         </div>'
                 ])->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Institutie::find()->all(), 'id', 'institutie_denumire'),
+                    'data' => ArrayHelper::map($institutii, 'id', 'institutie_denumire'),
                     'language' => 'ro',
                     'options' => ['placeholder' => 'Institutie ...'],
                     'pluginOptions' => [
@@ -302,9 +304,7 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
                           {input}
                         </div>'
                     ])->widget(Select2::classname(), [
-                        'data' => ArrayHelper::map(InstitutiiStructuriSubordonate::find()
-                            ->where(['institutie_parinte_iss' => Yii::$app->user->identity->institutie_id])
-                            ->all(), 'id_iss', 'institutie_denumire_iss'),
+                        'data' => ArrayHelper::map($structuriSubordonate, 'id_iss', 'institutie_denumire_iss'),
                         'language' => 'ro',
                         'options' => ['placeholder' => 'Institutie subordonată...'],
                         'pluginOptions' => [

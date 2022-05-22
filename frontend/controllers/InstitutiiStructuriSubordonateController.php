@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Institutie;
 use common\models\InstitutiiStructuriSubordonate;
 use common\models\InstitutiiStructuriSubordonateSearch;
 use Yii;
@@ -133,6 +134,37 @@ class InstitutiiStructuriSubordonateController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public static function getStructuriSubordonate()
+    {
+        $structuriSubordonate = [];
+        if (!\Yii::$app->user->getIsGuest()) {
+            if (\Yii::$app->user->can('admin')) {
+                $institutii = InstitutiiStructuriSubordonate::find()->all();
+            } else if (\Yii::$app->user->can('admin_minister')) {
+                $institutiiMinister = Institutie::find()
+                    ->where(['institutie_minister_id' => Yii::$app->user->identity->minister_id])
+                    ->select(['id'])
+                    ->all();
+                $institutiiMinisterArray = array_column($institutiiMinister, "id");
+
+                $structuriSubordonate = InstitutiiStructuriSubordonate::find()
+                    ->where(['in', 'institutie_parinte_iss', $institutiiMinisterArray])
+                    ->all();
+            } else if (\Yii::$app->user->can('admin_institutie')) {
+                $structuriSubordonate = InstitutiiStructuriSubordonate::find()
+                    ->where(['institutie_parinte_iss' => \Yii::$app->user->identity->institutie_id])
+                    ->all();
+            }else if(Yii::$app->user->can('director_institutie')){
+                $structuriSubordonate = InstitutiiStructuriSubordonate::find()
+                    ->where(['institutie_parinte_iss' => \Yii::$app->user->identity->institutie_id])
+                    ->andWhere(['id_iss' => Yii::$app->user->identity->institutie_subordonata_id])
+                    ->all();
+            }
+        }
+
+        return $structuriSubordonate;
     }
 
 }

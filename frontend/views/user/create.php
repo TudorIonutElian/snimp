@@ -6,6 +6,8 @@ use yii\helpers\Html;
 /* @var $model common\models\User */
 /* @var $roluri */
 /* @var $ministere */
+/* @var $institutii */
+/* @var $structuriSubordonate */
 
 ?>
 <div class="user-create">
@@ -13,7 +15,9 @@ use yii\helpers\Html;
     <?= $this->render('_form', [
         'model' => $model,
         'roluri' => $roluri,
-        'ministere' => $ministere
+        'ministere' => $ministere,
+        'institutii' => $institutii,
+        'structuriSubordonate' => $structuriSubordonate
     ]) ?>
 
 </div>

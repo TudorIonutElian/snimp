@@ -124,6 +124,7 @@ class UserController extends Controller
             $roluri         = AuthItemController::getRoluri();
             $ministere      = MinisterController::getMinistere();
             $institutii     = InstitutieController::getInstitutii();
+            $structuriSubordonate = InstitutiiStructuriSubordonateController::getStructuriSubordonate();
 
             $model = new User();
 
@@ -149,7 +150,8 @@ class UserController extends Controller
                 'model' => $model,
                 'roluri' => $roluri,
                 'ministere' => $ministere,
-                'institutii' => $institutii
+                'institutii' => $institutii,
+                'structuriSubordonate' => $structuriSubordonate
             ]);
         }else{
             return  $this->redirect(['site/login']);
