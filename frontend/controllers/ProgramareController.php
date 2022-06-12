@@ -197,10 +197,50 @@ class ProgramareController extends Controller
     }
 
     public function actionValideazaProgramare(){
-        if(!\Yii::$app->user->getIsGuest()){
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Request initiat'
+        ];
+
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_institutie')){
+
             $requestData = \Yii::$app->request->post();
-            var_dump($requestData);
-            die();
+            $id_programare = $requestData["id_progamare"];
+
+            $programareExistenta = \common\models\Programare::findOne($id_programare);
+
+            if($programareExistenta != NULL){
+
+                // verificare daca programarea este din cadrul institutiei
+                if($programareExistenta->programare_institutie == \Yii::$app->user->identity->institutie_id){
+                    $programareExistenta->programare_validata_de = \Yii::$app->user->identity->id;
+                    $programareExistenta->programare_numar_unic = \Yii::$app->security->generateRandomString(10);
+                    date_default_timezone_set('Europe/Bucharest');
+                    $programareExistenta->programare_data_numar_unic = date('Y-m-d');
+
+                    if($programareExistenta->save()){
+                        $dataResponse = [
+                            'response_code' => 200,
+                            'response_message' => 'Programarea a fost validată.'
+                        ];
+                    }else{
+                        $dataResponse = [
+                            'response_code' => 500,
+                            'response_message' => 'A apărut o eroare.'
+                        ];
+                    }
+
+                }else{
+                    $dataResponse = [
+                        'response_code' => 500,
+                        'response_message' => 'Nu aveți access.'
+                    ];
+                }
+            }
+
+
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $dataResponse;
         }
         return $this->redirect(['site/index']);
     }

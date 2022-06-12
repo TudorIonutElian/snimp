@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
-                        'vertical-aling' => 'middle'
+                        'vertical-align' => 'middle'
                     ]
                 ],
                 'value' => function ($model) {
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
-                        'vertical-aling' => 'middle'
+                        'vertical-align' => 'middle'
                     ]
                 ],
                 'value' => function ($model) {
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
-                        'vertical-aling' => 'middle'
+                        'vertical-align' => 'middle'
                     ]
                 ],
                 'value' => function ($model) {
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
-                        'vertical-aling' => 'middle'
+                        'vertical-align' => 'middle'
                     ]
                 ],
                 'value' => function ($model) {
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
-                        'vertical-aling' => 'middle'
+                        'vertical-align' => 'middle'
                     ]
                 ],
                 'value' => function ($model) {
@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
-                        'vertical-aling' => 'middle'
+                        'vertical-align' => 'middle'
                     ]
                 ],
                 'value' => function ($model) {
@@ -111,13 +111,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
-                        'vertical-aling' => 'middle'
+                        'vertical-align' => 'middle'
                     ]
                 ],
                 'format' => 'raw',
                 'value' => function ($model) {
                     if ($model->programare_validata_de) {
-                        return $model->programare_validata_de;
+                        return \common\models\User::findOne($model->programare_validata_de)->fullName();
                     }
                     return '<span class="text-danger font-italic font-weight-bold">În curs de validare ...</span>';
 
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => [
                         'text-align' => 'center',
-                        'vertical-aling' => 'middle'
+                        'vertical-align' => 'middle'
                     ]
                 ],
                 'format' => 'raw',
@@ -145,6 +145,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'template' => '{validare} {delete}',
+                'visibleButtons' => [
+                        'validare' => function($model){
+                            return $model->programare_validata_de == NULL;
+                        }
+                ],
                 'buttons' => [
                     'validare' => function ($model, $data) {
                         return Html::a(
@@ -180,6 +185,19 @@ Modal::begin([
 ]);
 
 echo '<div id="modal-validare-programare-content"></div>';
+
+Modal::end();
+?>
+
+<?php
+Modal::begin([
+    'title' => '<h4 class="text-center text-danger font-weight-bold">Sunteți sigur că doriți anularea programării?</h4>',
+    'id' => 'modal-anulare-programare',
+    'size' => 'modal-lg',
+    //'toggleButton' => ['label' => 'click me'],
+]);
+
+echo '<div id="modal-anulare-programare-content"></div>';
 
 Modal::end();
 ?>
