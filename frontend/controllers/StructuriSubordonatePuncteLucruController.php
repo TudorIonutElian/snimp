@@ -169,4 +169,64 @@ class StructuriSubordonatePuncteLucruController extends Controller
 
         return $this->redirect(['index']);
     }
+    // =============================================================
+    // APROBARE A UNUI PUNCT DE LUCRU DE CATRE ADMINISTRATOR
+    // =============================================================
+    public function actionAprobarePunctLucru(){
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initiat'
+        ];
+
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_institutie')){
+            if(\Yii::$app->request->isPost){
+                $request = \Yii::$app->request->post();
+                $punct_lucru_id = (int) $request["punct_lucru_id"];
+
+                // identificare punct de lucru dupa id
+                $punctLucru = StructuriSubordonatePuncteLucru::findOne($punct_lucru_id);
+                if($punctLucru){
+                    $punctLucru->aprobat_administrator_sspl = 1;
+                    if($punctLucru->save()){
+                        $dataResponse = [
+                            'response_code' => 200,
+                            'response_message' => 'Punct de lucru aprobat.'
+                        ];
+                    }else{
+                        $dataResponse = [
+                            'response_code' => 500,
+                            'response_message' => 'Punct de lucru nu a fost salvat.'
+                        ];
+                    }
+                }else{
+                    $dataResponse = [
+                        'response_code' => 500,
+                        'response_message' => 'Punctul de lucru NU a fost identificat.'
+                    ];
+                }
+
+                \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return $dataResponse;
+
+            }
+            return $this->redirect(['site/index']);
+        }
+        return $this->redirect(['site/index']);
+    }
+
+    // =============================================================
+    // PROPUNERI APROBARE PUNCTE DE LUCRU
+    // =============================================================
+    public function actionPropuneriAprobare(){
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_institutie')){
+            $searchModel = new StructuriSubordonatePuncteLucruSearch();
+            $dataProvider = $searchModel->searchPropuneriAprobare($this->request->queryParams);
+
+            return $this->render('propuneri-aprobare', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return $this->redirect(['site/index']);
+    }
 }

@@ -52,10 +52,10 @@ use yii\helpers\Html;
                     <?= Html::a('<i class="fas fa-plus nav-icon"></i>Adaugă', ['structuri-subordonate-puncte-lucru/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="fas fa-bell-slash nav-icon"></i>Suspendă', ['structuri-subordonate-puncte-lucru/index/suspenda'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="far fa-bell-slash  nav-icon"></i>Propuneri suspendare', ['structuri-subordonate-puncte-lucru/propuneri-suspendare'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="far fa-bell-slash  nav-icon"></i>Propuneri suspendare', ['structuri-subordonate-puncte-lucru/suspenda'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="far fa-bell  nav-icon"></i>Propuneri aprobare', ['structuri-subordonate-puncte-lucru/propuneri-aprobare'], ['class' => 'nav-link']) ?>
                 </li>
             </ul>
         </li>

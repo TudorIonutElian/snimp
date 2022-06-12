@@ -106,6 +106,11 @@ use yii\helpers\Html;
                         'daysOfWeekDisabled' => '0,6',
                         'hoursDisabled' => '0,1,2,3,4,5,6,7,16,17,18,19,20,21,22,23'
                     ],
+                    'pluginEvents' =>[
+                        "changeDate" => "function(e) {  alert(123)}",
+                    ]
+
+
 
                 ]);
                 ?>

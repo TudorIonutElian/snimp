@@ -44,7 +44,7 @@ class Programare extends \yii\db\ActiveRecord
             [['programare_numar_unic'], 'string', 'max' => 10],
             [['programare_institutie'], 'exist', 'skipOnError' => true, 'targetClass' => Institutie::className(), 'targetAttribute' => ['programare_institutie' => 'id']],
             [['programare_localitate'], 'exist', 'skipOnError' => true, 'targetClass' => Localitate::className(), 'targetAttribute' => ['programare_localitate' => 'id']],
-            [['programare_serviciu'], 'exist', 'skipOnError' => true, 'targetClass' => InstitutiiServicii::className(), 'targetAttribute' => ['programare_serviciu' => 'id']],
+            //[['programare_serviciu'], 'exist', 'skipOnError' => true, 'targetClass' => InstitutiiServicii::className(), 'targetAttribute' => ['programare_serviciu' => 'id']],
             [['programare_minister'], 'exist', 'skipOnError' => true, 'targetClass' => Minister::className(), 'targetAttribute' => ['programare_minister' => 'id']],
         ];
     }
@@ -74,7 +74,7 @@ class Programare extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProgramareMinister()
+    public function getMinister()
     {
         return $this->hasOne(Minister::className(), ['id' => 'programare_minister']);
     }
@@ -84,7 +84,7 @@ class Programare extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProgramareInstitutie()
+    public function getInstitutie()
     {
         return $this->hasOne(Institutie::className(), ['id' => 'programare_institutie']);
     }
@@ -94,7 +94,7 @@ class Programare extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProgramareLocalitate()
+    public function getLocalitate()
     {
         return $this->hasOne(Localitate::className(), ['id' => 'programare_localitate']);
     }
@@ -104,8 +104,14 @@ class Programare extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProgramareServiciu()
+    public function getServiciu()
     {
-        return $this->hasOne(InstitutieServiciu::className(), ['id' => 'programare_serviciu']);
+        return $this->hasOne(TipuriServiciu::className(), ['id' => 'programare_serviciu']);
     }
+
+    public function getUtilizator()
+    {
+        return $this->hasOne(User::className(), ['id' => 'programare_user']);
+    }
+
 }

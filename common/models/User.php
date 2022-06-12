@@ -258,4 +258,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function getInstitutieSubordonata(){
         return $this->hasOne(InstitutiiStructuriSubordonate::class, ['id_iss' => 'institutie_subordonata_id']);
     }
+
+    public function fullName(){
+        return $this->nume.' '.$this->prenume;
+    }
 }

@@ -19,3 +19,5 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+<?php $this->registerJsFile("@web/js/plugins/views/programare/create.js"); ?>

@@ -20,6 +20,7 @@ class AppAsset extends AssetBundle
         'css/plugins/adminlte/adminlte.min.css',
         'css/plugins/overlayScrollbars/css/OverlayScrollbars.min.css',
         'css/plugins/daterangepicker/daterangepicker.css',
+        'css/plugins/toastr/toastr.css',
     ];
     public $js = [
         'js/plugins/custom/user-custom.js',
@@ -27,11 +28,12 @@ class AppAsset extends AssetBundle
         'js/plugins/custom/judet-custom.js',
         'js/plugins/custom/localitate-custom.js',
         'js/plugins/custom/institutie-custom.js',
-
         'js/plugins/jquery-ui/jquery-ui.min.js',
         'js/plugins/bootstrap/js/bootstrap.bundle.min.js',
         'js/plugins/jqvmap/jquery.vmap.min.js',
         'js/plugins/adminlte/adminlte.js',
+        'js/plugins/toastr/toastr.js',
+        'js/plugins/chartjs/chart.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

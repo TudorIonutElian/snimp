@@ -9,15 +9,12 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\StructuriSubordonatePuncteLucruSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Adăugare punct de lucru';
+$this->title = 'Lista puncte de lucru spre aprobare';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="structuri-subordonate-puncte-lucru-index">
 
-    <h1 class="text-center">
-        <?= Html::encode($this->title) ?>
-        <?= Html::a('<i class="fas fa-plus mr-2"></i>Adaugă punct lucru', ['create'], ['class' => 'btn btn-success']) ?>
-    </h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
 
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -172,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'vertical-align' => 'middle'
                     ]
                 ],
-                'template' => '{aproba} {view} {update} {delete}',
+                'template' => '{aproba}',
                 'visibleButtons' => [
                     'aproba' => function ($model, $data) {
                         if ($model->aprobat_administrator_sspl == 0) {
@@ -180,38 +177,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                         return false;
                     },
-                    'view' => function () {
-                        return Yii::$app->user->can('director_institutie');
-                    },
-                    'update' => function () {
-                        return Yii::$app->user->can('director_institutie');
-                    },
-                    'delete' => function ($model, $data) {
-                        if ($model->aprobat_administrator_sspl == 0) {
-                            return Yii::$app->user->can('director_institutie');
-                        }
-                        return false;
-
-                    }
 
                 ],
                 'buttons' => [
-                    'view' => function ($model, $data) {
-                        return Html::a('<i class="fas fa-eye mr-2"></i>Vizualizeaza<br>', ['structuri-subordonate-puncte-lucru/view', 'id_sspl' => $data->id_sspl]);
-                    },
-                    'update' => function ($model, $data) {
-                        return Html::a(
-                            '<i class="fas fa-edit mr-2"></i>Actualizeaza<br>',
-                            ['structuri-subordonate-puncte-lucru/update', 'id_sspl' => $data->id_sspl]
-                        );
-                    },
-                    'delete' => function ($model, $data) {
-                        return Html::a(
-                            '<i class="fas fa-trash mr-2"></i>Șterge<br>',
-                            ['structuri-subordonate-puncte-lucru/update', 'id_sspl' => $data->id_sspl],
-                            ['data-method' => 'POST', 'class' => ['text-danger']]
-                        );
-                    },
                     'aproba' => function ($model, $data) {
                         return Html::a(
                             '<i class="fas fa-check-double mr-2"></i>Aprobă<br>',

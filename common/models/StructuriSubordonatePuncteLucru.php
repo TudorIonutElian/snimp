@@ -112,4 +112,6 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
     {
         return $this->hasOne(InstitutiiStructuriSubordonate::className(), ['id_iss' => 'structura_subordonata_id_sspl']);
     }
+
+
 }

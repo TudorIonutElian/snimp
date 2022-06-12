@@ -2,11 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\models\FormProgramare;
+use common\models\Institutie;
 use common\models\Judet;
 use common\models\Localitate;
 use common\models\Programare;
 use common\models\ProgramareSearch;
-use common\models\FormProgramare;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -99,10 +100,62 @@ class ProgramareController extends Controller
 
         $model = new FormProgramare();
 
-        return $this->render('create', [
-            'model' => $model,
-            'localitatiJudet' => $localitatiJudet
-        ]);
+        if (\Yii::$app->request->isPost) {
+            $request = \Yii::$app->request->post();
+
+            $formProgramare = $request["FormProgramare"];
+
+            $programareSalvata = $this->salveazaDateProgramare($formProgramare);
+
+            if($programareSalvata){
+                return $this->redirect([
+                    'programare/create',
+                    'judetul' => $judetul,
+                    'action' => 'salvare',
+                    'result' => 200
+                ]);
+            }else{
+                return $this->redirect([
+                    'programare/create',
+                    'judetul' => $judetul,
+                    'action' => 'salvare',
+                    'result' => 500]);
+            }
+        } else if (\Yii::$app->request->isGet) {
+            return $this->render('create', [
+                'model' => $model,
+                'localitatiJudet' => $localitatiJudet
+            ]);
+        }
+    }
+
+    private function salveazaDateProgramare($formProgramare)
+    {
+        $programareNoua = new Programare();
+        $programareNoua->programare_localitate = $formProgramare["programare_localitate"];
+        $programareNoua->programare_institutie = $formProgramare["programare_institutie"];
+
+        // get id for minister
+        $institutie = Institutie::find()
+            ->where(['id' => (int)$formProgramare["programare_institutie"]])
+            ->select(['institutie_minister_id'])
+            ->one();
+
+        $programareNoua->programare_minister = $institutie->institutie_minister_id;
+        $programareNoua->programare_structura_subordonata = $formProgramare["programare_structura_subordonata"];
+        $programareNoua->programare_serviciu = (int) $formProgramare["programare_serviciu"];
+        $programareNoua->programare_prestare = $formProgramare["programare_prestare"];
+        $programareNoua->programare_punct_lucru = $formProgramare["programare_punct_lucru"];
+        $programareNoua->programare_datetime = $formProgramare["programare_data"];
+        $programareNoua->programare_email = $formProgramare["programare_email"];
+        $programareNoua->programare_nume = $formProgramare["programare_nume"];
+        $programareNoua->programare_prenume = $formProgramare["programare_prenume"];
+
+        if(!\Yii::$app->user->getIsGuest()){
+            $programareNoua->programare_user = \Yii::$app->user->identity->id;
+        }
+
+        return $programareNoua->save();
     }
 
     /**
@@ -137,5 +190,9 @@ class ProgramareController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionStatistici(){
+        return $this->render('statistici');
     }
 }

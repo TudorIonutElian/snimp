@@ -93,7 +93,7 @@ class m220530_153115_create_programari_table extends Migration
             'fk-programare_serviciu_id',
             'programare',
             'programare_serviciu',
-            'institutii_servicii',
+            'tipuri_serviciu',
             'id',
             'RESTRICT',
             'CASCADE'
