@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\Modal;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -168,6 +169,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
-
 </div>
+
+<?php
+Modal::begin([
+    'title' => '<h4 class="text-center text-success font-weight-bold">Sunteți sigur că doriți validarea programării?</h4>',
+    'id' => 'modal-validare-programare',
+    'size' => 'modal-lg',
+    //'toggleButton' => ['label' => 'click me'],
+]);
+
+echo '<div id="modal-validare-programare-content"></div>';
+
+Modal::end();
+?>
+
+<style>
+    .modal-buttons{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<?php $this->registerJsFile("@web/js/plugins/views/programare/index.js"); ?>

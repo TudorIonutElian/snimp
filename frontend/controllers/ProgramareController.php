@@ -195,4 +195,13 @@ class ProgramareController extends Controller
     public function actionStatistici(){
         return $this->render('statistici');
     }
+
+    public function actionValideazaProgramare(){
+        if(!\Yii::$app->user->getIsGuest()){
+            $requestData = \Yii::$app->request->post();
+            var_dump($requestData);
+            die();
+        }
+        return $this->redirect(['site/index']);
+    }
 }

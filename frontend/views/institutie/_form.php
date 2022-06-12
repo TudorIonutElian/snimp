@@ -118,9 +118,5 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
         </div>
     </div>
 
-
-
-
-
     <?php ActiveForm::end(); ?>
 </div>
