@@ -52,6 +52,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
+                'label' => 'Structura',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'value' => function ($model) {
+                    if ($model->programare_structura_subordonata) {
+                        return \common\models\InstitutiiStructuriSubordonate::findOne($model->programare_structura_subordonata)->institutie_denumire_iss;
+                    }
+                    return '-';
+
+                }
+            ],
+
+            [
                 'label' => 'Serviciu',
                 'contentOptions' => [
                     'style' => [
@@ -146,9 +163,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'template' => '{validare} {delete}',
                 'visibleButtons' => [
-                        'validare' => function($model){
-                            return $model->programare_validata_de == NULL;
-                        }
+                    'validare' => function ($model) {
+                        return $model->programare_validata_de == NULL;
+                    }
                 ],
                 'buttons' => [
                     'validare' => function ($model, $data) {
@@ -203,7 +220,7 @@ Modal::end();
 ?>
 
 <style>
-    .modal-buttons{
+    .modal-buttons {
         display: flex;
         flex-direction: row;
         align-items: center;

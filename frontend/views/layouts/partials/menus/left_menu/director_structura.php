@@ -72,6 +72,12 @@ use yii\helpers\Html;
                 </li>
             </ul>
         </li>
+        <li class="nav-item">
+            <a href="index.php?r=programare" class="nav-link">
+                <i class="fas fa-list-ul nav-icon"></i>
+                <p>Programari</p>
+            </a>
+        </li>
     </ul>
 </nav>
 

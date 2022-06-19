@@ -37,18 +37,29 @@ class ProgramareController extends Controller
 
     /**
      * Lists all Programare models.
-     *
-     * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ProgramareSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if(!\Yii::$app->user->getIsGuest()){
+            $searchModel = new ProgramareSearch();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            if(\Yii::$app->user->can('admin')){
+                $dataProvider = $searchModel->search($this->request->queryParams);
+            }else if(\Yii::$app->user->can('admin_minister')){
+                $dataProvider = $searchModel->searchAdminMinister($this->request->queryParams);
+            }else if(\Yii::$app->user->can('admin_institutie')){
+                $dataProvider = $searchModel->searchAdminInstitutie($this->request->queryParams);
+            }else if(\Yii::$app->user->can('director_institutie')){
+                $dataProvider = $searchModel->searchAdminStructura($this->request->queryParams);
+            }
+
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return $this->redirect(['site/index']);
     }
 
     /**
