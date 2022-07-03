@@ -10,6 +10,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Adăugare punct de lucru';
+$this->params['breadcrumbs'][] = ['label' => 'Lista puncte de lucru', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="structuri-subordonate-puncte-lucru-index">
@@ -159,6 +160,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     $content = '<span class="text-danger font-weight-bold">NU</span>';
                     if ($model->aprobat_administrator_sspl == 1) {
                         $content = '<span class="text-success font-weight-bold">DA</span>';
+                    } else if ($model->aprobat_administrator_sspl == 2) {
+                        $content = '<span class="text-warning font-weight-bold">Propus spre suspendare</span>';
+                    } else if ($model->aprobat_administrator_sspl == 3) {
+                        $content = '<span class="text-danger font-weight-bold">Suspendat</span>';
                     }
 
                     return $content;
@@ -172,7 +177,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'vertical-align' => 'middle'
                     ]
                 ],
-                'template' => '{aproba} {view} {update} {delete}',
+                'template' => '{aproba} {view} {update} {delete} {reactivare}',
                 'visibleButtons' => [
                     'aproba' => function ($model, $data) {
                         if ($model->aprobat_administrator_sspl == 0) {
@@ -183,15 +188,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     'view' => function () {
                         return Yii::$app->user->can('director_institutie');
                     },
-                    'update' => function () {
-                        return Yii::$app->user->can('director_institutie');
+                    'update' => function ($model) {
+                        if (Yii::$app->user->can('director_institutie')) {
+                            if($model->aprobat_administrator_sspl == 1){
+                                return true;
+                            }
+                            return false;
+                        }
+                        return false;
                     },
                     'delete' => function ($model, $data) {
                         if ($model->aprobat_administrator_sspl == 0) {
                             return Yii::$app->user->can('director_institutie');
                         }
                         return false;
-
+                    },
+                    'reactivare' => function($model){
+                        if (Yii::$app->user->can('admin_institutie')) {
+                            if($model->aprobat_administrator_sspl == 3){
+                                return true;
+                            }
+                            return false;
+                        }
+                        return false;
                     }
 
                 ],
@@ -222,6 +241,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         );
                     },
+                    'reactivare' => function ($model, $data) {
+                        return Html::a(
+                            '<i class="fas fa-check-double mr-2"></i>Reactivare<br>',
+                            '#',
+                            [
+                                'class' => ['btn btn-outline-success btn-sm', 'reactivare_punct_lucru'],
+                                'data-punct-lucru-id' => $data->id_sspl
+                            ]
+                        );
+                    },
                 ]
             ],
         ],
@@ -237,6 +266,19 @@ Modal::begin([
 ]);
 
 echo '<div id="modal-aprobare-punct-content"></div>';
+
+Modal::end();
+?>
+
+<?php
+Modal::begin([
+    'title' => '<h6 class="text-center font-weight-bold">Redeschidere punct lucru</h6>',
+    'id' => 'modal-redeschidere-punct',
+    'size' => 'modal-md',
+    //'toggleButton' => ['label' => 'click me'],
+]);
+
+echo '<div id="modal-redeschidere-punct-content"></div>';
 
 Modal::end();
 ?>

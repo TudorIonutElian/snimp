@@ -278,7 +278,10 @@ class StructuriSubordonatePuncteLucruController extends Controller
     }
 
     public function actionPropuneriSuspendare(){
-        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_institutie')){
+        if(!\Yii::$app->user->getIsGuest() && (
+            \Yii::$app->user->can('admin_institutie') ||
+            \Yii::$app->user->can('director_institutie')
+            )){
             $searchModel = new StructuriSubordonatePuncteLucruSearch();
             $dataProvider = $searchModel->searchPropuneriSuspendare($this->request->queryParams);
 
@@ -346,6 +349,45 @@ class StructuriSubordonatePuncteLucruController extends Controller
 
             if($punctLucru){
                 $punctLucru->aprobat_administrator_sspl = 3;
+                if($punctLucru->save()){
+                    $dataResponse = [
+                        'response_code' => 200,
+                        'response_message' => 'Punct de lucru suspendat.'
+                    ];
+                }else{
+                    $dataResponse = [
+                        'response_code' => 500,
+                        'response_message' => 'Punct de lucru nu a fost suspendat.'
+                    ];
+                }
+            }else{
+                $dataResponse = [
+                    'response_code' => 500,
+                    'response_message' => 'Punctul de lucru NU a fost identificat.'
+                ];
+            }
+
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $dataResponse;
+        }
+        return $this->redirect(['site/index']);
+    }
+
+    public function actionRedeschiderePunctLucru(){
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initiat'
+        ];
+
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_institutie')){
+            $request = \Yii::$app->request->post();
+            $punct_lucru_id = (int) $request["punct_lucru_id"];
+
+            // identificare punct de lucru dupa id
+            $punctLucru = StructuriSubordonatePuncteLucru::findOne($punct_lucru_id);
+
+            if($punctLucru){
+                $punctLucru->aprobat_administrator_sspl = 1;
                 if($punctLucru->save()){
                     $dataResponse = [
                         'response_code' => 200,

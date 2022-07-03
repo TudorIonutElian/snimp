@@ -47,7 +47,7 @@ use yii\helpers\Html;
                     <?= Html::a('<i class="fas fa-bell-slash nav-icon"></i>Suspendă', ['structuri-subordonate-puncte-lucru/suspenda'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="far fa-bell-slash  nav-icon"></i>Propuneri suspendare', ['structuri-subordonate-puncte-lucru/suspenda'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="far fa-bell-slash  nav-icon"></i>Propuneri suspendare', ['structuri-subordonate-puncte-lucru/propuneri-suspendare'], ['class' => 'nav-link']) ?>
                 </li>
             </ul>
         </li>

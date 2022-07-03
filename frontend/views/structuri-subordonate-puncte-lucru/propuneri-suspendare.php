@@ -10,6 +10,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Lista puncte de lucru ce pot fi suspendate';
+$this->params['breadcrumbs'][] = ['label' => 'Lista puncte de lucru', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="structuri-subordonate-puncte-lucru-index">
@@ -156,6 +157,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     $content = '<span class="text-danger font-weight-bold">NU</span>';
                     if ($model->aprobat_administrator_sspl == 1) {
                         $content = '<span class="text-success font-weight-bold">DA</span>';
+                    }else if($model->aprobat_administrator_sspl == 2){
+                        $content = '<span class="text-danger font-weight-bold">Propus spre suspendare</span>';
                     }
 
                     return $content;

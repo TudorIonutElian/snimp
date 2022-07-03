@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\StructuriSubordonatePuncteLucru */
 
 $this->title = $model->id_sspl;
-$this->params['breadcrumbs'][] = ['label' => 'Structuri Subordonate Puncte Lucrus', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Lista puncte de lucru', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

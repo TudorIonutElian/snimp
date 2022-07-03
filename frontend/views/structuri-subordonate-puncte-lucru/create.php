@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\StructuriSubordonatePuncteLucru */
 
 $this->title = 'Adaugă Punct de lucru';
-$this->params['breadcrumbs'][] = ['label' => 'Lista Puncte de lucru', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Lista puncte de lucru', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="structuri-subordonate-puncte-lucru-create">
