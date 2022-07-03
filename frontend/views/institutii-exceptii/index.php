@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\InstitutiiExceptiiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Institutii Exceptiis';
+$this->title = 'Listă excepții';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="institutii-exceptii-index">

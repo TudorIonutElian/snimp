@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\InstitutiiExceptii */
 
-$this->title = 'Create Institutii Exceptii';
-$this->params['breadcrumbs'][] = ['label' => 'Institutii Exceptiis', 'url' => ['index']];
+$this->title = 'Adaugă exceptii în cadrul institutiei';
+$this->params['breadcrumbs'][] = ['label' => 'Listă excepții', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="institutii-exceptii-create">

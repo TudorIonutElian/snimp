@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\InstitutiiExceptii */
 
-$this->title = 'Update Institutii Exceptii: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Institutii Exceptiis', 'url' => ['index']];
+$this->title = 'Vizualizare excepție';
+$this->params['breadcrumbs'][] = ['label' => 'Listă excepții', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
