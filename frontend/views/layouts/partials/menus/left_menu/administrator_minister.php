@@ -44,6 +44,26 @@ use yii\helpers\Html;
                 <p>Programari</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-chart-area"></i>
+                <p>
+                    Statistici
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-chart-area nav-icon"></i>Lunare', ['programare/statistici'], ['class' => 'nav-link']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-chart-area nav-icon"></i>Trimestriale', ['programare/statistici'], ['class' => 'nav-link']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= Html::a('<i class="fas fa-chart-area nav-icon"></i>Anuale', ['programare/statistici'], ['class' => 'nav-link']) ?>
+                </li>
+            </ul>
+        </li>
     </ul>
 
 </nav>
