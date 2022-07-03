@@ -103,6 +103,31 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
                 [2,7]
             ]
         );
+
+        // adaugare puncte de lucru pt IGPF-ITPF Gr
+        $this->batchInsert(
+          'structuri_subordonate_puncte_lucru',
+          [
+              'minister_id_sspl',
+              'institutie_id_sspl',
+              'structura_subordonata_id_sspl',
+              'localitate_id_sspl',
+              'strada_sspl',
+              'numar_strada_sspl',
+              'bloc_strada_sspl',
+              'bloc_strada_sspl',
+              'scara_bloc_sspl',
+              'etaj_bloc_sspl',
+              'apartament_sspl',
+              'aprobat_administrator_sspl',
+          ],
+          [
+            [3, 2, NULL, 13802, 'Bulevardul Aerogarii', '1', '12', 'A', '-', '-', 1],
+            [3, 2, 1, 5236, 'Bulevardul Bucuresti', '10', '12', 'A', '-', '-', 1],
+            [3, 2, 1, 5236, 'Bulevardul Zimnicea', '25', '-', '-', '-', '-', 1],
+            [3, 2, 1, 5236, 'Soseaua Alexandriei', '100', '-', '-', '-', '-', 1],
+          ]
+        );
     }
 
     /**
