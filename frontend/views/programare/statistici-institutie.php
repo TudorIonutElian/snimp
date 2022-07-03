@@ -63,18 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             </div>
             <div class="col-3">
-                <?php
-                    $servicii_list = \common\models\InstitutiiServicii::find()
-                        ->where(['is_institutie' => Yii::$app->user->identity->institutie_id])
-                        ->select(['is_serviciu'])
-                        ->all();
-                ?>
+
                 <?= Select2::widget([
                     'name' => 'structura_id',
-                    'data' => \yii\helpers\ArrayHelper::map(
-                            TipuriServiciu::find()
-                                ->where(['in', 'id', array_column($servicii_list, 'is_serviciu')])
-                                ->all(), 'id', 'tip_serviciu_denumire'),
+                    'data' => [],
                     'options' => ['placeholder' => 'Selectează serviciul ...'],
                     'pluginOptions' => [
                         'allowClear' => true
@@ -103,6 +95,26 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <script>
+    $('body').on('change', '#w2', function () {
+        const structura_subordonata_id = $('#w2').val();
+
+        $.ajax({
+            url: "index.php?r=structuri-subordonate-servicii/get-servicii-by-structura-id",
+            type: "POST",
+            data: {
+                _structura_subordonata_id: structura_subordonata_id
+            },
+            success: function (response) {
+                const serviciiStructura = response;
+                $('#w3').empty();
+                for (let i = 0; i< serviciiStructura.length; i++){
+                    $('#w3').append(`<option value="${serviciiStructura[i].id}">${serviciiStructura[i].tip_serviciu_denumire}</option>`)
+                }
+            }
+        });
+
+    });
+
     $('body').on('click', '#afiseaza_statistici', function () {
         const data_inceput = $('#w0').val();
         const data_sfarsit = $('#w1').val();

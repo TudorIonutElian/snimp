@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\InstitutiiServicii;
 use common\models\StructuriSubordonateServicii;
 use common\models\StructuriSubordonateServiciiSearch;
+use common\models\TipuriServiciu;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -165,5 +166,28 @@ class StructuriSubordonateServiciiController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetServiciiByStructuraId(){
+        if(!\Yii::$app->user->getIsGuest()){
+            $request = \Yii::$app->request->post();
+            $structura_subordonata_id = $request["_structura_subordonata_id"];
+
+            $serviciileStructuriiSubordonate = StructuriSubordonateServicii::find()
+                ->where(['structura_subordonata_id_sss' => $structura_subordonata_id])
+                ->select(['serviciu_id_sss'])
+                ->all();
+
+            $serviciileOriginale = TipuriServiciu::find()
+                ->where(['in', 'id', array_column($serviciileStructuriiSubordonate, 'serviciu_id_sss')])
+                ->select(['id', 'tip_serviciu_denumire'])
+                ->orderBy(['tip_serviciu_denumire' => SORT_ASC])
+                ->all();
+
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $serviciileOriginale;
+        }
+
+        return $this->redirect(['site/index']);
     }
 }
