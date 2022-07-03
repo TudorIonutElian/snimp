@@ -458,7 +458,8 @@ class ProgramareController extends Controller
             $request = \Yii::$app->request->post();
             $data_inceput = date('Y-m-d', strtotime($request['_data']['_data_inceput']));
             $data_sfarsit = date('Y-m-d', strtotime($request['_data']['_data_sfarsit']));
-            $structura_id = (int)$request['_data']['_structura_id'];
+            $structura_id = (int) $request['_data']['_structura_id'];
+            $serviciu_id = (int) $request['_data']['_serviciu_id'];
 
             if ($structura_id === 0) {
                 // aduc date pentru toate institutiile
@@ -490,41 +491,78 @@ class ProgramareController extends Controller
                     // 'rgba(255, 99, 132, 0.5)',
                 }
             } else {
-                // aduc serviciile din cadrul institutiei
-                $tipuriServiciiInstitutie = InstitutiiServicii::find()
-                    ->where(['is_institutie' => \Yii::$app->user->identity->institutie_id])
-                    ->select(['is_serviciu'])
-                    ->all();
+                if($serviciu_id === 0){
+                    // aduc serviciile din cadrul institutiei
+                    $tipuriServiciiInstitutie = InstitutiiServicii::find()
+                        ->where(['is_institutie' => \Yii::$app->user->identity->institutie_id])
+                        ->select(['is_serviciu'])
+                        ->all();
 
-                // preluare servicii pentru label
-                $servicii = TipuriServiciu::find()
-                    ->where(['in', 'id', array_column($tipuriServiciiInstitutie, 'is_serviciu')])
-                    ->select(['id', 'tip_serviciu_denumire'])
-                    ->orderBy(['tip_serviciu_denumire' => SORT_ASC])
-                    ->all();
+                    // preluare servicii pentru label
+                    $servicii = TipuriServiciu::find()
+                        ->where(['in', 'id', array_column($tipuriServiciiInstitutie, 'is_serviciu')])
+                        ->select(['id', 'tip_serviciu_denumire'])
+                        ->orderBy(['tip_serviciu_denumire' => SORT_ASC])
+                        ->all();
 
-                $data_response['labels'] = array_column($servicii, 'tip_serviciu_denumire');
-                $data_response['numar_programari'] = [];
-                $data_response['background_colors'] = [];
+                    $data_response['labels'] = array_column($servicii, 'tip_serviciu_denumire');
+                    $data_response['numar_programari'] = [];
+                    $data_response['background_colors'] = [];
 
-                foreach ($servicii as $key => $serviciu) {
-                    $numar_programari_per_servicii = Programare::find()
-                        ->where([
-                            'and',
-                            ['>=', 'date(programare_datetime)', $data_inceput],
-                            ['<=', 'date(programare_datetime)', $data_sfarsit],
-                        ])
-                        ->andWhere(['programare_structura_subordonata' => $structura_id])
-                        ->andWhere(['programare_serviciu' => $serviciu->id])->count();
+                    foreach ($servicii as $key => $serviciu) {
+                        $numar_programari_per_servicii = Programare::find()
+                            ->where([
+                                'and',
+                                ['>=', 'date(programare_datetime)', $data_inceput],
+                                ['<=', 'date(programare_datetime)', $data_sfarsit],
+                            ])
+                            ->andWhere(['programare_structura_subordonata' => $structura_id])
+                            ->andWhere(['programare_serviciu' => $serviciu->id])->count();
 
-                    array_push($data_response['numar_programari'], $numar_programari_per_servicii);
+                        array_push($data_response['numar_programari'], $numar_programari_per_servicii);
 
-                    // set the color
-                    $randomRed = rand(1, 255);
-                    $randomGreen = rand(1, 255);
-                    $randomBlue = rand(1, 255);
-                    $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
-                    array_push($data_response['background_colors'], $colorString);
+                        // set the color
+                        $randomRed = rand(1, 255);
+                        $randomGreen = rand(1, 255);
+                        $randomBlue = rand(1, 255);
+                        $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
+                        array_push($data_response['background_colors'], $colorString);
+                    }
+                }else{
+                    // aduc punctele de lucru
+                    $structuraPuncteLucru = StructuriSubordonatePuncteLucru::find()
+                        ->where(['structura_subordonata_id_sspl' => $structura_id])
+                        ->select(['id_sspl', 'localitate_id_sspl', 'strada_sspl', 'numar_strada_sspl'])
+                        ->all();
+
+                    $data_response['labels'] = [];
+                    $data_response['numar_programari'] = [];
+                    $data_response['background_colors'] = [];
+
+                    foreach ($structuraPuncteLucru as $punctLucru){
+                        $localitate = Localitate::findOne($punctLucru->localitate_id_sspl);
+                        $stringLabelForPunctLucru = $localitate->localitate_nume.'-'.$punctLucru->strada_sspl.'-'.$punctLucru->numar_strada_sspl;
+                        array_push($data_response['labels'], $stringLabelForPunctLucru);
+
+                        $numar_programari_per_servicii = Programare::find()
+                            ->where([
+                                'and',
+                                ['>=', 'date(programare_datetime)', $data_inceput],
+                                ['<=', 'date(programare_datetime)', $data_sfarsit],
+                            ])
+                            ->andWhere(['programare_punct_lucru' => $punctLucru->id_sspl])
+                            ->andWhere(['programare_serviciu' => $serviciu_id])
+                            ->count();
+
+                        array_push($data_response['numar_programari'], $numar_programari_per_servicii);
+
+                        // set the color
+                        $randomRed = rand(1, 255);
+                        $randomGreen = rand(1, 255);
+                        $randomBlue = rand(1, 255);
+                        $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
+                        array_push($data_response['background_colors'], $colorString);
+                    }
                 }
             }
 
