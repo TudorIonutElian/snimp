@@ -4,11 +4,13 @@ namespace frontend\controllers;
 
 use common\models\FormProgramare;
 use common\models\Institutie;
+use common\models\InstitutiiServicii;
 use common\models\Judet;
 use common\models\Localitate;
 use common\models\Minister;
 use common\models\Programare;
 use common\models\ProgramareSearch;
+use common\models\TipuriServiciu;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -273,6 +275,9 @@ class ProgramareController extends Controller
         return $this->redirect(['site/index']);
     }
 
+    // ==============================================
+    // STATISTICI GENERALE PENTRU TOT SISTEMUL
+    // ==============================================
     public function actionGetStatisticiAdmin()
     {
         $data_response = [];
@@ -337,6 +342,94 @@ class ProgramareController extends Controller
                     $colorString = 'rgba('.$randomRed.', '.$randomGreen .', '.$randomBlue.', 0.5)';
                     array_push($data_response['background_colors'], $colorString);
                     // 'rgba(255, 99, 132, 0.5)',
+                }
+            }
+
+            return $data_response;
+        }
+    }
+    // =============================================
+    // STATISTICI CHART IN CADRUL MINISTERULUI
+    // =============================================
+    public function actionGetStatisticiMinister()
+    {
+        $data_response = [];
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        if (\Yii::$app->user->getIsGuest()) {
+            return $data_response;
+        } else {
+            $request = \Yii::$app->request->post();
+            $data_inceput = date('Y-m-d', strtotime($request['_data']['_data_inceput']));
+            $data_sfarsit = date('Y-m-d', strtotime($request['_data']['_data_sfarsit']));
+            $institutie_id = (int)$request['_data']['_institutie_id'];
+
+            if ($institutie_id === 0) {
+                // aduc date pentru toate institutiile
+                $institutii = Institutie::find()
+                                    ->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id])
+                                    ->select(['id', 'institutie_denumire'])
+                                    ->asArray()
+                                    ->all();
+
+                $data_response['labels'] = array_column($institutii, 'institutie_denumire');
+                $data_response['numar_programari'] = [];
+                $data_response['background_colors'] = [];
+
+                foreach ($institutii as $key => $institutie) {
+                    $numar_programari_per_institutie = Programare::find()
+                        ->where([
+                            'and',
+                            ['>=', 'date(programare_datetime)', $data_inceput],
+                            ['<=', 'date(programare_datetime)', $data_sfarsit],
+                        ])->andWhere(['programare_institutie' => $institutie['id']])->count();
+                    array_push($data_response['numar_programari'], $numar_programari_per_institutie);
+
+                    // set the color
+                    $randomRed = rand(1, 255);
+                    $randomGreen = rand(1, 255);
+                    $randomBlue = rand(1, 255);
+                    $colorString = 'rgba('.$randomRed.', '.$randomGreen .', '.$randomBlue.', 0.5)';
+                    array_push($data_response['background_colors'], $colorString);
+                    // 'rgba(255, 99, 132, 0.5)',
+                }
+            } else {
+                // aduc serviciile din cadrul institutiei
+                $tipuriServiciiInstitutie = InstitutiiServicii::find()
+                                                            ->where(['is_institutie' => $institutie_id])
+                                                            ->select(['is_serviciu'])
+                                                            ->all();
+
+                // preluare servicii pentru label
+                $servicii = TipuriServiciu::find()
+                    ->where(['in', 'id', array_column($tipuriServiciiInstitutie, 'is_serviciu')])
+                    ->select(['id', 'tip_serviciu_denumire'])
+                    ->orderBy(['tip_serviciu_denumire' => SORT_ASC])
+                    ->all();
+
+                $data_response['labels'] = array_column($servicii, 'tip_serviciu_denumire');
+                $data_response['numar_programari'] = [];
+                $data_response['background_colors'] = [];
+
+                foreach ($servicii as $key => $serviciu) {
+                    $numar_programari_per_servicii = Programare::find()
+                        ->where([
+                            'and',
+                            ['>=', 'date(programare_datetime)', $data_inceput],
+                            ['<=', 'date(programare_datetime)', $data_sfarsit],
+                        ])
+                        ->andWhere(['programare_institutie' => $institutie_id])
+                        ->andWhere(['programare_serviciu' => $serviciu->id])->count();
+
+                    array_push($data_response['numar_programari'], $numar_programari_per_servicii);
+
+                    // set the color
+                    $randomRed = rand(1, 255);
+                    $randomGreen = rand(1, 255);
+                    $randomBlue = rand(1, 255);
+                    $colorString = 'rgba('.$randomRed.', '.$randomGreen .', '.$randomBlue.', 0.5)';
+                    array_push($data_response['background_colors'], $colorString);
                 }
             }
 
