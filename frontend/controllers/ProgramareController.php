@@ -5,11 +5,14 @@ namespace frontend\controllers;
 use common\models\FormProgramare;
 use common\models\Institutie;
 use common\models\InstitutiiServicii;
+use common\models\InstitutiiStructuriSubordonate;
 use common\models\Judet;
 use common\models\Localitate;
 use common\models\Minister;
 use common\models\Programare;
 use common\models\ProgramareSearch;
+use common\models\StructuriSubordonatePuncteLucru;
+use common\models\StructuriSubordonateServicii;
 use common\models\TipuriServiciu;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -312,7 +315,7 @@ class ProgramareController extends Controller
                     $randomRed = rand(1, 255);
                     $randomGreen = rand(1, 255);
                     $randomBlue = rand(1, 255);
-                    $colorString = 'rgba('.$randomRed.', '.$randomGreen .', '.$randomBlue.', 0.5)';
+                    $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
                     array_push($data_response['background_colors'], $colorString);
                     // 'rgba(255, 99, 132, 0.5)',
                 }
@@ -339,7 +342,7 @@ class ProgramareController extends Controller
                     $randomRed = rand(1, 255);
                     $randomGreen = rand(1, 255);
                     $randomBlue = rand(1, 255);
-                    $colorString = 'rgba('.$randomRed.', '.$randomGreen .', '.$randomBlue.', 0.5)';
+                    $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
                     array_push($data_response['background_colors'], $colorString);
                     // 'rgba(255, 99, 132, 0.5)',
                 }
@@ -348,6 +351,8 @@ class ProgramareController extends Controller
             return $data_response;
         }
     }
+
+
     // =============================================
     // STATISTICI CHART IN CADRUL MINISTERULUI
     // =============================================
@@ -368,10 +373,10 @@ class ProgramareController extends Controller
             if ($institutie_id === 0) {
                 // aduc date pentru toate institutiile
                 $institutii = Institutie::find()
-                                    ->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id])
-                                    ->select(['id', 'institutie_denumire'])
-                                    ->asArray()
-                                    ->all();
+                    ->where(['institutie_minister_id' => \Yii::$app->user->identity->minister_id])
+                    ->select(['id', 'institutie_denumire'])
+                    ->asArray()
+                    ->all();
 
                 $data_response['labels'] = array_column($institutii, 'institutie_denumire');
                 $data_response['numar_programari'] = [];
@@ -390,16 +395,16 @@ class ProgramareController extends Controller
                     $randomRed = rand(1, 255);
                     $randomGreen = rand(1, 255);
                     $randomBlue = rand(1, 255);
-                    $colorString = 'rgba('.$randomRed.', '.$randomGreen .', '.$randomBlue.', 0.5)';
+                    $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
                     array_push($data_response['background_colors'], $colorString);
                     // 'rgba(255, 99, 132, 0.5)',
                 }
             } else {
                 // aduc serviciile din cadrul institutiei
                 $tipuriServiciiInstitutie = InstitutiiServicii::find()
-                                                            ->where(['is_institutie' => $institutie_id])
-                                                            ->select(['is_serviciu'])
-                                                            ->all();
+                    ->where(['is_institutie' => $institutie_id])
+                    ->select(['is_serviciu'])
+                    ->all();
 
                 // preluare servicii pentru label
                 $servicii = TipuriServiciu::find()
@@ -428,8 +433,232 @@ class ProgramareController extends Controller
                     $randomRed = rand(1, 255);
                     $randomGreen = rand(1, 255);
                     $randomBlue = rand(1, 255);
-                    $colorString = 'rgba('.$randomRed.', '.$randomGreen .', '.$randomBlue.', 0.5)';
+                    $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
                     array_push($data_response['background_colors'], $colorString);
+                }
+            }
+
+            return $data_response;
+        }
+    }
+
+
+    // =============================================
+    // STATISTICI CHART IN CADRUL INSTITUTIEI
+    // =============================================
+    public function actionGetStatisticiInstitutie()
+    {
+        $data_response = [];
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        if (\Yii::$app->user->getIsGuest()) {
+            return $data_response;
+        } else {
+            $request = \Yii::$app->request->post();
+            $data_inceput = date('Y-m-d', strtotime($request['_data']['_data_inceput']));
+            $data_sfarsit = date('Y-m-d', strtotime($request['_data']['_data_sfarsit']));
+            $structura_id = (int)$request['_data']['_structura_id'];
+
+            if ($structura_id === 0) {
+                // aduc date pentru toate institutiile
+                $structuri_subordonate = InstitutiiStructuriSubordonate::find()
+                    ->where(['institutie_parinte_iss' => \Yii::$app->user->identity->institutie_id])
+                    ->select(['id_iss', 'institutie_denumire_iss'])
+                    ->asArray()
+                    ->all();
+
+                $data_response['labels'] = array_column($structuri_subordonate, 'institutie_denumire_iss');
+                $data_response['numar_programari'] = [];
+                $data_response['background_colors'] = [];
+
+                foreach ($structuri_subordonate as $key => $structura_subordonata) {
+                    $numar_programari_per_structura = Programare::find()
+                        ->where([
+                            'and',
+                            ['>=', 'date(programare_datetime)', $data_inceput],
+                            ['<=', 'date(programare_datetime)', $data_sfarsit],
+                        ])->andWhere(['programare_structura_subordonata' => $structura_subordonata['id_iss']])->count();
+                    array_push($data_response['numar_programari'], $numar_programari_per_structura);
+
+                    // set the color
+                    $randomRed = rand(1, 255);
+                    $randomGreen = rand(1, 255);
+                    $randomBlue = rand(1, 255);
+                    $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
+                    array_push($data_response['background_colors'], $colorString);
+                    // 'rgba(255, 99, 132, 0.5)',
+                }
+            } else {
+                // aduc serviciile din cadrul institutiei
+                $tipuriServiciiInstitutie = InstitutiiServicii::find()
+                    ->where(['is_institutie' => \Yii::$app->user->identity->institutie_id])
+                    ->select(['is_serviciu'])
+                    ->all();
+
+                // preluare servicii pentru label
+                $servicii = TipuriServiciu::find()
+                    ->where(['in', 'id', array_column($tipuriServiciiInstitutie, 'is_serviciu')])
+                    ->select(['id', 'tip_serviciu_denumire'])
+                    ->orderBy(['tip_serviciu_denumire' => SORT_ASC])
+                    ->all();
+
+                $data_response['labels'] = array_column($servicii, 'tip_serviciu_denumire');
+                $data_response['numar_programari'] = [];
+                $data_response['background_colors'] = [];
+
+                foreach ($servicii as $key => $serviciu) {
+                    $numar_programari_per_servicii = Programare::find()
+                        ->where([
+                            'and',
+                            ['>=', 'date(programare_datetime)', $data_inceput],
+                            ['<=', 'date(programare_datetime)', $data_sfarsit],
+                        ])
+                        ->andWhere(['programare_structura_subordonata' => $structura_id])
+                        ->andWhere(['programare_serviciu' => $serviciu->id])->count();
+
+                    array_push($data_response['numar_programari'], $numar_programari_per_servicii);
+
+                    // set the color
+                    $randomRed = rand(1, 255);
+                    $randomGreen = rand(1, 255);
+                    $randomBlue = rand(1, 255);
+                    $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
+                    array_push($data_response['background_colors'], $colorString);
+                }
+            }
+
+            return $data_response;
+        }
+    }
+
+
+    // =============================================
+    // STATISTICI CHART IN CADRUL STRUCTURII SUBORDONATE
+    // =============================================
+    public function actionGetStatisticiStructura()
+    {
+        $data_response = [];
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        if (\Yii::$app->user->getIsGuest()) {
+            return $data_response;
+        } else {
+            $request = \Yii::$app->request->post();
+            $data_inceput = date('Y-m-d', strtotime($request['_data']['_data_inceput']));
+            $data_sfarsit = date('Y-m-d', strtotime($request['_data']['_data_sfarsit']));
+            $serviciu_id = (int)$request['_data']['_serviciu_id'];
+            $punct_lucru_id = (int)$request['_data']['_punct_lucru_id'];
+
+            if ($serviciu_id === 0) {
+                // aduc date pentru toate serviciile din cadrul structurii subordonate
+                $serviciiStructuraSubordonata = StructuriSubordonateServicii::find()
+                    ->where(['structura_subordonata_id_sss' => \Yii::$app->user->identity->institutie_subordonata_id])
+                    ->select(['serviciu_id_sss'])
+                    ->distinct()
+                    ->asArray()
+                    ->all();
+
+                $servicii_list = array_column($serviciiStructuraSubordonata, 'serviciu_id_sss');
+
+
+                $servicii_labels = TipuriServiciu::find()
+                    ->where(['in', 'id', $servicii_list])
+                    ->select(['id', 'tip_serviciu_denumire'])
+                    ->all();
+
+                $data_response['labels'] = array_column($servicii_labels, 'tip_serviciu_denumire');
+                $data_response['numar_programari'] = [];
+                $data_response['background_colors'] = [];
+
+                foreach ($servicii_labels as $key => $serviciu) {
+                    $numar_programari_per_serviciu = Programare::find()
+                        ->where([
+                            'and',
+                            ['>=', 'date(programare_datetime)', $data_inceput],
+                            ['<=', 'date(programare_datetime)', $data_sfarsit],
+                        ])
+                        ->andWhere(['programare_structura_subordonata' => \Yii::$app->user->identity->institutie_subordonata_id])
+                        ->andWhere(['programare_serviciu' => $serviciu->id])
+                        ->count();
+                    array_push($data_response['numar_programari'], $numar_programari_per_serviciu);
+
+                    // set the color
+                    $randomRed = rand(1, 255);
+                    $randomGreen = rand(1, 255);
+                    $randomBlue = rand(1, 255);
+                    $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
+                    array_push($data_response['background_colors'], $colorString);
+                    // 'rgba(255, 99, 132, 0.5)',
+                }
+            } else {
+                // aici avem serviciul
+
+                if ($punct_lucru_id === 0) {
+                    // aduc programarile pentru toate punctele
+
+                    // aduc punctele de lucru
+                    $structuraPuncteLucru = StructuriSubordonatePuncteLucru::find()
+                        ->where(['structura_subordonata_id_sspl' => \Yii::$app->user->identity->institutie_subordonata_id])
+                        ->select(['id_sspl', 'localitate_id_sspl', 'strada_sspl', 'numar_strada_sspl'])
+                        ->all();
+
+                    $data_response['labels'] = [];
+                    $data_response['numar_programari'] = [];
+                    $data_response['background_colors'] = [];
+
+                    foreach ($structuraPuncteLucru as $punctLucru){
+                        $localitate = Localitate::findOne($punctLucru->localitate_id_sspl);
+                        $stringLabelForPunctLucru = $localitate->localitate_nume.'-'.$punctLucru->strada_sspl.'-'.$punctLucru->numar_strada_sspl;
+                        array_push($data_response['labels'], $stringLabelForPunctLucru);
+
+                        $numar_programari_per_servicii = Programare::find()
+                            ->where([
+                                'and',
+                                ['>=', 'date(programare_datetime)', $data_inceput],
+                                ['<=', 'date(programare_datetime)', $data_sfarsit],
+                            ])
+                            ->andWhere(['programare_punct_lucru' => $punctLucru->id_sspl])
+                            ->andWhere(['programare_serviciu' => $serviciu_id])
+                            ->count();
+
+                        array_push($data_response['numar_programari'], $numar_programari_per_servicii);
+
+                        // set the color
+                        $randomRed = rand(1, 255);
+                        $randomGreen = rand(1, 255);
+                        $randomBlue = rand(1, 255);
+                        $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
+                        array_push($data_response['background_colors'], $colorString);
+                    }
+
+                } else {
+                    // aduc programarile pentru punctul respectiv pe zile
+                    $data_response['labels'] = [];
+                    $data_response['numar_programari'] = [];
+                    $data_response['background_colors'] = [];
+
+                    $current_date = $data_inceput;
+                    while($current_date <= $data_sfarsit){
+                        array_push($data_response['labels'], $current_date);
+
+                        $numar_programari_per_punct_lucru = Programare::find()
+                            ->where(['date(programare_datetime)' => $current_date])
+                            ->andWhere(['programare_punct_lucru' => $punct_lucru_id])
+                            ->count();
+
+                        array_push($data_response['numar_programari'], $numar_programari_per_punct_lucru);
+
+                        // set the color
+                        $randomRed = rand(1, 255);
+                        $randomGreen = rand(1, 255);
+                        $randomBlue = rand(1, 255);
+                        $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
+                        array_push($data_response['background_colors'], $colorString);
+
+                        $current_date = date('Y-m-d', strtotime($current_date.'+1 day'));
+                    }
                 }
             }
 

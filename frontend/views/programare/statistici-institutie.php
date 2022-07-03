@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
         let dataToSend = {
             _data_inceput: data_inceput,
             _data_sfarsit: data_sfarsit,
-            _structura_id: institutie_id,
+            _structura_id: structura_id,
         }
 
         $.ajax({
