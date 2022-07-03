@@ -1,5 +1,6 @@
 <?php
 
+use common\models\TipuriServiciu;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
 
@@ -23,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <div class="row my-3">
-            <div class="col-4">
+            <div class="col-3">
                 <?= DatePicker::widget([
                     'name' => 'data_inceput',
                     'language' => 'en',
@@ -35,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ]); ?>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <?= DatePicker::widget([
                     'name' => 'data_sfarsit',
                     'language' => 'en',
@@ -47,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ]); ?>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <?= Select2::widget([
                     'name' => 'structura_id',
                     'data' => \yii\helpers\ArrayHelper::map(\common\models\InstitutiiStructuriSubordonate::find()
@@ -62,7 +63,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             </div>
             <div class="col-3">
-
+                <?php
+                    $servicii_list = \common\models\InstitutiiServicii::find()
+                        ->where(['is_institutie' => Yii::$app->user->identity->institutie_id])
+                        ->select(['is_serviciu'])
+                        ->all();
+                ?>
+                <?= Select2::widget([
+                    'name' => 'structura_id',
+                    'data' => \yii\helpers\ArrayHelper::map(
+                            TipuriServiciu::find()
+                                ->where(['in', 'id', array_column($servicii_list, 'is_serviciu')])
+                                ->all(), 'id', 'tip_serviciu_denumire'),
+                    'options' => ['placeholder' => 'Selectează serviciul ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+                ?>
             </div>
         </div>
         <div class="row">
@@ -89,11 +107,13 @@ $this->params['breadcrumbs'][] = $this->title;
         const data_inceput = $('#w0').val();
         const data_sfarsit = $('#w1').val();
         const structura_id = $('#w2').val();
+        const serviciu_id = $('#w3').val();
 
         let dataToSend = {
             _data_inceput: data_inceput,
             _data_sfarsit: data_sfarsit,
             _structura_id: structura_id,
+            _serviciu_id: serviciu_id
         }
 
         $.ajax({
