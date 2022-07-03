@@ -33,31 +33,44 @@ class StructuriSubordonatePuncteLucruController extends Controller
 
     /**
      * Lists all StructuriSubordonatePuncteLucru models.
-     *
-     * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new StructuriSubordonatePuncteLucruSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if(!\Yii::$app->user->getIsGuest() && (
+            \Yii::$app->user->can('admin_institutie') ||
+            \Yii::$app->user->can('director_institutie')
+            )){
+            $searchModel = new StructuriSubordonatePuncteLucruSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+
+        return $this->redirect(['site/index']);
+
     }
 
     /**
      * Displays a single StructuriSubordonatePuncteLucru model.
      * @param int $id_sspl Id Sspl
-     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id_sspl)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id_sspl),
-        ]);
+        if(!\Yii::$app->user->getIsGuest() && (
+                \Yii::$app->user->can('admin_institutie') ||
+                \Yii::$app->user->can('director_institutie')
+            )){
+            return $this->render('view', [
+                'model' => $this->findModel($id_sspl),
+            ]);
+        }
+
+        return $this->redirect(['site/index']);
+
     }
 
     /**
@@ -83,22 +96,28 @@ class StructuriSubordonatePuncteLucruController extends Controller
      */
     public function actionCreate()
     {
-        $model = new StructuriSubordonatePuncteLucru();
+        if(!\Yii::$app->user->getIsGuest() && (
+                \Yii::$app->user->can('admin_institutie') ||
+                \Yii::$app->user->can('director_institutie')
+            )){
+            $model = new StructuriSubordonatePuncteLucru();
 
-        if ($this->request->isPost) {
-            $request = \Yii::$app->request->post();
-            $datePunctLucru = $request["StructuriSubordonatePuncteLucru"];
-            $punctLucruAdaugat = $this->adaugaPunctLucru($datePunctLucru);
+            if ($this->request->isPost) {
+                $request = \Yii::$app->request->post();
+                $datePunctLucru = $request["StructuriSubordonatePuncteLucru"];
+                $punctLucruAdaugat = $this->adaugaPunctLucru($datePunctLucru);
 
-            if($punctLucruAdaugat){
-                return $this->redirect(['structuri-subordonate-puncte-lucru/index']);
+                if($punctLucruAdaugat){
+                    return $this->redirect(['structuri-subordonate-puncte-lucru/index']);
+                }
+
             }
 
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['site/index']);
     }
 
     private function adaugaPunctLucru($data)
@@ -145,15 +164,22 @@ class StructuriSubordonatePuncteLucruController extends Controller
      */
     public function actionUpdate($id_sspl)
     {
-        $model = $this->findModel($id_sspl);
+        if(!\Yii::$app->user->getIsGuest() && (
+                \Yii::$app->user->can('admin_institutie') ||
+                \Yii::$app->user->can('director_institutie')
+            )){
+            $model = $this->findModel($id_sspl);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_sspl' => $model->id_sspl]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_sspl' => $model->id_sspl]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -165,9 +191,16 @@ class StructuriSubordonatePuncteLucruController extends Controller
      */
     public function actionDelete($id_sspl)
     {
-        $this->findModel($id_sspl)->delete();
+        if(!\Yii::$app->user->getIsGuest() && (
+                \Yii::$app->user->can('admin_institutie') ||
+                \Yii::$app->user->can('director_institutie')
+            )){
+            $this->findModel($id_sspl)->delete();
+            return $this->redirect(['index']);
+        }
 
-        return $this->redirect(['index']);
+
+        return $this->redirect(['site/index']);
     }
     // =============================================================
     // APROBARE A UNUI PUNCT DE LUCRU DE CATRE ADMINISTRATOR
@@ -226,6 +259,113 @@ class StructuriSubordonatePuncteLucruController extends Controller
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]);
+        }
+        return $this->redirect(['site/index']);
+    }
+
+    public function actionSuspenda(){
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')){
+            $searchModel = new StructuriSubordonatePuncteLucruSearch();
+            $dataProvider = $searchModel->searchSuspendare($this->request->queryParams);
+
+            return $this->render('suspendare', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+
+        return $this->redirect(['site/index']);
+    }
+
+    public function actionPropuneriSuspendare(){
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_institutie')){
+            $searchModel = new StructuriSubordonatePuncteLucruSearch();
+            $dataProvider = $searchModel->searchPropuneriSuspendare($this->request->queryParams);
+
+            return $this->render('propuneri-suspendare', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+
+        return $this->redirect(['site/index']);
+    }
+
+    public function actionPropunereSuspendare(){
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initiat'
+        ];
+
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')){
+            $request = \Yii::$app->request->post();
+            $punct_lucru_id = (int) $request["punct_lucru_id"];
+
+            // identificare punct de lucru dupa id
+            $punctLucru = StructuriSubordonatePuncteLucru::findOne($punct_lucru_id);
+
+            if($punctLucru){
+                $punctLucru->aprobat_administrator_sspl = 2;
+                if($punctLucru->save()){
+                    $dataResponse = [
+                        'response_code' => 200,
+                        'response_message' => 'Punct de lucru suspendat.'
+                    ];
+                }else{
+                    $dataResponse = [
+                        'response_code' => 500,
+                        'response_message' => 'Punct de lucru nu a fost suspendat.'
+                    ];
+                }
+            }else{
+                $dataResponse = [
+                    'response_code' => 500,
+                    'response_message' => 'Punctul de lucru NU a fost identificat.'
+                ];
+            }
+
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $dataResponse;
+        }
+        return $this->redirect(['site/index']);
+    }
+
+
+    public function actionAprobarePropunereSuspendare(){
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initiat'
+        ];
+
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_institutie')){
+            $request = \Yii::$app->request->post();
+            $punct_lucru_id = (int) $request["punct_lucru_id"];
+
+            // identificare punct de lucru dupa id
+            $punctLucru = StructuriSubordonatePuncteLucru::findOne($punct_lucru_id);
+
+            if($punctLucru){
+                $punctLucru->aprobat_administrator_sspl = 3;
+                if($punctLucru->save()){
+                    $dataResponse = [
+                        'response_code' => 200,
+                        'response_message' => 'Punct de lucru suspendat.'
+                    ];
+                }else{
+                    $dataResponse = [
+                        'response_code' => 500,
+                        'response_message' => 'Punct de lucru nu a fost suspendat.'
+                    ];
+                }
+            }else{
+                $dataResponse = [
+                    'response_code' => 500,
+                    'response_message' => 'Punctul de lucru NU a fost identificat.'
+                ];
+            }
+
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $dataResponse;
         }
         return $this->redirect(['site/index']);
     }

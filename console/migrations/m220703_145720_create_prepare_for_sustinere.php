@@ -128,6 +128,27 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
             [3, 2, 1, 5236, 'Soseaua Alexandriei', '100', '-', '-', '-', '-', 1],
           ]
         );
+
+        // adaugare servicii pentru IGPF-ITPF Gr
+
+        $this->batchInsert(
+            'structuri_subordonate_servicii',
+            [
+                'institutie_id_sss',
+                'structura_subordonata_id_sss',
+                'serviciu_id_sss',
+                'localitate_id_sss',
+                'is_open_weekend_sss',
+                'is_open_nonstop_sss',
+                'is_active_sss',
+
+            ],
+            [
+                [2, 1, 18, 5236, 1, 1, 1],
+                [2, 1, 16, 5236, 1, 1, 1],
+                [2, 1, 19, 5236, 1, 1, 1],
+            ]
+        );
     }
 
     /**
