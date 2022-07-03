@@ -17,7 +17,7 @@ AppAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body class="flex-column h-100"> <!-- sidebar-collapse-->
+    <body class="flex-column h-100 layout-fixed"> <!-- sidebar-collapse-->
     <?php $this->beginBody() ?>
 
     <div class="wrapper">

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\MinistereStructuri */
 
 $this->title = 'Actualizează asocierea Structură - Minister';
-$this->params['breadcrumbs'][] = ['label' => 'Ministere Structuris', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Structuri minister', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

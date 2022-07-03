@@ -7,19 +7,17 @@ use yii\helpers\Html;
 /* @var $searchModel common\models\MinistereStructuriSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ministere Structuris';
+$this->title = 'Structuri în cadrul ministerului';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ministere-structuri-index">
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
-        </div>
-        <div class="col-12">
+            <h1 class="text-center">
+                <?= Html::encode($this->title) ?>
+                <?= Html::a('Adaugă structură', ['create'], ['class' => 'btn btn-success']) ?>
+            </h1>
 
-            <p class="text-center">
-                <?= Html::a('Create Ministere Structuri', ['create'], ['class' => 'btn btn-success']) ?>
-            </p>
         </div>
     </div>
 

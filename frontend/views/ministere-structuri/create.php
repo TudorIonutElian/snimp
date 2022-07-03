@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\MinistereStructuri */
 
 $this->title = 'Adaugă Structură în cadrul Ministerului';
-$this->params['breadcrumbs'][] = ['label' => 'Ministere Structuris', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Structuri minister', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ministere-structuri-create">
