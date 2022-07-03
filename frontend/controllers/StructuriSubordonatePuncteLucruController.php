@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Programare;
 use common\models\StructuriSubordonatePuncteLucru;
 use common\models\StructuriSubordonatePuncteLucruSearch;
 use yii\filters\VerbFilter;
@@ -410,5 +411,32 @@ class StructuriSubordonatePuncteLucruController extends Controller
             return $dataResponse;
         }
         return $this->redirect(['site/index']);
+    }
+
+    public function actionGetIntervalsDisabled(){
+        $dataResponse = [
+            'response_code' => 0,
+            'response_message' => 'Initiat',
+            'response_dates' => []
+        ];
+
+        $request = \Yii::$app->request->post();
+        $punct_lucru_id = (int) $request["_punct_lucru_id"];
+
+        $programariValidate = Programare::find()
+            ->where([
+                'and',
+                ['not', ['programare_numar_unic' => NULL]],
+                ['programare_punct_lucru' => $punct_lucru_id]
+            ])
+            ->select(['programare_datetime'])
+            ->all();
+
+        foreach ($programariValidate as $programare){
+            $dataResponse['response_dates'][] = date('Y-m-d h:i', strtotime($programare->programare_datetime));
+        }
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $dataResponse;
     }
 }

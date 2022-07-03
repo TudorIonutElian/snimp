@@ -90,32 +90,6 @@ $('body').on('change', '#formprogramare-programare_serviciu', function () {
     });
 })
 
-// ========================================================================
-// ACTIUNE NECESARA PENTRU PRELUAREA PUNCTELOR DE LUCRU
-// ========================================================================
-
-
-$('body').on('change', '#formprogramare-programare_structura_subordonata', function () {
-    let filterObject = {};
-    filterObject.institutie  = $('#formprogramare-programare_institutie').val();
-    filterObject.serviciu    = $('#formprogramare-programare_serviciu').val();
-    filterObject.prestare    = $('#formprogramare-programare_prestare').val();
-    filterObject.structuraSubordonata = $('#formprogramare-programare_structura_subordonata').val();
-    filterObject.punctLucru  = $('#formprogramare-programare_punct_lucru').val();
-
-
-    /*
-    $.ajax({
-        url: "index.php?r=programari/get-sloturi-disponibile",
-        type: "POST",
-        data: {filterObject},
-        success: function (response) {
-            console.log(response);
-        }
-    });
-
-     */
-});
 
 
 // ========================================================================
@@ -147,4 +121,9 @@ $('body').on('change', '#formprogramare-programare_structura_subordonata', funct
         }
     });
 });
+
+
+
+
+
 

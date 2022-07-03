@@ -100,7 +100,7 @@ use yii\helpers\Html;
                         'minuteStep' => 15,
                         'timePicker' => true,
                         'locale' => [
-                            'format' => 'Y-m-d H:i',
+                            'format' => 'Y-m-d h:i',
                         ],
                         'timePicker24Hour' => true,
                         'daysOfWeekDisabled' => '0,6',
@@ -114,6 +114,7 @@ use yii\helpers\Html;
 
                 ]);
                 ?>
+
             </div>
             <div class="col-sm-12 col-md-4">
                 <?php

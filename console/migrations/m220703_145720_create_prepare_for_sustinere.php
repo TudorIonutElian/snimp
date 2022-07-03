@@ -49,7 +49,7 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
 
         // inserare servicii la nivelul IGPF
         $this->batchInsert(
-            'institutie_servicii',
+            'institutii_servicii',
             ['is_institutie', 'is_serviciu', 'is_localitate', 'is_open_weekend', 'is_open_nonstop', 'is_active'],
             [
                 [2,8,13802,1,1,1],
@@ -115,7 +115,6 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
               'strada_sspl',
               'numar_strada_sspl',
               'bloc_strada_sspl',
-              'bloc_strada_sspl',
               'scara_bloc_sspl',
               'etaj_bloc_sspl',
               'apartament_sspl',
@@ -147,6 +146,24 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
                 [2, 1, 18, 5236, 1, 1, 1],
                 [2, 1, 16, 5236, 1, 1, 1],
                 [2, 1, 19, 5236, 1, 1, 1],
+            ]
+        );
+
+        // adaugare tipuri de prestari pentru IGPFR
+        $this->batchInsert(
+            'prestari',
+            ['institutie_id_p', 'serviciu_id_p', 'denumire_p', 'is_open_weekend', 'is_open_nonstop', 'is_active'],
+            [
+                [2, 19, 'Eliberare aviz protectie civila', 1, 1, 1],
+                [2, 19, 'Eliberare duplicat aviz protectie civila', 1, 1, 1],
+                [2, 8, 'Eliberare aviz servicii urgenta', 1, 1, 1],
+                [2, 8, 'Eliberare duplicat aviz servicii urgenta', 1, 1, 1],
+                [2, 8, 'Reinnoire aviz servicii urgenta', 1, 1, 1],
+                [2, 16, 'Eliberare Aviz activitati zona frontiera', 1, 1, 1],
+                [2, 18, 'Eliberare Aviz import produse medicale', 1, 1, 1],
+                [2, 18, 'Verificare eligibilitate viză călătorie', 1, 1, 1],
+                [2, 18, 'Eliberare Aviz Import armament', 1, 1, 1],
+                [2, 18, 'Eliberare Aviz Export armament', 1, 1, 1],
             ]
         );
     }

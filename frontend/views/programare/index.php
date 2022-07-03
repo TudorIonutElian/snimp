@@ -174,7 +174,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             '#',
                             [
                                 'class' => 'btn btn-success btn-sm btn-block btn-validare-programare',
-                                'data-programare-id' => $data->id
+                                'data-programare-id' => $data->id,
+                                'data-timestamp' => $data->programare_datetime
                             ]);
                     },
                     'delete' => function ($model, $data) {
@@ -183,7 +184,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             '#',
                             [
                                 'class' => 'btn btn-danger btn-sm btn-block btn-anulare-programare',
-                                'data-programare-id' => $data->id
+                                'data-programare-id' => $data->id,
                             ]);
                     }
 

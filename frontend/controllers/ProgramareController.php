@@ -14,6 +14,7 @@ use common\models\ProgramareSearch;
 use common\models\StructuriSubordonatePuncteLucru;
 use common\models\StructuriSubordonateServicii;
 use common\models\TipuriServiciu;
+use common\models\User;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -697,6 +698,67 @@ class ProgramareController extends Controller
 
                         $current_date = date('Y-m-d', strtotime($current_date.'+1 day'));
                     }
+                }
+            }
+
+            return $data_response;
+        }
+    }
+
+    // =============================================
+    // VERIFICARE DUPLICAT PROGRAMARE
+    // =============================================
+
+    public function actionVerificareDuplicat(){
+        $data_response = [
+            'response_code' => 0,
+            'response_message' => 'Initiat'
+        ];
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        if(!\Yii::$app->user->getIsGuest() && (\Yii::$app->user->can('admin_institutie') || \Yii::$app->user->can('director_institutie'))){
+            $request = \Yii::$app->request->post();
+            $programare_id = $request["programare_id"];
+
+            $programareExistenta = Programare::findOne($programare_id);
+
+            $programare_minister = $programareExistenta->programare_minister;
+            $programare_institutie = $programareExistenta->programare_institutie;
+            $programare_structura_subordonata = $programareExistenta->programare_structura_subordonata;
+            $programare_serviciu = $programareExistenta->programare_serviciu;
+            $programare_punct_lucru = $programareExistenta->programare_punct_lucru;
+            $programare_timestamp = date('Y-m-d h:i', strtotime($programareExistenta->programare_datetime));
+
+            // verificare duplicat
+            $data_response['response_message'] = 'Nu există o programare duplicat. Poate fi validată.';
+            $data_response['programari_duplicat'] = [];
+
+            $programariDuplicat = Programare::find()
+                ->where([
+                    'and',
+                    ['programare_minister' => $programare_minister],
+                    ['programare_institutie' => $programare_institutie],
+                    ['programare_structura_subordonata' => $programare_structura_subordonata],
+                    ['programare_serviciu' => $programare_serviciu],
+                    ['programare_punct_lucru' => $programare_punct_lucru],
+                    ['programare_datetime' => $programare_timestamp],
+                ])
+                ->andWhere(['<>', 'id', $programare_id])
+                ->all();
+
+            if(count($programariDuplicat) > 0){
+                $data_response['response_message'] = 'Exista validari duplicat.';
+                foreach ($programariDuplicat as $key => $pd){
+                    $programareDuplicat = [
+                        'programare_nume' => $pd->programare_nume,
+                        'programare_prenume' => $pd->programare_prenume,
+                        'programare_validata_de' => User::findOne($pd->programare_validata_de)->fullName(),
+                        'programare_numar_unic' => $pd->programare_numar_unic,
+                        'programare_email' => $pd->programare_email,
+                    ];
+
+                    $data_response['programari_duplicat'][] = $programareDuplicat;
                 }
             }
 

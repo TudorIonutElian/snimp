@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Prestari */
 
-$this->title = 'Create Prestari';
-$this->params['breadcrumbs'][] = ['label' => 'Prestaris', 'url' => ['index']];
+$this->title = 'Adaugă prestare';
+$this->params['breadcrumbs'][] = ['label' => 'Lista prestari', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="prestari-create">
