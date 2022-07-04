@@ -176,7 +176,7 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
             $user = new \common\models\User();
             $user->username = 'lucrator_serviciu_'.$i;
             $user->cod_numeric_personal = '1900725281965';
-            $user->nume = 'Lucrator';
+            $user->nume = 'Lucrator '.$i;
             $user->prenume = 'Serviciu';
             $user->data_nasterii = '1990-07-25';
             $user->localitatea_nasterii = 13802;

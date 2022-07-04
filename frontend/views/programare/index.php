@@ -193,7 +193,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'atribuire-lucrator' => function ($model, $data) {
                         return Html::a(
                             '<i class="fas fa-user mr-1"></i>Atribuire',
-                            '#',
+                            ['programare/atribuire', 'id_programare' => $data->id],
                             [
                                 'class' => 'btn btn-info btn-sm btn-block btn-atribuire-programare',
                                 'data-programare-id' => $data->id,
@@ -231,6 +231,7 @@ echo '<div id="modal-anulare-programare-content"></div>';
 
 Modal::end();
 ?>
+
 
 <style>
     .modal-buttons {

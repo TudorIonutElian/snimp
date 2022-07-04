@@ -773,4 +773,27 @@ class ProgramareController extends Controller
             return $data_response;
         }
     }
+
+    public function actionAtribuire($id_programare){
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')){
+            $programare = Programare::findOne($id_programare);
+
+            if($programare != NULL){
+                $lucratoriStructuraSubordonata = User::find()
+                    ->joinWith(['authAssignment'])
+                    ->where(['institutie_subordonata_id' => \Yii::$app->user->identity->institutie_subordonata_id])
+                    ->andWhere([
+                        'and',
+                        ['auth_assignment.item_name' => 'lucrator_serviciu'],
+                        ['status' => 10]
+                    ])
+                    ->select(['id', 'nume', 'prenume'])
+                    ->all();
+
+                return $this->render('atribuire-lucrator', compact(['lucratoriStructuraSubordonata', 'programare']));
+            }
+
+        }
+        return $this->redirect(['site/index']);
+    }
 }

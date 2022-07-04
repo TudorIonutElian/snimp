@@ -13,13 +13,13 @@ $('body').on('click', '.btn-validare-programare', function (event) {
         type: 'post',
         data: {
             programare_id: programare_id,
-            programare_timestamp:programare_timestamp,
+            programare_timestamp: programare_timestamp,
             _csrf: yii.getCsrfToken()
         },
         success: function (response) {
             const programari_duplicat = response.programari_duplicat;
 
-            if(programari_duplicat.length > 0){
+            if (programari_duplicat.length > 0) {
                 programareDuplicat += `<div class="text-center font-weight-bold text-danger">Atentie, exista programari duplicat, conform tabelului de mai jos: </div>`;
                 programareDuplicat += `
                 <table class="table">
@@ -84,12 +84,12 @@ $('body').on('click', '.btn-validare-programare', function (event) {
 // =================================================================
 // FUNCTIE PENTRU ASCUNDEREA MODALULUI DE CERTIFICARE A VALIDARII
 // =================================================================
-$('body').on('click', '.btn-anuleaza-validare-modal', function(){
+$('body').on('click', '.btn-anuleaza-validare-modal', function () {
     $('#modal-validare-programare').modal('hide');
 });
 
 
-$('body').on('click', '.btn-valideaza-final', function(){
+$('body').on('click', '.btn-valideaza-final', function () {
     const programare_final_id = $(this).attr('data-programare-id');
 
     $.ajax({
@@ -101,11 +101,11 @@ $('body').on('click', '.btn-valideaza-final', function(){
         },
         success: function (response) {
             const response_code = response.response_code;
-            if(response_code === 200){
+            if (response_code === 200) {
                 $('#modal-validare-programare').modal('hide');
                 toastr.success('Programare validata', 'Notificare');
 
-                setTimeout(function(){
+                setTimeout(function () {
                     window.location.reload();
                 }, 800);
             }
@@ -115,7 +115,7 @@ $('body').on('click', '.btn-valideaza-final', function(){
     });
 });
 
-$('body').on('click', '.btn-anulare-programare', function(event){
+$('body').on('click', '.btn-anulare-programare', function (event) {
     event.preventDefault();
     const programare_id = $(this).attr('data-programare-id');
 
