@@ -32,6 +32,7 @@ class m220530_153115_create_programari_table extends Migration
             'programare_data_finalizare' => $this->tinyInteger(1)->defaultValue(0),
             'programare_document_solicitat' => $this->integer(11)->null(),
             'programare_este_anulata' => $this->tinyInteger(1)->defaultValue(0),
+            'programare_lucrator' => $this->integer(11)->null()
         ]);
 
         // add foreign key for table `minister`
@@ -121,6 +122,17 @@ class m220530_153115_create_programari_table extends Migration
             'RESTRICT',
             'CASCADE'
         );
+
+        // add foreign key for table `programare_lucrator`
+        $this->addForeignKey(
+            'fk-programare_lucrator',
+            'programare',
+            'programare_lucrator',
+            'user',
+            'id',
+            'RESTRICT',
+            'CASCADE'
+        );
     }
 
     /**
@@ -132,6 +144,7 @@ class m220530_153115_create_programari_table extends Migration
         $this->dropForeignKey('fk-programare_serviciu_id', 'programare');
         $this->dropForeignKey('fk-programare_localitate_id', 'programare');
         $this->dropForeignKey('fk-programare_document', 'programare');
+        $this->dropForeignKey('fk-programare_lucrator', 'programare');
         $this->dropTable('{{%programare}}');
     }
 }

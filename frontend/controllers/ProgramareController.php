@@ -236,7 +236,10 @@ class ProgramareController extends Controller
             'response_message' => 'Request initiat'
         ];
 
-        if (!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_institutie')) {
+        if (!\Yii::$app->user->getIsGuest() && (
+            \Yii::$app->user->can('admin_institutie') ||
+            \Yii::$app->user->can('director_institutie')
+            )) {
 
             $requestData = \Yii::$app->request->post();
             $id_programare = $requestData["id_progamare"];
@@ -745,6 +748,11 @@ class ProgramareController extends Controller
                     ['programare_datetime' => $programare_timestamp],
                 ])
                 ->andWhere(['<>', 'id', $programare_id])
+                ->andWhere([
+                    'and',
+                    ['not', ['programare_numar_unic' => NULL]],
+                    ['not', ['programare_validata_de' => NULL]],
+                ])
                 ->all();
 
             if(count($programariDuplicat) > 0){
@@ -753,7 +761,7 @@ class ProgramareController extends Controller
                     $programareDuplicat = [
                         'programare_nume' => $pd->programare_nume,
                         'programare_prenume' => $pd->programare_prenume,
-                        'programare_validata_de' => User::findOne($pd->programare_validata_de)->fullName(),
+                        'programare_validata_de' => User::findOne($pd->programare_validata_de) ? User::findOne($pd->programare_validata_de)->fullName(): NULL,
                         'programare_numar_unic' => $pd->programare_numar_unic,
                         'programare_email' => $pd->programare_email,
                     ];

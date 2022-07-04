@@ -166,6 +166,39 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
                 [2, 18, 'Eliberare Aviz Export armament', 1, 1, 1],
             ]
         );
+
+        // adaugare lucratori
+        $this->adaugaLucratoriServiciu(10);
+    }
+
+    private function adaugaLucratoriServiciu($number){
+        for ($i = 0; $i < $number; $i++){
+            $user = new \common\models\User();
+            $user->username = 'lucrator_serviciu_'.$i;
+            $user->cod_numeric_personal = '1900725281965';
+            $user->nume = 'Lucrator';
+            $user->prenume = 'Serviciu';
+            $user->data_nasterii = '1990-07-25';
+            $user->localitatea_nasterii = 13802;
+            $user->auth_key = 'pkoE6oRupK5xnuH9ugsLs52ruHXS_mfG';
+            $user->password_hash = '$2y$13$TkicWzINi4mt5FAHd9LZ7.Kr4rk8MOsL.ORxohBlJeHaNCvtBGNQG';
+            $user->email = 'lucrator_serviciu_'.$i.'@snimp.ro';
+            $user->status = 10;
+            $user->created_at = 1656933687;
+            $user->updated_at = 1656933687;
+            $user->localitate_id = 13802;
+            $user->minister_id = 3;
+            $user->institutie_id = 2;
+            $user->institutie_subordonata_id = 1;
+
+            if($user->save()){
+                $rolUser = new \common\models\AuthAssignment();
+                $rolUser->item_name = 'lucrator_serviciu';
+                $rolUser->user_id = $user->id;
+                $rolUser->save();
+            }
+
+        }
     }
 
     /**
