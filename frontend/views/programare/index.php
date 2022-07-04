@@ -1,5 +1,6 @@
 <?php
 
+use common\models\User;
 use yii\bootstrap4\Modal;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
@@ -153,6 +154,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     if ($model->programare_numar_unic) {
                         return $model->programare_numar_unic;
+                    }
+                    return '<span class="text-danger font-italic font-weight-bold">Neatribuit ...</span>';
+
+                }
+            ],
+
+            [
+                'label' => 'Lucrător',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle'
+                    ]
+                ],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if ($model->programare_lucrator != NULL) {
+                        return User::findOne($model->programare_lucrator)->fullName();
                     }
                     return '<span class="text-danger font-italic font-weight-bold">Neatribuit ...</span>';
 
