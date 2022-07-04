@@ -66,6 +66,10 @@ AppAsset::register($this);
                 <?php if(!Yii::$app->user->getIsGuest() && Yii::$app->user->can('director_institutie')): ?>
                     <?= $this->renderFile(Yii::getAlias('@app') . '\views\layouts\partials\menus\left_menu\director_structura.php');?>
                 <?php endif; ?>
+
+                <?php if(!Yii::$app->user->getIsGuest() && Yii::$app->user->can('lucrator_serviciu')): ?>
+                    <?= $this->renderFile(Yii::getAlias('@app') . '\views\layouts\partials\menus\left_menu\lucrator_serviciu.php');?>
+                <?php endif; ?>
             </div>
             <!-- /.sidebar -->
         </aside>
