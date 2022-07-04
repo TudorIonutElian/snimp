@@ -58,7 +58,6 @@ class MinistereServiciiController extends Controller
     {
 
         if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('admin_minister')){
-            return $this->redirect(['site/index']);
             $model = new MinistereServicii();
 
             if ($this->request->isPost) {

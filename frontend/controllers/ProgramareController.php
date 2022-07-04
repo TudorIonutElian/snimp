@@ -774,11 +774,11 @@ class ProgramareController extends Controller
         }
     }
 
-    public function actionAtribuire($id_programare){
+    public function actionAtribuire($id_programare = NULL){
         if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')){
             $programare = Programare::findOne($id_programare);
 
-            if($programare != NULL){
+            if(\Yii::$app->request->isGet){
                 $lucratoriStructuraSubordonata = User::find()
                     ->joinWith(['authAssignment'])
                     ->where(['institutie_subordonata_id' => \Yii::$app->user->identity->institutie_subordonata_id])
@@ -790,7 +790,34 @@ class ProgramareController extends Controller
                     ->select(['id', 'nume', 'prenume'])
                     ->all();
 
-                return $this->render('atribuire-lucrator', compact(['lucratoriStructuraSubordonata', 'programare']));
+                return $this->render(
+                    'atribuire-lucrator',
+                    [
+                        'lucratoriStructuraSubordonata' => $lucratoriStructuraSubordonata,
+                        'programare' => $programare
+                    ]
+                );
+            }else if(\Yii::$app->request->isPost){
+                $data_response = [
+                    'response_code' => 0,
+                    'response_message' => 'Initiat'
+                ];
+                $request = \Yii::$app->request->post();
+
+                $programare_id = (int) $request["_programare_id"];
+                $lucrator_id = (int) $request["_lucrator_id"];
+
+                $programare = Programare::findOne($programare_id);
+                $programare->programare_lucrator = $lucrator_id;
+
+                if($programare->save()){
+                    $data_response['response_message'] = 'Programare atribuita cu success';
+                    $data_response['response_code'] = 200;
+                }
+
+
+                \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return $data_response;
             }
 
         }
