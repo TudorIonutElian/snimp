@@ -135,3 +135,10 @@ $('body').on('click', '.btn-anulare-programare', function (event) {
     $('#modal-anulare-programare-content').html(modalContent);
     $('#modal-anulare-programare').modal('show');
 });
+
+
+$('body').on('click', '.btn-anuleaza-renuntare-modal', function (event) {
+    event.preventDefault();
+    const programare_id = $(this).attr('data-programare-id');
+
+});
