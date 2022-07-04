@@ -22,6 +22,12 @@ use yii\web\JsExpression;
 
 $user_string = StringController::getUserFromString();
 $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
+
+
+$dateToday = date('d-m-Y');
+$date18YearsAgo = date('d-m-Y', strtotime($dateToday.'-18 year'));
+
+
 ?>
 
 <div class="user-form">
@@ -114,7 +120,8 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
                     'options' => ['placeholder' => 'Data nașterii'],
                     'pluginOptions' => [
                         'autoclose' => true,
-                        'format' => 'dd-mm-yyyy'
+                        'format' => 'dd-mm-yyyy',
+                        'endDate' => $date18YearsAgo
                     ]
                 ])->label(false);
                 ?>
@@ -350,6 +357,12 @@ $urlToLocalitatiAjax = Url::to(['localitate/localitati-by-name']);
 
     .form-control-feedback-error {
         color: #e74c3c;
+    }
+
+    td.disabled.day{
+        background-color: red!important;
+        font-weight: bold!important;
+        color: #fff!important;
     }
 
 </style>
