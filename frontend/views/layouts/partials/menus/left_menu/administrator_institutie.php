@@ -1,6 +1,22 @@
 <?php
 
 use yii\helpers\Html;
+
+$puncteLucruSpreAprobare = \common\models\StructuriSubordonatePuncteLucru::find()
+    ->where([
+        'and',
+        ['institutie_id_sspl' => Yii::$app->user->identity->institutie_id],
+        ['aprobat_administrator_sspl' => 0]
+    ])
+    ->count();
+
+$puncteLucruSpreSuspendare = \common\models\StructuriSubordonatePuncteLucru::find()
+    ->where([
+        'and',
+        ['institutie_id_sspl' => Yii::$app->user->identity->institutie_id],
+        ['aprobat_administrator_sspl' => 2]
+    ])
+    ->count();
 ?>
 <!-- Sidebar Menu -->
 <nav class="mt-2">
@@ -52,10 +68,10 @@ use yii\helpers\Html;
                     <?= Html::a('<i class="fas fa-plus nav-icon"></i>Adaugă', ['structuri-subordonate-puncte-lucru/index'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="far fa-bell-slash  nav-icon"></i>Propuneri suspendare', ['structuri-subordonate-puncte-lucru/propuneri-suspendare'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="far fa-bell-slash  nav-icon"></i>Suspendare ('.$puncteLucruSpreSuspendare.')', ['structuri-subordonate-puncte-lucru/propuneri-suspendare'], ['class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= Html::a('<i class="far fa-bell  nav-icon"></i>Propuneri aprobare', ['structuri-subordonate-puncte-lucru/propuneri-aprobare'], ['class' => 'nav-link']) ?>
+                    <?= Html::a('<i class="far fa-bell  nav-icon"></i>Aprobare ('.$puncteLucruSpreAprobare.')', ['structuri-subordonate-puncte-lucru/propuneri-aprobare'], ['class' => 'nav-link']) ?>
                 </li>
             </ul>
         </li>
