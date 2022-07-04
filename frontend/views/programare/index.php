@@ -170,11 +170,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if ($model->programare_lucrator != NULL) {
-                        return User::findOne($model->programare_lucrator)->fullName();
+                    if($model->programare_este_anulata == 9){
+                        return '<span class="text-danger font-italic font-weight-bold">Anulată</span>';
+                    }else{
+                        if ($model->programare_lucrator != NULL) {
+                            return User::findOne($model->programare_lucrator)->fullName();
+                        }
+                        return '<span class="text-danger font-italic font-weight-bold">Neatribuit ...</span>';
                     }
-                    return '<span class="text-danger font-italic font-weight-bold">Neatribuit ...</span>';
-
                 }
             ],
 
@@ -186,14 +189,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         return $model->programare_validata_de == NULL;
                     },
                     'delete' => function ($model) {
-                        return Yii::$app->user->can('director_institutie');
+                        if (Yii::$app->user->can('director_institutie')) {
+                            if($model->programare_data_finalizare == NULL){
+                                return true;
+                            }
+                            return false;
+                        }
+                        return false;
                     },
                     'atribuire-lucrator' => function ($model) {
-                        return $model->programare_validata_de !== NULL && $model->programare_lucrator == NULL;
+                        return $model->programare_validata_de !== NULL && $model->programare_lucrator == NULL && $model->programare_este_anulata != 9;
                     },
                     'finalizare' => function ($model) {
                         if (Yii::$app->user->can('lucrator_serviciu') && $model->programare_lucrator == Yii::$app->user->identity->id) {
-                            if($model->programare_data_finalizare == NULL){
+                            if ($model->programare_data_finalizare == NULL) {
                                 return true;
                             }
                             return false;

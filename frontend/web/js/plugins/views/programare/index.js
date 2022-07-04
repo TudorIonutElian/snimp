@@ -137,8 +137,30 @@ $('body').on('click', '.btn-anulare-programare', function (event) {
 });
 
 
-$('body').on('click', '.btn-anuleaza-renuntare-modal', function (event) {
+$('body').on('click', '.btn-renuntare-final', function (event) {
     event.preventDefault();
     const programare_id = $(this).attr('data-programare-id');
+
+    $.ajax({
+        url: `index.php?r=programare/anulare`,
+        type: 'post',
+        data: {
+            programare_id: programare_id,
+            _csrf: yii.getCsrfToken()
+        },
+        success: function (response) {
+            const response_code = response.response_code;
+            if (response_code === 200) {
+                $('#modal-validare-programare').modal('hide');
+                toastr.success('Programare anulata', 'Notificare');
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 800);
+            }
+
+        }
+
+    });
 
 });

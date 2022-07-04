@@ -840,4 +840,32 @@ class ProgramareController extends Controller
         }
         return $this->redirect(['programare/index']);
     }
+
+    // =====================================
+    // finalizare programare
+    // =====================================
+
+    public function actionAnulare(){
+        $data_response = [
+            'response_code' => 0,
+            'response_message' => 'Inititat'
+        ];
+
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')){
+            $request = \Yii::$app->request->post();
+
+            $programare = Programare::findOne((int) $request["programare_id"]);
+            $programare->programare_este_anulata = 9;
+            $programare->programare_data_finalizare = date('Y-m-d h:i:s');
+
+            if($programare->save()){
+                $data_response['response_code'] = 200;
+                $data_response['response_message'] = 'Programarea a fost anulata.';
+            }
+        }
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $data_response;
+
+    }
 }
