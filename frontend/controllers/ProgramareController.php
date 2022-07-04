@@ -177,26 +177,6 @@ class ProgramareController extends Controller
     }
 
     /**
-     * Updates an existing Programare model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Deletes an existing Programare model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
@@ -228,7 +208,9 @@ class ProgramareController extends Controller
         return $this->redirect(['site/index']);
 
     }
-
+    // =============================================
+    // VALIDARE PROGRAMARE
+    // =============================================
     public function actionValideazaProgramare()
     {
         $dataResponse = [
@@ -774,6 +756,9 @@ class ProgramareController extends Controller
         }
     }
 
+    // ========================================================
+    // ATRIBUIRE PROGRAMARE UNUI LUCRATOR SERVICU
+    // ========================================================
     public function actionAtribuire($id_programare = NULL){
         if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')){
             $programare = Programare::findOne($id_programare);
