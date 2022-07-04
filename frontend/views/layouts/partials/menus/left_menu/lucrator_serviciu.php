@@ -11,5 +11,12 @@ use yii\helpers\Html;
                 <p>Programari</p>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="index.php?r=programare/istoric" class="nav-link">
+                <i class="fas fa-history nav-icon"></i>
+                <p>Istoric programari</p>
+            </a>
+        </li>
     </ul>
 </nav>

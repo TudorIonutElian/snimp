@@ -58,6 +58,8 @@ class ProgramareController extends Controller
                 $dataProvider = $searchModel->searchAdminInstitutie($this->request->queryParams);
             } else if (\Yii::$app->user->can('director_institutie')) {
                 $dataProvider = $searchModel->searchAdminStructura($this->request->queryParams);
+            } else if (\Yii::$app->user->can('lucrator_serviciu')) {
+                $dataProvider = $searchModel->searchLucratorServiciu($this->request->queryParams);
             }
 
 
