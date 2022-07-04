@@ -223,6 +223,8 @@ class UserController extends Controller
 
     private function createNewUser(array $userCreateRequest)
     {
+
+
         $user_details = $userCreateRequest["User"];
         $user_new = new User();
         $user_new->username = $user_details["username"];
@@ -230,7 +232,7 @@ class UserController extends Controller
         $user_new->prenume = $user_details["prenume"];
         $user_new->nume_anterior = $user_details["nume_anterior"];
         $user_new->cod_numeric_personal = $user_details["cod_numeric_personal"];
-        $user_new->data_nasterii = $user_details["data_nasterii"];
+        $user_new->data_nasterii = date('Y-m-d', strtotime($user_details["data_nasterii"]));
         $user_new->localitatea_nasterii = $user_details["localitatea_nasterii"];
         $user_new->generateAuthKey();
         $user_new->setPassword(12345678);
