@@ -39,7 +39,7 @@ class Programare extends \yii\db\ActiveRecord
     {
         return [
             [['programare_minister', 'programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_datetime'], 'required'],
-            [['programare_minister', 'programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_user', 'programare_validata_de', 'programare_data_finalizare'], 'integer'],
+            [['programare_minister', 'programare_institutie', 'programare_serviciu', 'programare_localitate', 'programare_user', 'programare_validata_de'], 'integer'],
             [['programare_datetime', 'programare_data_numar_unic'], 'safe'],
             [['programare_numar_unic'], 'string', 'max' => 10],
             [['programare_institutie'], 'exist', 'skipOnError' => true, 'targetClass' => Institutie::className(), 'targetAttribute' => ['programare_institutie' => 'id']],

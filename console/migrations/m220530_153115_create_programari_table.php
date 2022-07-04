@@ -29,7 +29,7 @@ class m220530_153115_create_programari_table extends Migration
             'programare_validata_de' => $this->integer(11)->null(),
             'programare_numar_unic' => $this->string(10)->null(),
             'programare_data_numar_unic' => $this->date()->null(),
-            'programare_data_finalizare' => $this->tinyInteger(1)->defaultValue(0),
+            'programare_data_finalizare' => $this->dateTime()->null(),
             'programare_document_solicitat' => $this->integer(11)->null(),
             'programare_este_anulata' => $this->tinyInteger(1)->defaultValue(0),
             'programare_lucrator' => $this->integer(11)->null()

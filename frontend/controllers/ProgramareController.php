@@ -224,6 +224,7 @@ class ProgramareController extends Controller
                     $programareExistenta->programare_numar_unic = \Yii::$app->security->generateRandomString(10);
                     date_default_timezone_set('Europe/Bucharest');
                     $programareExistenta->programare_data_numar_unic = date('Y-m-d');
+                    $programareExistenta->programare_este_anulata = 1;
 
                     if ($programareExistenta->save()) {
                         $dataResponse = [
@@ -782,6 +783,7 @@ class ProgramareController extends Controller
 
                 $programare = Programare::findOne($programare_id);
                 $programare->programare_lucrator = $lucrator_id;
+                $programare->programare_este_anulata = 2;
 
                 if($programare->save()){
                     $data_response['response_message'] = 'Programare atribuita cu success';
@@ -795,5 +797,47 @@ class ProgramareController extends Controller
 
         }
         return $this->redirect(['site/index']);
+    }
+
+    // =========================================
+    // istoric programari pentru lucratorii din serviciu
+    // ==================================================
+    public function actionIstoric(){
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('lucrator_serviciu')){
+            $searchModel = new ProgramareSearch();
+
+            $dataProvider = $searchModel->searchLucratorServiciuIstoric($this->request->queryParams);
+            return $this->render('istoric', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return $this->redirect(['site/index']);
+    }
+
+    // =====================================
+    // finalizare programare
+    // =====================================
+
+    public function actionFinalizare($id_programare){
+        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('lucrator_serviciu')){
+            $programareExistenta = Programare::findOne($id_programare);
+
+            if($programareExistenta != NULL && $programareExistenta->programare_numar_unic != NULL){
+                // verificare ca programarea sa fie atribuita lucratorului
+                if($programareExistenta->programare_lucrator === \Yii::$app->user->identity->id){
+
+                    $programareExistenta->programare_este_anulata = 3;
+                    $programareExistenta->programare_data_finalizare = date('Y-m-d h:i:s');
+
+                    if($programareExistenta->save()){
+                        return $this->redirect(['programare/index', 'programare_status' => 'finalizata']);
+                    }
+                }
+                return $this->redirect(['programare/index']);
+            }
+            return $this->redirect(['programare/index']);
+        }
+        return $this->redirect(['programare/index']);
     }
 }

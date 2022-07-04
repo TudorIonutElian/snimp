@@ -180,13 +180,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => ActionColumn::className(),
-                'template' => '{validare} {delete} {atribuire-lucrator}',
+                'template' => '{validare} {delete} {atribuire-lucrator} {finalizare}',
                 'visibleButtons' => [
                     'validare' => function ($model) {
                         return $model->programare_validata_de == NULL;
                     },
+                    'delete' => function ($model) {
+                        return Yii::$app->user->can('director_institutie');
+                    },
                     'atribuire-lucrator' => function ($model) {
                         return $model->programare_validata_de !== NULL && $model->programare_lucrator == NULL;
+                    },
+                    'finalizare' => function ($model) {
+                        if (Yii::$app->user->can('lucrator_serviciu') && $model->programare_lucrator == Yii::$app->user->identity->id) {
+                            if($model->programare_data_finalizare == NULL){
+                                return true;
+                            }
+                            return false;
+                        }
+                        return false;
                     },
                 ],
                 'buttons' => [
@@ -218,10 +230,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'data-programare-id' => $data->id,
                             ]);
                     },
+                    'finalizare' => function ($model, $data) {
+                        return Html::a(
+                            '<i class="fas fa-check-circle mr-1"></i>Finalizare',
+                            ['programare/finalizare', 'id_programare' => $data->id],
+                            [
+                                'class' => 'btn btn-info btn-sm btn-block btn-finalizare-programare',
+                                'data-programare-id' => $data->id,
+                            ]);
+                    },
 
                 ]
             ],
         ],
+        'emptyText' => '<div class="text-center font-weight-bold text-success">Nu aveți programări în lucru dar puteti cauta in <a href="index.php?r=programare/istoric">Istoric</a> .</div>'
     ]); ?>
 </div>
 
