@@ -161,11 +161,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => ActionColumn::className(),
-                'template' => '{validare} {delete}',
+                'template' => '{validare} {delete} {atribuire-lucrator}',
                 'visibleButtons' => [
                     'validare' => function ($model) {
                         return $model->programare_validata_de == NULL;
-                    }
+                    },
+                    'atribuire-lucrator' => function ($model) {
+                        return $model->programare_validata_de !== NULL && $model->programare_lucrator == NULL;
+                    },
                 ],
                 'buttons' => [
                     'validare' => function ($model, $data) {
@@ -186,7 +189,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'btn btn-danger btn-sm btn-block btn-anulare-programare',
                                 'data-programare-id' => $data->id,
                             ]);
-                    }
+                    },
+                    'atribuire-lucrator' => function ($model, $data) {
+                        return Html::a(
+                            '<i class="fas fa-user mr-1"></i>Atribuire',
+                            '#',
+                            [
+                                'class' => 'btn btn-info btn-sm btn-block btn-atribuire-programare',
+                                'data-programare-id' => $data->id,
+                            ]);
+                    },
 
                 ]
             ],
