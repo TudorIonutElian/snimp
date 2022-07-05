@@ -357,7 +357,17 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
             }
             $programareNoua->programare_serviciu = $serviciu_id; // 18
             $programareNoua->programare_prestare = 6; //10
-            $programareNoua->programare_punct_lucru = 2; // 1-4;
+
+            $punct_lucru_id = 2;
+
+            if($i > 35){
+                $punct_lucru_id = 3;
+            }
+
+            if($i > 68){
+                $punct_lucru_id = 4;
+            }
+            $programareNoua->programare_punct_lucru = $punct_lucru_id; // 2-4;
 
             $random_date = '2022-07-0'.rand(1, 6);
 
