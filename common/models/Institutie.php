@@ -141,4 +141,10 @@ class Institutie extends \yii\db\ActiveRecord
             ->count();
         return (int)$numarStructuriSubordonate > 0;
     }
+
+    public function delete()
+    {
+        $this->institutie_status = 0;
+        return $this->save();
+    }
 }
