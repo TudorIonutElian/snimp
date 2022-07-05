@@ -912,8 +912,12 @@ class ProgramareController extends Controller
     }
 
     private function exportPDFLucratorServiciu($data_export){
-        var_dump($data_export);
-        die();
+        $programari = Programare::find()
+            ->where(['programare_lucrator' => \Yii::$app->user->identity->id])
+            ->andWhere(['not in', 'programare_este_anulata', [3,9]])
+            ->all();
+
+
     }
 
     private function exportPDFDirectorStructura($data_export){
