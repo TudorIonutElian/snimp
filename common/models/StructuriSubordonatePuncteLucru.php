@@ -113,5 +113,9 @@ class StructuriSubordonatePuncteLucru extends \yii\db\ActiveRecord
         return $this->hasOne(InstitutiiStructuriSubordonate::className(), ['id_iss' => 'structura_subordonata_id_sspl']);
     }
 
+    public function getFullString(){
+        return Localitate::findOne($this->localitate_id_sspl)->localitate_nume.'-'.$this->strada_sspl.'-'.$this->numar_strada_sspl;
+    }
+
 
 }

@@ -15,6 +15,7 @@ use common\models\StructuriSubordonatePuncteLucru;
 use common\models\StructuriSubordonateServicii;
 use common\models\TipuriServiciu;
 use common\models\User;
+use kartik\mpdf\Pdf;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -207,8 +208,8 @@ class ProgramareController extends Controller
         ];
 
         if (!\Yii::$app->user->getIsGuest() && (
-            \Yii::$app->user->can('admin_institutie') ||
-            \Yii::$app->user->can('director_institutie')
+                \Yii::$app->user->can('admin_institutie') ||
+                \Yii::$app->user->can('director_institutie')
             )) {
 
             $requestData = \Yii::$app->request->post();
@@ -433,8 +434,8 @@ class ProgramareController extends Controller
             $request = \Yii::$app->request->post();
             $data_inceput = date('Y-m-d', strtotime($request['_data']['_data_inceput']));
             $data_sfarsit = date('Y-m-d', strtotime($request['_data']['_data_sfarsit']));
-            $structura_id = (int) $request['_data']['_structura_id'];
-            $serviciu_id = (int) $request['_data']['_serviciu_id'];
+            $structura_id = (int)$request['_data']['_structura_id'];
+            $serviciu_id = (int)$request['_data']['_serviciu_id'];
 
             if ($structura_id === 0) {
                 // aduc date pentru toate institutiile
@@ -466,7 +467,7 @@ class ProgramareController extends Controller
                     // 'rgba(255, 99, 132, 0.5)',
                 }
             } else {
-                if($serviciu_id === 0){
+                if ($serviciu_id === 0) {
                     // aduc serviciile din cadrul institutiei
                     $tipuriServiciiInstitutie = InstitutiiServicii::find()
                         ->where(['is_institutie' => \Yii::$app->user->identity->institutie_id])
@@ -503,7 +504,7 @@ class ProgramareController extends Controller
                         $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
                         array_push($data_response['background_colors'], $colorString);
                     }
-                }else{
+                } else {
                     // aduc punctele de lucru
                     $structuraPuncteLucru = StructuriSubordonatePuncteLucru::find()
                         ->where(['structura_subordonata_id_sspl' => $structura_id])
@@ -514,9 +515,9 @@ class ProgramareController extends Controller
                     $data_response['numar_programari'] = [];
                     $data_response['background_colors'] = [];
 
-                    foreach ($structuraPuncteLucru as $punctLucru){
+                    foreach ($structuraPuncteLucru as $punctLucru) {
                         $localitate = Localitate::findOne($punctLucru->localitate_id_sspl);
-                        $stringLabelForPunctLucru = $localitate->localitate_nume.'-'.$punctLucru->strada_sspl.'-'.$punctLucru->numar_strada_sspl;
+                        $stringLabelForPunctLucru = $localitate->localitate_nume . '-' . $punctLucru->strada_sspl . '-' . $punctLucru->numar_strada_sspl;
                         array_push($data_response['labels'], $stringLabelForPunctLucru);
 
                         $numar_programari_per_servicii = Programare::find()
@@ -621,9 +622,9 @@ class ProgramareController extends Controller
                     $data_response['numar_programari'] = [];
                     $data_response['background_colors'] = [];
 
-                    foreach ($structuraPuncteLucru as $punctLucru){
+                    foreach ($structuraPuncteLucru as $punctLucru) {
                         $localitate = Localitate::findOne($punctLucru->localitate_id_sspl);
-                        $stringLabelForPunctLucru = $localitate->localitate_nume.'-'.$punctLucru->strada_sspl.'-'.$punctLucru->numar_strada_sspl;
+                        $stringLabelForPunctLucru = $localitate->localitate_nume . '-' . $punctLucru->strada_sspl . '-' . $punctLucru->numar_strada_sspl;
                         array_push($data_response['labels'], $stringLabelForPunctLucru);
 
                         $numar_programari_per_servicii = Programare::find()
@@ -653,7 +654,7 @@ class ProgramareController extends Controller
                     $data_response['background_colors'] = [];
 
                     $current_date = $data_inceput;
-                    while($current_date <= $data_sfarsit){
+                    while ($current_date <= $data_sfarsit) {
                         array_push($data_response['labels'], $current_date);
 
                         $numar_programari_per_punct_lucru = Programare::find()
@@ -671,7 +672,7 @@ class ProgramareController extends Controller
                         $colorString = 'rgba(' . $randomRed . ', ' . $randomGreen . ', ' . $randomBlue . ', 0.5)';
                         array_push($data_response['background_colors'], $colorString);
 
-                        $current_date = date('Y-m-d', strtotime($current_date.'+1 day'));
+                        $current_date = date('Y-m-d', strtotime($current_date . '+1 day'));
                     }
                 }
             }
@@ -684,7 +685,8 @@ class ProgramareController extends Controller
     // VERIFICARE DUPLICAT PROGRAMARE
     // =============================================
 
-    public function actionVerificareDuplicat(){
+    public function actionVerificareDuplicat()
+    {
         $data_response = [
             'response_code' => 0,
             'response_message' => 'Initiat'
@@ -692,7 +694,7 @@ class ProgramareController extends Controller
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        if(!\Yii::$app->user->getIsGuest() && (\Yii::$app->user->can('admin_institutie') || \Yii::$app->user->can('director_institutie'))){
+        if (!\Yii::$app->user->getIsGuest() && (\Yii::$app->user->can('admin_institutie') || \Yii::$app->user->can('director_institutie'))) {
             $request = \Yii::$app->request->post();
             $programare_id = $request["programare_id"];
 
@@ -727,13 +729,13 @@ class ProgramareController extends Controller
                 ])
                 ->all();
 
-            if(count($programariDuplicat) > 0){
+            if (count($programariDuplicat) > 0) {
                 $data_response['response_message'] = 'Exista validari duplicat.';
-                foreach ($programariDuplicat as $key => $pd){
+                foreach ($programariDuplicat as $key => $pd) {
                     $programareDuplicat = [
                         'programare_nume' => $pd->programare_nume,
                         'programare_prenume' => $pd->programare_prenume,
-                        'programare_validata_de' => User::findOne($pd->programare_validata_de) ? User::findOne($pd->programare_validata_de)->fullName(): NULL,
+                        'programare_validata_de' => User::findOne($pd->programare_validata_de) ? User::findOne($pd->programare_validata_de)->fullName() : NULL,
                         'programare_numar_unic' => $pd->programare_numar_unic,
                         'programare_email' => $pd->programare_email,
                     ];
@@ -749,11 +751,12 @@ class ProgramareController extends Controller
     // ========================================================
     // ATRIBUIRE PROGRAMARE UNUI LUCRATOR SERVICU
     // ========================================================
-    public function actionAtribuire($id_programare = NULL){
-        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')){
+    public function actionAtribuire($id_programare = NULL)
+    {
+        if (!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')) {
             $programare = Programare::findOne($id_programare);
 
-            if(\Yii::$app->request->isGet){
+            if (\Yii::$app->request->isGet) {
                 $lucratoriStructuraSubordonata = User::find()
                     ->joinWith(['authAssignment'])
                     ->where(['institutie_subordonata_id' => \Yii::$app->user->identity->institutie_subordonata_id])
@@ -772,21 +775,21 @@ class ProgramareController extends Controller
                         'programare' => $programare
                     ]
                 );
-            }else if(\Yii::$app->request->isPost){
+            } else if (\Yii::$app->request->isPost) {
                 $data_response = [
                     'response_code' => 0,
                     'response_message' => 'Initiat'
                 ];
                 $request = \Yii::$app->request->post();
 
-                $programare_id = (int) $request["_programare_id"];
-                $lucrator_id = (int) $request["_lucrator_id"];
+                $programare_id = (int)$request["_programare_id"];
+                $lucrator_id = (int)$request["_lucrator_id"];
 
                 $programare = Programare::findOne($programare_id);
                 $programare->programare_lucrator = $lucrator_id;
                 $programare->programare_este_anulata = 2;
 
-                if($programare->save()){
+                if ($programare->save()) {
                     $data_response['response_message'] = 'Programare atribuita cu success';
                     $data_response['response_code'] = 200;
                 }
@@ -803,8 +806,9 @@ class ProgramareController extends Controller
     // =========================================
     // istoric programari pentru lucratorii din serviciu
     // ==================================================
-    public function actionIstoric(){
-        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('lucrator_serviciu')){
+    public function actionIstoric()
+    {
+        if (!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('lucrator_serviciu')) {
             $searchModel = new ProgramareSearch();
 
             $dataProvider = $searchModel->searchLucratorServiciuIstoric($this->request->queryParams);
@@ -820,18 +824,19 @@ class ProgramareController extends Controller
     // finalizare programare
     // =====================================
 
-    public function actionFinalizare($id_programare){
-        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('lucrator_serviciu')){
+    public function actionFinalizare($id_programare)
+    {
+        if (!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('lucrator_serviciu')) {
             $programareExistenta = Programare::findOne($id_programare);
 
-            if($programareExistenta != NULL && $programareExistenta->programare_numar_unic != NULL){
+            if ($programareExistenta != NULL && $programareExistenta->programare_numar_unic != NULL) {
                 // verificare ca programarea sa fie atribuita lucratorului
-                if($programareExistenta->programare_lucrator === \Yii::$app->user->identity->id){
+                if ($programareExistenta->programare_lucrator === \Yii::$app->user->identity->id) {
 
                     $programareExistenta->programare_este_anulata = 3;
                     $programareExistenta->programare_data_finalizare = date('Y-m-d h:i:s');
 
-                    if($programareExistenta->save()){
+                    if ($programareExistenta->save()) {
                         return $this->redirect(['programare/index', 'programare_status' => 'finalizata']);
                     }
                 }
@@ -846,20 +851,21 @@ class ProgramareController extends Controller
     // finalizare programare
     // =====================================
 
-    public function actionAnulare(){
+    public function actionAnulare()
+    {
         $data_response = [
             'response_code' => 0,
             'response_message' => 'Inititat'
         ];
 
-        if(!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')){
+        if (!\Yii::$app->user->getIsGuest() && \Yii::$app->user->can('director_institutie')) {
             $request = \Yii::$app->request->post();
 
-            $programare = Programare::findOne((int) $request["programare_id"]);
+            $programare = Programare::findOne((int)$request["programare_id"]);
             $programare->programare_este_anulata = 9;
             $programare->programare_data_finalizare = date('Y-m-d h:i:s');
 
-            if($programare->save()){
+            if ($programare->save()) {
                 $data_response['response_code'] = 200;
                 $data_response['response_message'] = 'Programarea a fost anulata.';
             }
@@ -874,8 +880,9 @@ class ProgramareController extends Controller
     // export pdf GET PAGE
     // =====================================
 
-    public function actionExport(){
-        if(!\Yii::$app->user->getIsGuest()){
+    public function actionExport()
+    {
+        if (!\Yii::$app->user->getIsGuest()) {
             return $this->render('export-pdf');
         }
         return $this->redirect(['site/index']);
@@ -885,57 +892,99 @@ class ProgramareController extends Controller
     // export pdf POST
     // =====================================
 
-    public function actionExportPdf(){
-        if(!\Yii::$app->user->getIsGuest()){
+    public function actionExportPdf()
+    {
+        if (!\Yii::$app->user->getIsGuest()) {
             $request = \Yii::$app->request->post();
-            $data_export = date('Y-m-d', strtotime($request['_data_export']));
+
+            $data_export = date('Y-m-d', strtotime($request['data_export']));
 
             // export pdf pentru lucrator_serviciu
-            $this->exportPDFLucratorServiciu($data_export);
+            if(\Yii::$app->user->can('lucrator_serviciu')){
+                return $this->exportPDFLucratorServiciu($data_export);
 
-            // export pdf pentru director structura
-            $this->exportPDFDirectorStructura($data_export);
-
-            // export pdf pentru admin_institutie
-            $this->exportPDFAdminInstitutie($data_export);
-
-            // export pdf pentru admin_minister
-            $this->exportPDFAdminMinister($data_export);
-
-            // export pdf pentru admin general system
-            $this->exportPDFAdminGeneral($data_export);
-
-            var_dump($data_export);
-            die();
+            }else if(\Yii::$app->user->can('director_institutie')){
+                // export pdf pentru director structura
+                $this->exportPDFDirectorStructura($data_export);
+            }else if(\Yii::$app->user->can('admin_institutie')){
+                // export pdf pentru admin_institutie
+                $this->exportPDFAdminInstitutie($data_export);
+            }else if(\Yii::$app->user->can('admin_minister')){
+                // export pdf pentru admin_minister
+                $this->exportPDFAdminMinister($data_export);
+            }else if(\Yii::$app->user->can('admin')){
+                // export pdf pentru admin general system
+                $this->exportPDFAdminGeneral($data_export);
+            }
+        }else{
+            return $this->redirect(['site/index']);
         }
-        return $this->redirect(['site/index']);
+
     }
 
-    private function exportPDFLucratorServiciu($data_export){
+    private function exportPDFLucratorServiciu($data_export)
+    {
         $programari = Programare::find()
-            ->where(['programare_lucrator' => \Yii::$app->user->identity->id])
-            ->andWhere(['not in', 'programare_este_anulata', [3,9]])
+            ->where([
+                'and',
+                ['programare_lucrator' => \Yii::$app->user->identity->id],
+                ['date(programare_datetime)' => $data_export]
+            ])
+            ->andWhere(['not in', 'programare_este_anulata', [3, 9]])
             ->all();
 
+        $content = $this->renderPartial('export-lucrator-serviciu', ['programari' => $programari, 'data_export' => $data_export]);
 
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => 'RO/ro',
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.table-flex thead tr{display:flex; flex-direction:row; align-items:center;justify-content:center;}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'SNIMP - export programari'],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader'=>['SNIMP - Export Programari - Rol: LUCRATOR SERVICIU'],
+                'SetFooter'=>['Generat la data de '.date('d-m-Y h:i:s').' - Pagina {PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
     }
 
-    private function exportPDFDirectorStructura($data_export){
+    private function exportPDFDirectorStructura($data_export)
+    {
         var_dump($data_export);
         die();
     }
 
-    private function exportPDFAdminInstitutie($data_export){
+    private function exportPDFAdminInstitutie($data_export)
+    {
         var_dump($data_export);
         die();
     }
 
-    private function exportPDFAdminMinister($data_export){
+    private function exportPDFAdminMinister($data_export)
+    {
         var_dump($data_export);
         die();
     }
 
-    private function exportPDFAdminGeneral($data_export){
+    private function exportPDFAdminGeneral($data_export)
+    {
         var_dump($data_export);
         die();
     }

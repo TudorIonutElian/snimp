@@ -1,6 +1,7 @@
 <?php
 
 use kartik\date\DatePicker;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Programare */
@@ -11,6 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="programare-update">
     <div class="container">
+        <?php ActiveForm::begin(
+            [
+                'action' => ['programare/export-pdf'],
+                'options' => ['method' => 'post']
+            ]); ?>
         <div class="row my-2">
             <div class="col-4"></div>
             <div class="col-4">
@@ -36,18 +42,20 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row my-2">
             <div class="col-4"></div>
             <div class="col-4">
-                <?= \yii\helpers\Html::a(
+                <?= \yii\helpers\Html::submitButton(
                     '<i class="mr-2 fas fa-file-pdf"></i>Exportă programări PDF',
-                    '#',
                     [
                         'id' => 'export_pdf',
                         'class' => 'btn btn-block btn-primary'
                     ]
+
                 ) ?>
             </div>
             <div class="col-4"></div>
         </div>
+
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
 
 <?php $this->registerJsFile("@web/js/plugins/views/programare/export-pdf.js"); ?>

@@ -1,4 +1,5 @@
-$('body').on('click', '#export_pdf', function (){
+/*
+* $('body').on('click', '#export_pdf', function (){
     const data_export = $('#w0').val();
 
     $.ajax({
@@ -12,3 +13,5 @@ $('body').on('click', '#export_pdf', function (){
         }
     });
 });
+*
+* */
