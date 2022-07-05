@@ -262,4 +262,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function fullName(){
         return $this->nume.' '.$this->prenume;
     }
+
+    public function delete()
+    {
+        $this->status = 9;
+        return $this->save();
+    }
 }
