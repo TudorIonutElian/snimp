@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $("canvas#myChart").remove();
                 $("div.chartreport").append(`<canvas id="myChart" width="200" height="100"></canvas>`);
 
-                const ctx = document.getElementById('myChart');
+                let ctx = document.getElementById('myChart');
                 let myChart = new Chart(ctx, {
                     // bar, line, mixed
                     type: 'bar',
@@ -151,11 +151,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     options: {
                         scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                }
+                            }]
+                        },
+                    },
+
                 });
             }
         });
