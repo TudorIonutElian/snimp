@@ -317,7 +317,7 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
             $user->localitatea_nasterii = 13802;
             $user->auth_key = 'pkoE6oRupK5xnuH9ugsLs52ruHXS_mfG';
             $user->password_hash = '$2y$13$TkicWzINi4mt5FAHd9LZ7.Kr4rk8MOsL.ORxohBlJeHaNCvtBGNQG';
-            $user->email = 'lucrator_serviciu_' . $i . '@snimp.ro';
+            $user->email = strtolower($prenume).'.'.strtolower($nume) . '@snimp.ro';
             $user->status = 10;
             $user->created_at = 1656933687;
             $user->updated_at = 1656933687;
