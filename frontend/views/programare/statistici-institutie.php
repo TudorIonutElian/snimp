@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-12 text-center my-2">
                 <span class="bg-info text-white px-2 py-2 rounded">
-                    Statistici la nivelul Ministerului
+                    Statistici la
                     <?php
-                    $institutie = \common\models\Institutie::findOne(Yii::$app->user->identity->institutie_id);
-                    echo $institutie->institutie_denumire;
+                        $institutie = \common\models\Institutie::findOne(Yii::$app->user->identity->institutie_id);
+                        echo $institutie->institutie_denumire;
                     ?>
                 </span>
             </div>

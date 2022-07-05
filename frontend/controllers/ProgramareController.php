@@ -658,6 +658,7 @@ class ProgramareController extends Controller
 
                         $numar_programari_per_punct_lucru = Programare::find()
                             ->where(['date(programare_datetime)' => $current_date])
+                            ->andWhere(['programare_serviciu' => $serviciu_id])
                             ->andWhere(['programare_punct_lucru' => $punct_lucru_id])
                             ->count();
 
