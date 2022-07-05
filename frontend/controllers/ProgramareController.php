@@ -869,4 +869,15 @@ class ProgramareController extends Controller
         return $data_response;
 
     }
+
+    // =====================================
+    // finalizare programare
+    // =====================================
+
+    public function actionExport(){
+        if(!\Yii::$app->user->getIsGuest()){
+            return $this->render('export-pdf');
+        }
+        return $this->redirect(['site/index']);
+    }
 }
