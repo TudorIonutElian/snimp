@@ -305,11 +305,14 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
     private function adaugaLucratoriServiciu($number)
     {
         for ($i = 0; $i < $number; $i++) {
+            $nume = $this->nume_familie[rand(1, count($this->nume_familie) - 1)];
+            $prenume = $this->prenume[rand(1, count($this->prenume) - 1)];
+
             $user = new \common\models\User();
-            $user->username = 'lucrator_serviciu_' . $i;
+            $user->username = strtolower($prenume).'.'.strtolower($nume);
             $user->cod_numeric_personal = '1900725281965';
-            $user->nume = 'Lucrator ' . $i;
-            $user->prenume = 'Serviciu';
+            $user->nume = $nume;
+            $user->prenume = $prenume;
             $user->data_nasterii = '1990-07-25';
             $user->localitatea_nasterii = 13802;
             $user->auth_key = 'pkoE6oRupK5xnuH9ugsLs52ruHXS_mfG';
@@ -358,12 +361,12 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
 
             $random_date = '2022-07-0'.rand(1, 6);
 
-            $data_programare = date(
-                'Y-m-d h:i',
-                (int) strtotime($random_date.$random_hours[rand(0, count($random_hours)-1)].':'.$random_minutes[rand(0, count($random_minutes)-1)]));
+            $random_hour = $random_hours[rand(0, count($random_hours)-1)];
+            $random_minute = $random_minutes[rand(0, count($random_minutes)-1)];
 
+            $fullDate = $random_date.' '.$random_hour.':'.$random_minute;
 
-            $programareNoua->programare_datetime = $data_programare;
+            $programareNoua->programare_datetime = $fullDate;
             $programareNoua->programare_email    = strtolower($programare_nume).'.'.strtolower($programare_prenume).'@gmail.com';
             $programareNoua->programare_nume     = $programare_nume;
             $programareNoua->programare_prenume  = $programare_prenume;
