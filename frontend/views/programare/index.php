@@ -186,7 +186,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{validare} {delete} {atribuire-lucrator} {finalizare}',
                 'visibleButtons' => [
                     'validare' => function ($model) {
-                        return $model->programare_validata_de == NULL;
+                        return $model->programare_validata_de == NULL && (
+                                Yii::$app->user->can('admin_institutie') ||
+                                Yii::$app->user->can('director_institutie')
+                            );
                     },
                     'delete' => function ($model) {
                         if (Yii::$app->user->can('director_institutie')) {

@@ -17,11 +17,12 @@ $('body').on('click', '.btn-validare-programare', function (event) {
             _csrf: yii.getCsrfToken()
         },
         success: function (response) {
-            const programari_duplicat = response.programari_duplicat;
 
-            if (programari_duplicat.length > 0) {
-                programareDuplicat += `<div class="text-center font-weight-bold text-danger">Atentie, exista programari duplicat, conform tabelului de mai jos: </div>`;
-                programareDuplicat += `
+            if(response != null || typeof response != null){
+                const programari_duplicat = response.programari_duplicat;
+                if (programari_duplicat.length > 0) {
+                    programareDuplicat += `<div class="text-center font-weight-bold text-danger">Atentie, exista programari duplicat, conform tabelului de mai jos: </div>`;
+                    programareDuplicat += `
                 <table class="table">
                     <thead>
                     <tr>
@@ -37,10 +38,10 @@ $('body').on('click', '.btn-validare-programare', function (event) {
 
                     `;
 
-                for (let i = 0; i < programari_duplicat.length; i++) {
+                    for (let i = 0; i < programari_duplicat.length; i++) {
 
-                    programareDuplicat +=
-                        `<tr>
+                        programareDuplicat +=
+                            `<tr>
                           <th scope="row">${i + 1}</th>
                           <td>${programari_duplicat[i].programare_nume}</td>
                           <td>${programari_duplicat[i].programare_prenume}</td>
@@ -49,12 +50,13 @@ $('body').on('click', '.btn-validare-programare', function (event) {
                           <td>${programari_duplicat[i].programare_validata_de}</td>
                         </tr>`;
 
-                }
+                    }
 
-                programareDuplicat +=
-                    `</tbody>
+                    programareDuplicat +=
+                        `</tbody>
                 </table>`;
 
+                }
             }
 
             let modalContent = `

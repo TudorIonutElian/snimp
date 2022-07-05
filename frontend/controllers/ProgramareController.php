@@ -285,7 +285,7 @@ class ProgramareController extends Controller
                             ['<=', 'date(programare_datetime)', $data_sfarsit],
                         ])->andWhere(['programare_minister' => $minister['id']])->count();
 
-                    $data_response['labels'][] = Minister::findOne($minister['id'])->minister_denumire.' ('.$numar_programari_per_minister.')';
+                    $data_response['labels'][] = Minister::findOne($minister['id'])->minister_denumire . ' (' . $numar_programari_per_minister . ')';
                     array_push($data_response['numar_programari'], $numar_programari_per_minister);
 
                     // set the color
@@ -313,7 +313,7 @@ class ProgramareController extends Controller
                         ->andWhere(['programare_minister' => $minister_id])
                         ->andWhere(['programare_institutie' => $institutie['id']])->count();
 
-                    $data_response['labels'][] = Institutie::findOne($institutie['id'])->institutie_denumire.' ('.$numar_programari_per_institutie.')';
+                    $data_response['labels'][] = Institutie::findOne($institutie['id'])->institutie_denumire . ' (' . $numar_programari_per_institutie . ')';
                     array_push($data_response['numar_programari'], $numar_programari_per_institutie);
 
                     // set the color
@@ -367,7 +367,7 @@ class ProgramareController extends Controller
                             ['<=', 'date(programare_datetime)', $data_sfarsit],
                         ])->andWhere(['programare_institutie' => $institutie['id']])->count();
 
-                    $data_response['labels'][] = Institutie::findOne($institutie['id'])->institutie_denumire.' ('.$numar_programari_per_institutie.')';
+                    $data_response['labels'][] = Institutie::findOne($institutie['id'])->institutie_denumire . ' (' . $numar_programari_per_institutie . ')';
                     array_push($data_response['numar_programari'], $numar_programari_per_institutie);
 
                     // set the color
@@ -405,7 +405,7 @@ class ProgramareController extends Controller
                         ->andWhere(['programare_institutie' => $institutie_id])
                         ->andWhere(['programare_serviciu' => $serviciu->id])->count();
 
-                    $data_response['labels'][] = TipuriServiciu::findOne($serviciu->id)->tip_serviciu_denumire.' ('.$numar_programari_per_servicii.')';
+                    $data_response['labels'][] = TipuriServiciu::findOne($serviciu->id)->tip_serviciu_denumire . ' (' . $numar_programari_per_servicii . ')';
                     array_push($data_response['numar_programari'], $numar_programari_per_servicii);
 
                     // set the color
@@ -461,7 +461,7 @@ class ProgramareController extends Controller
                         ->andWhere(['programare_structura_subordonata' => $structura_subordonata['id_iss']])
                         ->count();
 
-                    $data_response['labels'][] = InstitutiiStructuriSubordonate::findOne($structura_subordonata['id_iss'])->institutie_denumire_iss.' ('.$numar_programari_per_structura.')';
+                    $data_response['labels'][] = InstitutiiStructuriSubordonate::findOne($structura_subordonata['id_iss'])->institutie_denumire_iss . ' (' . $numar_programari_per_structura . ')';
                     array_push($data_response['numar_programari'], $numar_programari_per_structura);
 
                     // set the color
@@ -500,7 +500,7 @@ class ProgramareController extends Controller
                             ->andWhere(['programare_structura_subordonata' => $structura_id])
                             ->andWhere(['programare_serviciu' => $serviciu->id])->count();
 
-                        $data_response['labels'][] = TipuriServiciu::findOne($serviciu->id)->tip_serviciu_denumire.' ('.$numar_programari_per_servicii.')';
+                        $data_response['labels'][] = TipuriServiciu::findOne($serviciu->id)->tip_serviciu_denumire . ' (' . $numar_programari_per_servicii . ')';
                         array_push($data_response['numar_programari'], $numar_programari_per_servicii);
 
                         // set the color
@@ -535,7 +535,7 @@ class ProgramareController extends Controller
 
                         $localitate = Localitate::findOne($punctLucru->localitate_id_sspl);
                         $stringLabelForPunctLucru = $localitate->localitate_nume . '-' . $punctLucru->strada_sspl . '-' . $punctLucru->numar_strada_sspl;
-                        array_push($data_response['labels'], $stringLabelForPunctLucru.' ('.$numar_programari_per_servicii.')');
+                        array_push($data_response['labels'], $stringLabelForPunctLucru . ' (' . $numar_programari_per_servicii . ')');
 
                         array_push($data_response['numar_programari'], $numar_programari_per_servicii);
 
@@ -603,7 +603,7 @@ class ProgramareController extends Controller
                         ->andWhere(['programare_serviciu' => $serviciu->id])
                         ->count();
 
-                    $data_response['labels'][] = TipuriServiciu::findOne($serviciu->id)->tip_serviciu_denumire.' ('.$numar_programari_per_serviciu.')';
+                    $data_response['labels'][] = TipuriServiciu::findOne($serviciu->id)->tip_serviciu_denumire . ' (' . $numar_programari_per_serviciu . ')';
                     array_push($data_response['numar_programari'], $numar_programari_per_serviciu);
 
                     // set the color
@@ -646,7 +646,7 @@ class ProgramareController extends Controller
                         array_push($data_response['numar_programari'], $numar_programari_per_servicii);
                         $localitate = Localitate::findOne($punctLucru->localitate_id_sspl);
                         $stringLabelForPunctLucru = $localitate->localitate_nume . '-' . $punctLucru->strada_sspl . '-' . $punctLucru->numar_strada_sspl;
-                        array_push($data_response['labels'], $stringLabelForPunctLucru.' ('.$numar_programari_per_servicii.')');
+                        array_push($data_response['labels'], $stringLabelForPunctLucru . ' (' . $numar_programari_per_servicii . ')');
 
                         // set the color
                         $randomRed = rand(1, 255);
@@ -671,7 +671,7 @@ class ProgramareController extends Controller
                             ->andWhere(['programare_punct_lucru' => $punct_lucru_id])
                             ->count();
 
-                        array_push($data_response['labels'], $current_date.' ('.$numar_programari_per_punct_lucru.')');
+                        array_push($data_response['labels'], $current_date . ' (' . $numar_programari_per_punct_lucru . ')');
                         array_push($data_response['numar_programari'], $numar_programari_per_punct_lucru);
 
                         // set the color
@@ -703,7 +703,10 @@ class ProgramareController extends Controller
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        if (!\Yii::$app->user->getIsGuest() && (\Yii::$app->user->can('admin_institutie') || \Yii::$app->user->can('director_institutie'))) {
+        if (!\Yii::$app->user->getIsGuest() && (
+                \Yii::$app->user->can('admin_institutie') ||
+                \Yii::$app->user->can('director_institutie'))
+        ) {
             $request = \Yii::$app->request->post();
             $programare_id = $request["programare_id"];
 
@@ -909,31 +912,31 @@ class ProgramareController extends Controller
             $data_export = date('Y-m-d', strtotime($request['data_export']));
 
             // export pdf pentru lucrator_serviciu
-            if(\Yii::$app->user->can('lucrator_serviciu')){
+            if (\Yii::$app->user->can('lucrator_serviciu')) {
                 return $this->exportPDFLucratorServiciu($data_export);
 
-            }else if(\Yii::$app->user->can('director_institutie')){
+            } else if (\Yii::$app->user->can('director_institutie')) {
 
                 // export pdf pentru director structura
                 return $this->exportPDFDirectorStructura($data_export);
 
-            }else if(\Yii::$app->user->can('admin_institutie')){
+            } else if (\Yii::$app->user->can('admin_institutie')) {
 
                 // export pdf pentru admin_institutie
                 $this->exportPDFAdminInstitutie($data_export);
 
-            }else if(\Yii::$app->user->can('admin_minister')){
+            } else if (\Yii::$app->user->can('admin_minister')) {
 
                 // export pdf pentru admin_minister
                 $this->exportPDFAdminMinister($data_export);
 
-            }else if(\Yii::$app->user->can('admin')){
+            } else if (\Yii::$app->user->can('admin')) {
 
                 // export pdf pentru admin general system
                 $this->exportPDFAdminGeneral($data_export);
 
             }
-        }else{
+        } else {
             return $this->redirect(['site/index']);
         }
 
@@ -973,8 +976,8 @@ class ProgramareController extends Controller
             'options' => ['title' => 'SNIMP - export programari'],
             // call mPDF methods on the fly
             'methods' => [
-                'SetHeader'=>['SNIMP - Export Programari - Rol: LUCRATOR SERVICIU'],
-                'SetFooter'=>['Generat la data de '.date('d-m-Y h:i:s').' - Pagina {PAGENO}'],
+                'SetHeader' => ['SNIMP - Export Programari - Rol: LUCRATOR SERVICIU'],
+                'SetFooter' => ['Generat la data de ' . date('d-m-Y h:i:s') . ' - Pagina {PAGENO}'],
             ]
         ]);
 
@@ -991,10 +994,10 @@ class ProgramareController extends Controller
             ->select(['id_sspl', 'localitate_id_sspl', 'strada_sspl', 'numar_strada_sspl'])
             ->all();
 
-        foreach ($puncteLucru as $punct){
+        foreach ($puncteLucru as $punct) {
             $datePunctLucruIndividual = [
                 'id_punct_lucru' => $punct->id_sspl,
-                'denumire_punct_lucru' => Localitate::findOne($punct->localitate_id_sspl)->localitate_nume.'-'.$punct->strada_sspl.'-'.$punct->numar_strada_sspl,
+                'denumire_punct_lucru' => Localitate::findOne($punct->localitate_id_sspl)->localitate_nume . '-' . $punct->strada_sspl . '-' . $punct->numar_strada_sspl,
                 'programari_punct_lucru' => Programare::find()
                     ->where(['date(programare_datetime)' => $data_export])
                     ->andWhere(['not in', 'programare_este_anulata', [3, 9]])
@@ -1028,8 +1031,8 @@ class ProgramareController extends Controller
             'options' => ['title' => 'SNIMP - export programari'],
             // call mPDF methods on the fly
             'methods' => [
-                'SetHeader'=>['SNIMP - Export Programari - Rol: DIRECTOR STRUCTURA'],
-                'SetFooter'=>['Generat la data de '.date('d-m-Y h:i:s').' - Pagina {PAGENO}'],
+                'SetHeader' => ['SNIMP - Export Programari - Rol: DIRECTOR STRUCTURA'],
+                'SetFooter' => ['Generat la data de ' . date('d-m-Y h:i:s') . ' - Pagina {PAGENO}'],
             ]
         ]);
 
