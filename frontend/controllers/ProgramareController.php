@@ -589,7 +589,6 @@ class ProgramareController extends Controller
                     ->select(['id', 'tip_serviciu_denumire'])
                     ->all();
 
-                $data_response['labels'] = array_column($servicii_labels, 'tip_serviciu_denumire');
                 $data_response['numar_programari'] = [];
                 $data_response['background_colors'] = [];
 
@@ -603,6 +602,8 @@ class ProgramareController extends Controller
                         ->andWhere(['programare_structura_subordonata' => \Yii::$app->user->identity->institutie_subordonata_id])
                         ->andWhere(['programare_serviciu' => $serviciu->id])
                         ->count();
+
+                    $data_response['labels'][] = TipuriServiciu::findOne($serviciu->id)->tip_serviciu_denumire.' ('.$numar_programari_per_serviciu.')';
                     array_push($data_response['numar_programari'], $numar_programari_per_serviciu);
 
                     // set the color
@@ -663,7 +664,6 @@ class ProgramareController extends Controller
 
                     $current_date = $data_inceput;
                     while ($current_date <= $data_sfarsit) {
-                        array_push($data_response['labels'], $current_date);
 
                         $numar_programari_per_punct_lucru = Programare::find()
                             ->where(['date(programare_datetime)' => $current_date])
@@ -671,6 +671,7 @@ class ProgramareController extends Controller
                             ->andWhere(['programare_punct_lucru' => $punct_lucru_id])
                             ->count();
 
+                        array_push($data_response['labels'], $current_date.' ('.$numar_programari_per_punct_lucru.')');
                         array_push($data_response['numar_programari'], $numar_programari_per_punct_lucru);
 
                         // set the color
