@@ -18,5 +18,11 @@ use yii\helpers\Html;
                 <p>Istoric programari</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="index.php?r=programare/export" class="nav-link">
+                <i class="fas fa-file-pdf nav-icon"></i>
+                <p>Export programari</p>
+            </a>
+        </li>
     </ul>
 </nav>
