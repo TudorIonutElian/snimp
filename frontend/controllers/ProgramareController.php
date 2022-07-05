@@ -448,7 +448,6 @@ class ProgramareController extends Controller
                     ->asArray()
                     ->all();
 
-                $data_response['labels'] = array_column($structuri_subordonate, 'institutie_denumire_iss');
                 $data_response['numar_programari'] = [];
                 $data_response['background_colors'] = [];
 
@@ -458,7 +457,11 @@ class ProgramareController extends Controller
                             'and',
                             ['>=', 'date(programare_datetime)', $data_inceput],
                             ['<=', 'date(programare_datetime)', $data_sfarsit],
-                        ])->andWhere(['programare_structura_subordonata' => $structura_subordonata['id_iss']])->count();
+                        ])
+                        ->andWhere(['programare_structura_subordonata' => $structura_subordonata['id_iss']])
+                        ->count();
+
+                    $data_response['labels'][] = InstitutiiStructuriSubordonate::findOne($structura_subordonata['id_iss'])->institutie_denumire_iss.' ('.$numar_programari_per_structura.')';
                     array_push($data_response['numar_programari'], $numar_programari_per_structura);
 
                     // set the color
@@ -484,7 +487,6 @@ class ProgramareController extends Controller
                         ->orderBy(['tip_serviciu_denumire' => SORT_ASC])
                         ->all();
 
-                    $data_response['labels'] = array_column($servicii, 'tip_serviciu_denumire');
                     $data_response['numar_programari'] = [];
                     $data_response['background_colors'] = [];
 
@@ -498,6 +500,7 @@ class ProgramareController extends Controller
                             ->andWhere(['programare_structura_subordonata' => $structura_id])
                             ->andWhere(['programare_serviciu' => $serviciu->id])->count();
 
+                        $data_response['labels'][] = TipuriServiciu::findOne($serviciu->id)->tip_serviciu_denumire.' ('.$numar_programari_per_servicii.')';
                         array_push($data_response['numar_programari'], $numar_programari_per_servicii);
 
                         // set the color
@@ -519,9 +522,6 @@ class ProgramareController extends Controller
                     $data_response['background_colors'] = [];
 
                     foreach ($structuraPuncteLucru as $punctLucru) {
-                        $localitate = Localitate::findOne($punctLucru->localitate_id_sspl);
-                        $stringLabelForPunctLucru = $localitate->localitate_nume . '-' . $punctLucru->strada_sspl . '-' . $punctLucru->numar_strada_sspl;
-                        array_push($data_response['labels'], $stringLabelForPunctLucru);
 
                         $numar_programari_per_servicii = Programare::find()
                             ->where([
@@ -532,6 +532,10 @@ class ProgramareController extends Controller
                             ->andWhere(['programare_punct_lucru' => $punctLucru->id_sspl])
                             ->andWhere(['programare_serviciu' => $serviciu_id])
                             ->count();
+
+                        $localitate = Localitate::findOne($punctLucru->localitate_id_sspl);
+                        $stringLabelForPunctLucru = $localitate->localitate_nume . '-' . $punctLucru->strada_sspl . '-' . $punctLucru->numar_strada_sspl;
+                        array_push($data_response['labels'], $stringLabelForPunctLucru.' ('.$numar_programari_per_servicii.')');
 
                         array_push($data_response['numar_programari'], $numar_programari_per_servicii);
 
