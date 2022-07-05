@@ -340,7 +340,7 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
         $random_hours = ['08', '09', '10', '11', '12', '13', '14', '15', '16'];
         $random_minutes = ['00', '15', '30', '45'];
 
-        for ($i = 0; $i < 100; $i++){
+        for ($i = 0; $i < 1000; $i++){
             $programare_nume = $this->nume_familie[rand(1, count($this->nume_familie)-1)];
             $programare_prenume = $this->prenume[rand(1, count($this->prenume)-1)];
 
@@ -352,19 +352,23 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
 
             $serviciu_id = 16;
 
-            if($i > 50){
+            if($i > 200){
                 $serviciu_id = 18;
+            }
+
+            if($i > 400){
+                $serviciu_id = 19;
             }
             $programareNoua->programare_serviciu = $serviciu_id; // 18
             $programareNoua->programare_prestare = 6; //10
 
             $punct_lucru_id = 2;
 
-            if($i > 35){
+            if($i > 200){
                 $punct_lucru_id = 3;
             }
 
-            if($i > 68){
+            if($i > 600){
                 $punct_lucru_id = 4;
             }
             $programareNoua->programare_punct_lucru = $punct_lucru_id; // 2-4;
