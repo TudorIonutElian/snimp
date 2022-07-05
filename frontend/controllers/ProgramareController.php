@@ -871,7 +871,7 @@ class ProgramareController extends Controller
     }
 
     // =====================================
-    // finalizare programare
+    // export pdf GET PAGE
     // =====================================
 
     public function actionExport(){
@@ -879,5 +879,60 @@ class ProgramareController extends Controller
             return $this->render('export-pdf');
         }
         return $this->redirect(['site/index']);
+    }
+
+    // =====================================
+    // export pdf POST
+    // =====================================
+
+    public function actionExportPdf(){
+        if(!\Yii::$app->user->getIsGuest()){
+            $request = \Yii::$app->request->post();
+            $data_export = date('Y-m-d', strtotime($request['_data_export']));
+
+            // export pdf pentru lucrator_serviciu
+            $this->exportPDFLucratorServiciu($data_export);
+
+            // export pdf pentru director structura
+            $this->exportPDFDirectorStructura($data_export);
+
+            // export pdf pentru admin_institutie
+            $this->exportPDFAdminInstitutie($data_export);
+
+            // export pdf pentru admin_minister
+            $this->exportPDFAdminMinister($data_export);
+
+            // export pdf pentru admin general system
+            $this->exportPDFAdminGeneral($data_export);
+
+            var_dump($data_export);
+            die();
+        }
+        return $this->redirect(['site/index']);
+    }
+
+    private function exportPDFLucratorServiciu($data_export){
+        var_dump($data_export);
+        die();
+    }
+
+    private function exportPDFDirectorStructura($data_export){
+        var_dump($data_export);
+        die();
+    }
+
+    private function exportPDFAdminInstitutie($data_export){
+        var_dump($data_export);
+        die();
+    }
+
+    private function exportPDFAdminMinister($data_export){
+        var_dump($data_export);
+        die();
+    }
+
+    private function exportPDFAdminGeneral($data_export){
+        var_dump($data_export);
+        die();
     }
 }
