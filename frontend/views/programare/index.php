@@ -170,9 +170,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if($model->programare_este_anulata == 9){
+                    if ($model->programare_este_anulata == 9) {
                         return '<span class="text-danger font-italic font-weight-bold">Anulată</span>';
-                    }else{
+                    } else {
                         if ($model->programare_lucrator != NULL) {
                             return User::findOne($model->programare_lucrator)->fullName();
                         }
@@ -190,7 +190,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'delete' => function ($model) {
                         if (Yii::$app->user->can('director_institutie')) {
-                            if($model->programare_data_finalizare == NULL){
+                            if ($model->programare_data_finalizare == NULL) {
                                 return true;
                             }
                             return false;
@@ -251,6 +251,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 ]
             ],
+        ],
+        'pager' => [
+            'class' => \yii\bootstrap4\LinkPager::class
         ],
         'emptyText' => '<div class="text-center font-weight-bold text-success">Nu aveți programări în lucru dar puteti cauta in <a href="index.php?r=programare/istoric">Istoric</a> .</div>'
     ]); ?>

@@ -139,5 +139,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
+        'pager' => [
+            'class' => \yii\bootstrap4\LinkPager::class
+        ],
     ]); ?>
 </div>

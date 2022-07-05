@@ -76,7 +76,7 @@ use kartik\select2\Select2;
                                     'and',
                                     ['not', ['programare_numar_unic' => NULL]],
                                     ['programare_lucrator' => $model->id],
-                                    ['programare_este_anulata' => 0]
+                                    ['programare_este_anulata' => 2]
                                 ])
                                 ->count();
 

@@ -48,7 +48,7 @@ use common\models\TipuriServiciu;
                             <?= \common\models\Prestari::findOne($programare->programare_prestare)->denumire_p; ?>
                         </td>
                         <td style="text-align:center;padding: 3px;margin: 0;width: 5%;">
-                            <?= date('h:i', strtotime($programare->programare_datetime));?>
+                            <?= $programare->programare_datetime;?>
                         </td>
                         <td style="text-align:center;padding: 3px;margin: 0;width: 10%;">
                             <?= $programare->programare_nume;?>
