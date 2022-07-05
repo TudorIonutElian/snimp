@@ -632,10 +632,11 @@ class ProgramareController extends Controller
                                 'and',
                                 ['>=', 'date(programare_datetime)', $data_inceput],
                                 ['<=', 'date(programare_datetime)', $data_sfarsit],
+                                ['programare_punct_lucru' => $punctLucru->id_sspl]
                             ])
-                            ->andWhere(['programare_punct_lucru' => $punctLucru->id_sspl])
                             ->andWhere(['programare_serviciu' => $serviciu_id])
                             ->count();
+
 
                         array_push($data_response['numar_programari'], $numar_programari_per_servicii);
 
@@ -904,17 +905,25 @@ class ProgramareController extends Controller
                 return $this->exportPDFLucratorServiciu($data_export);
 
             }else if(\Yii::$app->user->can('director_institutie')){
+
                 // export pdf pentru director structura
-                $this->exportPDFDirectorStructura($data_export);
+                return $this->exportPDFDirectorStructura($data_export);
+
             }else if(\Yii::$app->user->can('admin_institutie')){
+
                 // export pdf pentru admin_institutie
                 $this->exportPDFAdminInstitutie($data_export);
+
             }else if(\Yii::$app->user->can('admin_minister')){
+
                 // export pdf pentru admin_minister
                 $this->exportPDFAdminMinister($data_export);
+
             }else if(\Yii::$app->user->can('admin')){
+
                 // export pdf pentru admin general system
                 $this->exportPDFAdminGeneral($data_export);
+
             }
         }else{
             return $this->redirect(['site/index']);
@@ -967,8 +976,58 @@ class ProgramareController extends Controller
 
     private function exportPDFDirectorStructura($data_export)
     {
-        var_dump($data_export);
-        die();
+        $datePuncteLucru = [];
+
+        $puncteLucru = StructuriSubordonatePuncteLucru::find()
+            ->where(['structura_subordonata_id_sspl' => \Yii::$app->user->identity->institutie_subordonata_id])
+            ->select(['id_sspl', 'localitate_id_sspl', 'strada_sspl', 'numar_strada_sspl'])
+            ->all();
+
+        foreach ($puncteLucru as $punct){
+            $datePunctLucruIndividual = [
+                'id_punct_lucru' => $punct->id_sspl,
+                'denumire_punct_lucru' => Localitate::findOne($punct->localitate_id_sspl)->localitate_nume.'-'.$punct->strada_sspl.'-'.$punct->numar_strada_sspl,
+                'programari_punct_lucru' => Programare::find()
+                    ->where(['date(programare_datetime)' => $data_export])
+                    ->andWhere(['not in', 'programare_este_anulata', [3, 9]])
+                    ->andWhere(['programare_punct_lucru' => $punct->id_sspl])
+                    ->all()
+            ];
+
+            $datePuncteLucru[] = $datePunctLucruIndividual;
+        }
+
+        $content = $this->renderPartial('export-director-structura', ['datePuncteLucru' => $datePuncteLucru, 'data_export' => $data_export]);
+
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => 'RO/ro',
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'SNIMP - export programari'],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader'=>['SNIMP - Export Programari - Rol: DIRECTOR STRUCTURA'],
+                'SetFooter'=>['Generat la data de '.date('d-m-Y h:i:s').' - Pagina {PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+
     }
 
     private function exportPDFAdminInstitutie($data_export)

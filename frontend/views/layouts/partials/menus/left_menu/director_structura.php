@@ -62,6 +62,12 @@ use yii\helpers\Html;
         <li class="nav-item">
             <?= Html::a('<i class="fas fa-chart-area nav-icon"></i>Statistici', ['programare/statistici'], ['class' => 'nav-link']) ?>
         </li>
+        <li class="nav-item">
+            <a href="index.php?r=programare/export" class="nav-link">
+                <i class="fas fa-file-pdf nav-icon"></i>
+                <p>Export programari</p>
+            </a>
+        </li>
     </ul>
 </nav>
 

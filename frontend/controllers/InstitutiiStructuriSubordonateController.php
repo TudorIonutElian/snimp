@@ -182,6 +182,7 @@ class InstitutiiStructuriSubordonateController extends Controller
         $puncteLucru = StructuriSubordonatePuncteLucru::find()
             ->joinWith('localitate', 'structuri_subordonate_puncte_lucru.localitate_id_sspl = localitate.id')
             ->where(['structura_subordonata_id_sspl' => (int) $structura_id])
+            ->andWhere([''])
             ->select([
                 'id_sspl',
                 'strada_sspl',

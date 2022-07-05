@@ -7,6 +7,136 @@ use yii\db\Migration;
  */
 class m220703_145720_create_prepare_for_sustinere extends Migration
 {
+    public $nume_familie = [
+        'Vlad',
+        'Iuliu',
+        'George',
+        'Horațiu',
+        'Petru',
+        'Pălici',
+        'Niță',
+        'Pîndaru',
+        'Cristea',
+        'Popescu',
+        'Pîndaru',
+        'Ionescu',
+        'Ciocîrlan',
+        'Andreescu',
+        'Pîndaru',
+        'Mărguța',
+        'Voinea',
+        'Marin',
+        'Dumitru',
+        'Vîlculescu',
+        'Stoica',
+        'Buţi',
+        'Chirilă',
+        'Mărguța',
+        'Petrescu',
+        'Iancu',
+        'Pop',
+        'Dobrică',
+        'Todică',
+        'Găbureanu',
+        'Drăghici',
+        'Todică',
+        'Ciobanu',
+        'Găbureanu',
+        'Toma',
+        'Diaconu',
+        'Chiriţă',
+        'Buţi',
+        'Dumitrescu',
+        'Dîrjan',
+        'Stan',
+        'Cătălin',
+        'Angelica',
+        'Dumitru',
+        'Pușcașu',
+        'Niță',
+        'Ștefan',
+        'Niță',
+        'Nicolae',
+        'Dobre',
+        'Ciobanu',
+        'Olteanu',
+        'Mălăeru',
+        'Cristian',
+        'Andreescu',
+        'Moldoveanu',
+        'Stăruială',
+        'Diaconescu',
+        'Bratosin',
+        'Gherghe',
+        'Ursu',
+        'Teodorescu',
+        'Dragomir',
+        'Pavel',
+        'Chirilă',
+        'Popescu',
+        'Țuțea',
+        'Tomescu',
+        'Bușe',
+        'Bîrsan',
+        'Florescu',
+        'Dumitrescu',
+        'Manole',
+        'Florea',
+        'Pîndaru',
+        'Manole',
+        'Gherban',
+        'Niță',
+        'Țuțea',
+        'Pavel',
+        'Mhădă',
+        'Mălâia',
+        'Chiriţă',
+        'Mihadă',
+        'Drăgan',
+        'Negoiță',
+        'Radu',
+        'Slăboiu',
+        'Cristea',
+        'Tămaș',
+        'Tocmelea',
+        'Bratosin',
+        'Mocanu',
+        'Dabija',
+    ];
+
+    public $prenume = [
+        'Iulian',
+        'Săsăran',
+        'Horia',
+        'Marius',
+        'Anton',
+        'Ionut',
+        'Niță',
+        'Elena',
+        'Ania',
+        'Nicolae',
+        'Victor',
+        'Maria',
+        'Bogdan',
+        'Lina',
+        'George',
+        'Valentina',
+        'Florin',
+        'Diana',
+        'Aurelian',
+        'Ionut',
+        'Andreea',
+        'Sabina',
+        'Oana',
+        'Valentina',
+        'Codrut',
+        'Mirel',
+        'Georgiana',
+        'Victoria',
+        'Gabriel',
+        'Monica',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -52,10 +182,10 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
             'institutii_servicii',
             ['is_institutie', 'is_serviciu', 'is_localitate', 'is_open_weekend', 'is_open_nonstop', 'is_active'],
             [
-                [2,8,13802,1,1,1],
-                [2,16,13802,1,1,1],
-                [2,18,13802,1,1,1],
-                [2,19,13802,1,1,1],
+                [2, 8, 13802, 1, 1, 1],
+                [2, 16, 13802, 1, 1, 1],
+                [2, 18, 13802, 1, 1, 1],
+                [2, 19, 13802, 1, 1, 1],
             ]
         );
 
@@ -97,35 +227,35 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
             'institutii_exceptii',
             ['institutie_id', 'exceptie_id'],
             [
-                [2,1],
-                [2,2],
-                [2,3],
-                [2,7]
+                [2, 1],
+                [2, 2],
+                [2, 3],
+                [2, 7]
             ]
         );
 
         // adaugare puncte de lucru pt IGPF-ITPF Gr
         $this->batchInsert(
-          'structuri_subordonate_puncte_lucru',
-          [
-              'minister_id_sspl',
-              'institutie_id_sspl',
-              'structura_subordonata_id_sspl',
-              'localitate_id_sspl',
-              'strada_sspl',
-              'numar_strada_sspl',
-              'bloc_strada_sspl',
-              'scara_bloc_sspl',
-              'etaj_bloc_sspl',
-              'apartament_sspl',
-              'aprobat_administrator_sspl',
-          ],
-          [
-            [3, 2, NULL, 13802, 'Bulevardul Aerogarii', '1', '12', 'A', '-', '-', 1],
-            [3, 2, 1, 5236, 'Bulevardul Bucuresti', '10', '12', 'A', '-', '-', 1],
-            [3, 2, 1, 5236, 'Bulevardul Zimnicea', '25', '-', '-', '-', '-', 1],
-            [3, 2, 1, 5236, 'Soseaua Alexandriei', '100', '-', '-', '-', '-', 1],
-          ]
+            'structuri_subordonate_puncte_lucru',
+            [
+                'minister_id_sspl',
+                'institutie_id_sspl',
+                'structura_subordonata_id_sspl',
+                'localitate_id_sspl',
+                'strada_sspl',
+                'numar_strada_sspl',
+                'bloc_strada_sspl',
+                'scara_bloc_sspl',
+                'etaj_bloc_sspl',
+                'apartament_sspl',
+                'aprobat_administrator_sspl',
+            ],
+            [
+                [3, 2, NULL, 13802, 'Bulevardul Aerogarii', '1', '12', 'A', '-', '-', 1],
+                [3, 2, 1, 5236, 'Bulevardul Bucuresti', '10', '12', 'A', '-', '-', 1],
+                [3, 2, 1, 5236, 'Bulevardul Zimnicea', '25', '-', '-', '-', '-', 1],
+                [3, 2, 1, 5236, 'Soseaua Alexandriei', '100', '-', '-', '-', '-', 1],
+            ]
         );
 
         // adaugare servicii pentru IGPF-ITPF Gr
@@ -169,20 +299,22 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
 
         // adaugare lucratori
         $this->adaugaLucratoriServiciu(10);
+        $this->adaugareProgramariMAI();
     }
 
-    private function adaugaLucratoriServiciu($number){
-        for ($i = 0; $i < $number; $i++){
+    private function adaugaLucratoriServiciu($number)
+    {
+        for ($i = 0; $i < $number; $i++) {
             $user = new \common\models\User();
-            $user->username = 'lucrator_serviciu_'.$i;
+            $user->username = 'lucrator_serviciu_' . $i;
             $user->cod_numeric_personal = '1900725281965';
-            $user->nume = 'Lucrator '.$i;
+            $user->nume = 'Lucrator ' . $i;
             $user->prenume = 'Serviciu';
             $user->data_nasterii = '1990-07-25';
             $user->localitatea_nasterii = 13802;
             $user->auth_key = 'pkoE6oRupK5xnuH9ugsLs52ruHXS_mfG';
             $user->password_hash = '$2y$13$TkicWzINi4mt5FAHd9LZ7.Kr4rk8MOsL.ORxohBlJeHaNCvtBGNQG';
-            $user->email = 'lucrator_serviciu_'.$i.'@snimp.ro';
+            $user->email = 'lucrator_serviciu_' . $i . '@snimp.ro';
             $user->status = 10;
             $user->created_at = 1656933687;
             $user->updated_at = 1656933687;
@@ -191,13 +323,52 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
             $user->institutie_id = 2;
             $user->institutie_subordonata_id = 1;
 
-            if($user->save()){
+            if ($user->save()) {
                 $rolUser = new \common\models\AuthAssignment();
                 $rolUser->item_name = 'lucrator_serviciu';
                 $rolUser->user_id = $user->id;
                 $rolUser->save();
             }
 
+        }
+    }
+
+    private function adaugareProgramariMAI(){
+        $random_hours = ['08', '09', '10', '11', '12', '13', '14', '15', '16'];
+        $random_minutes = ['00', '15', '30', '45'];
+
+        for ($i = 0; $i < 100; $i++){
+            $programare_nume = $this->nume_familie[rand(1, count($this->nume_familie)-1)];
+            $programare_prenume = $this->prenume[rand(1, count($this->prenume)-1)];
+
+            $programareNoua = new \common\models\Programare();
+            $programareNoua->programare_localitate = 13802;
+            $programareNoua->programare_minister = 3;
+            $programareNoua->programare_institutie = 2;
+            $programareNoua->programare_structura_subordonata = 1;
+
+            $serviciu_id = 16;
+
+            if($i > 50){
+                $serviciu_id = 18;
+            }
+            $programareNoua->programare_serviciu = $serviciu_id; // 18
+            $programareNoua->programare_prestare = 6; //10
+            $programareNoua->programare_punct_lucru = 2; // 1-4;
+
+            $random_date = '2022-07-0'.rand(1, 6);
+
+            $data_programare = date(
+                'Y-m-d h:i',
+                (int) strtotime($random_date.$random_hours[rand(0, count($random_hours)-1)].':'.$random_minutes[rand(0, count($random_minutes)-1)]));
+
+
+            $programareNoua->programare_datetime = $data_programare;
+            $programareNoua->programare_email    = strtolower($programare_nume).'.'.strtolower($programare_prenume).'@gmail.com';
+            $programareNoua->programare_nume     = $programare_nume;
+            $programareNoua->programare_prenume  = $programare_prenume;
+
+            $programareNoua->save();
         }
     }
 
