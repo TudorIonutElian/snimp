@@ -172,8 +172,22 @@ class m220703_145720_create_prepare_for_sustinere extends Migration
                 [2, 'Inspectoratul Teritorial al Politiei de Frontieră Timișoara', 1, 9760, 28, 5],
                 [2, 'Inspectoratul Teritorial al Politiei de Frontieră Iași', 1, 1042, 3, 1],
                 [2, 'Inspectoratul Teritorial al Politiei de Frontieră Oradea', 1, 10053, 29, 6],
-                [2, 'Inspectoratul Teritorial al Politiei de Frontieră Oradea', 1, 11132, 32, 6],
+                [2, 'Inspectoratul Teritorial al Politiei de Frontieră Sighetu Marmatiei', 1, 11132, 32, 6],
                 [2, 'Garda de Coastă', 1, 3193, 9, 2],
+            ]
+        );
+
+        // inserare structuri subordonate IGPR
+        $this->batchInsert(
+            'institutii_structuri_subordonate',
+            ['institutie_parinte_iss', 'institutie_denumire_iss', 'institutie_stare_iss', 'institutie_localitate_id_iss', 'institutie_judet_id_iss', 'institutie_regiune_id_iss'],
+            [
+                [1, 'Inspectoratul de Politie Judetean Giurgiu', 1, 5236, 16, 3],
+                [1, 'Inspectoratul de Politie Judetean Timișoara', 1, 9760, 28, 5],
+                [1, 'Inspectoratul de Politie Judetean Iași', 1, 1042, 3, 1],
+                [1, 'Inspectoratul de Politie Judetean Oradea', 1, 10053, 29, 6],
+                [1, 'Inspectoratul de Politie Judetean Maramures', 1, 11132, 32, 6],
+                [1, 'Inspectoratul de Politie Judetean Constanta', 1, 3193, 9, 2],
             ]
         );
 
