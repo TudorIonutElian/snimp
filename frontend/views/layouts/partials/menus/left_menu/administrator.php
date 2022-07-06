@@ -59,42 +59,7 @@ use yii\helpers\Html;
                 </li>
             </ul>
         </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-cogs"></i>
-                <p>
-                    Configurator
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Programari</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Sesizari</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-list nav-icon"></i>
-                        <p>Exceptii</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-calendar-alt nav-icon"></i>
-                        <p>Zile Libere</p>
-                    </a>
-                </li>
-
-            </ul>
-        </li>
+        
         <li class="nav-item">
             <a href="index.php?r=programare" class="nav-link">
                 <i class="fas fa-list-ul nav-icon"></i>

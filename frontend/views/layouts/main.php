@@ -14,7 +14,7 @@ AppAsset::register($this);
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <?php $this->registerCsrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
+        <title>Sistem Național Integrat de Management al Programărilor</title>
         <?php $this->head() ?>
     </head>
     <body class="flex-column h-100 layout-fixed"> <!-- sidebar-collapse-->

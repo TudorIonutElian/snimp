@@ -204,7 +204,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         return false;
                     },
                     'atribuire-lucrator' => function ($model) {
-                        return $model->programare_validata_de !== NULL && $model->programare_lucrator == NULL && $model->programare_este_anulata != 9;
+                        if(Yii::$app->user->can('admin_institutie') || Yii::$app->user->can('director_institutie')){
+                            return $model->programare_validata_de !== NULL && $model->programare_lucrator == NULL && $model->programare_este_anulata != 9;
+                        }
+                        return false;
                     },
                     'finalizare' => function ($model) {
                         if (Yii::$app->user->can('lucrator_serviciu') && $model->programare_lucrator == Yii::$app->user->identity->id) {

@@ -96,8 +96,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $content;
                 }
             ],
+            
             [
                 'class' => ActionColumn::className(),
+                'header' => 'Acțiuni Utilizatori',
+                'contentOptions' => [
+                    'style' => [
+                        'text-align' => 'center',
+                        'vertical-align' => 'middle',
+                        'width' => '5%'
+                    ]
+                ],
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'view' => function ($model, $data) {
+                        return Html::a('<i class="fas fa-eye"></i>', ['institutii-structuri-subordonate/view', 'id_iss' => $data->id_iss], ['class' => 'btn btn-sm btn-outline-primary rounded']);
+                    },
+                    'update' => function ($model, $data) {
+                        return Html::a('<i class="fas fa-edit"></i>', ['institutii-structuri-subordonate/update', 'id_iss' => $data->id_iss], ['class' => 'btn btn-sm btn-outline-secondary rounded']);
+                    },
+                    'delete' => function ($model, $data) {
+                        return Html::a('<i class="fas fa-trash-alt"></i>', ['institutii-structuri-subordonate/delete', 'id_iss' => $data->id_iss], ['class' => 'btn btn-sm btn-outline-danger rounded', 'data-method' => 'post']);
+                    }
+                ]
             ],
         ],
     ]); ?>
