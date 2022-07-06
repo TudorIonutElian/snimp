@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
-                ]);
+                ])->label('Selectati institutia');
                 ?>
             </div>
             <div class="col-3"></div>
@@ -60,7 +60,7 @@ use yii\widgets\ActiveForm;
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
-                ]);
+                ])->label('Selectati serviciul');
                 ?>
             </div>
             <div class="col-3"></div>
@@ -76,7 +76,7 @@ use yii\widgets\ActiveForm;
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
-                ]);
+                ])->label('Selectati localitatea');
                 ?>
             </div>
             <div class="col-3"></div>
@@ -92,7 +92,7 @@ use yii\widgets\ActiveForm;
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
-                ]);
+                ])->label('Disponibil 7/7?');
                 ?>
             </div>
             <div class="col-3"></div>
@@ -108,7 +108,7 @@ use yii\widgets\ActiveForm;
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
-                ]);
+                ])->label('Disponibil 24/7?');
                 ?>
             </div>
             <div class="col-3"></div>
@@ -124,7 +124,7 @@ use yii\widgets\ActiveForm;
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
-                ]);
+                ])->label('Este activ?');
                 ?>
             </div>
             <div class="col-3"></div>

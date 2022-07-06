@@ -6,7 +6,9 @@ use yii\helpers\Html;
 /* @var $model common\models\Programare */
 
 $this->title = 'Adaugă programare';
-$this->params['breadcrumbs'][] = ['label' => 'Listă programări', 'url' => ['index']];
+if(!Yii::$app->user->getIsGuest()){
+    $this->params['breadcrumbs'][] = ['label' => 'Listă programări', 'url' => ['index']];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="programare-create">
