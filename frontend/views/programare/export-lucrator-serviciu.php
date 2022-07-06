@@ -38,7 +38,7 @@ use common\models\StructuriSubordonatePuncteLucru;
                     <td>'.$programare->programare_prenume.'</td>
                     <td>'.$programare->programare_email.'</td>
                     <td>'.$programare->programare_numar_unic.'</td>
-                    <td>'.date('h:i', strtotime($programare->programare_datetime)).'</td>
+                    <td>'.date('H:i', strtotime($programare->programare_datetime)).'</td>
                 </tr>';
         }
 
