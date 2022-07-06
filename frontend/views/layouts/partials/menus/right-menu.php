@@ -9,11 +9,14 @@ use yii\bootstrap4\Html;
             Autentificare
         </a>
     </li>
+    <!--
     <li class="nav-item d-none d-sm-inline-block">
         <a href="index.php?r=site/signup" class="nav-link btn btn-sm btn-info rounded text-white">
             Înrolare
         </a>
     </li>
+
+-->
 
 <?php else: ?>
 
