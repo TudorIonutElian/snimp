@@ -177,12 +177,11 @@ class InstitutiiStructuriSubordonateController extends Controller
         ];
 
         $request = Yii::$app->request->post();
-        $structura_id = $request["structura_id"];
+        $structura_id = (int) $request["structura_id"];
 
         $puncteLucru = StructuriSubordonatePuncteLucru::find()
             ->joinWith('localitate', 'structuri_subordonate_puncte_lucru.localitate_id_sspl = localitate.id')
             ->where(['structura_subordonata_id_sspl' => (int) $structura_id])
-            ->andWhere([''])
             ->select([
                 'id_sspl',
                 'strada_sspl',
