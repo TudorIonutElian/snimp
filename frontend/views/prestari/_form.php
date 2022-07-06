@@ -55,7 +55,7 @@ use yii\widgets\ActiveForm;
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
-                <?= $form->field($model, 'denumire_p')->textInput() ?>
+                <?= $form->field($model, 'denumire_p')->textInput()->label('Denumire prestare ') ?>
             </div>
             <div class="col-3"></div>
         </div>
