@@ -194,6 +194,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'delete' => function ($model) {
                         if (Yii::$app->user->can('director_institutie')) {
                             if ($model->programare_data_finalizare == NULL) {
+                                if($model->programare_lucrator != NULL){
+                                    return false;
+                                }
                                 return true;
                             }
                             return false;
