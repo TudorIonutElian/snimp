@@ -951,6 +951,7 @@ class ProgramareController extends Controller
                 ['date(programare_datetime)' => $data_export]
             ])
             ->andWhere(['not in', 'programare_este_anulata', [3, 9]])
+            ->orderBy('UNIX_TIMESTAMP(programare_datetime)')
             ->all();
 
         $content = $this->renderPartial('export-lucrator-serviciu', ['programari' => $programari, 'data_export' => $data_export]);
@@ -1002,6 +1003,7 @@ class ProgramareController extends Controller
                     ->where(['date(programare_datetime)' => $data_export])
                     ->andWhere(['not in', 'programare_este_anulata', [3, 9]])
                     ->andWhere(['programare_punct_lucru' => $punct->id_sspl])
+                    ->orderBy('UNIX_TIMESTAMP(programare_datetime)')
                     ->all()
             ];
 
